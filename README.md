@@ -9,7 +9,8 @@ npm install
 ```
 npm run serve
 ```
-## Website now runs on your computer, default : localhost:8080
+#### Website now runs on your computer, default : localhost:8080
+
 ### Compiles and minifies for production
 ```
 npm run build
