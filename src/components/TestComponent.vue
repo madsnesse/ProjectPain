@@ -4,7 +4,7 @@
 <script>
 import HelloWorld from './HelloWorld.vue'
 export default {
-  components: { SelectionMenu, BodyRenderedHelloWorld },
+  components: { },
     name: 'TestComponent',
     props: {
 
