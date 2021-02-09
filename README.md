@@ -1,4 +1,4 @@
-# projectpain
+# project_pain
 
 ## Project setup
 ```
@@ -9,7 +9,6 @@ npm install
 ```
 npm run serve
 ```
-#### Website now runs on your computer, default : localhost:8080
 
 ### Compiles and minifies for production
 ```
