@@ -1,26 +1,34 @@
 <template>
-  <div id="app">    
-    <hello-world msg="Welcome to Your Vue.js App"></hello-world>
-  </div>
+    <b-container fluid id="app" >
+      <b-row align-h="center">
+        <b-col md = "4" cols = "12" id = "test">    
+          <Welcome/>
+        </b-col>
+        
+      </b-row>
+    </b-container>
+    
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Welcome from './components/Welcome.vue'
 
 
-export default {
-  
-  counter: 0,
-  methods: {
-    addCount: function (amount) {
-      self.counter += amount
-      console.log(self.counter)
-    }
-  },
+export default{
   name: 'App',
   components: {
-    HelloWorld
+    Welcome
   }
 }
 </script>
-
+<style scoped>
+  #test{
+        background-color: rgb(57, 88, 10);
+    }
+    #test1{
+        background-color: rgb(128, 78, 245);
+    }
+  #app{
+    background-color: cornflowerblue;
+  }
+</style>
