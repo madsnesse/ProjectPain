@@ -1,8 +1,8 @@
 <template>
-    <b-container fluid id="app" >
+    <b-container id="app" >
       <b-row align-h="center">
-        <b-col md = "4" cols = "12" id = "test">    
-          <Welcome/>
+        <b-col md = "4" cols = "12" id = "test">
+          <router-view></router-view>
         </b-col>
         
       </b-row>
@@ -11,14 +11,10 @@
 </template>
 
 <script>
-import Welcome from './components/Welcome.vue'
 
 
 export default{
-  name: 'App',
-  components: {
-    Welcome
-  }
+  name: 'App'
 }
 </script>
 <style scoped>
@@ -30,5 +26,7 @@ export default{
     }
   #app{
     background-color: cornflowerblue;
+    min-height: 100vh;
+    min-width: 100%;
   }
 </style>

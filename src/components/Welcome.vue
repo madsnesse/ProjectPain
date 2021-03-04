@@ -1,8 +1,9 @@
 <template>
     <b-container id = "main">
-        <b-row align-h="center"><b-header id="welcome">Welcome Cunt!</b-header></b-row>
-        <b-row align-h="center"><b-button class="buttons">Logg inn</b-button></b-row>
-        <b-row align-h="center"><b-button class="buttons">Registrer deg</b-button></b-row>
+        <b-row align-h="center" class="my-5"><b-header id="welcome">Welcome Cunt!</b-header></b-row>
+        <b-row align-h="center" class="my-5"><router-link tag="b-button" class="buttons" to="/login">Logg inn</router-link></b-row>
+        <b-row align-h="center" class="my-5"><router-link tag="b-button" class="buttons" to ="/foo">Registrer deg</router-link></b-row>
+        
     </b-container>
 </template> 
 

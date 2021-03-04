@@ -1,0 +1,30 @@
+<template>
+    <b-container id = "main">
+        <b-row align-h="center" class="my-5"><b-header id="welcome">Log in!</b-header></b-row>
+        <b-row align-h="center" class="my-5"><b-input placeholder="e-mail" class="inputs">e-mail</b-input></b-row>
+        <b-row align-h="center" class="my-5"><b-input placeholder="passord" class="inputs" >Registrer deg</b-input></b-row>
+        <b-row align-h="between">
+            <b-col class="text-center "><router-link tag="b-button" to="/welcome">Back</router-link></b-col>
+            <b-col class="text-center"><router-link tag="b-button" to="/welcome">Login</router-link></b-col>
+        </b-row>
+        
+    </b-container>
+</template> 
+
+
+<script>
+export default {
+    name: "Login"
+    
+}
+</script>
+
+<style scoped>
+    #welcome{
+        font-size: 200%;
+        text-align: center;
+    }
+    .inputs{
+        width: 50%;
+    }
+</style>
