@@ -4,23 +4,26 @@ import Register from './components/Register.vue'
 import Home from './components/Home.vue'
 import VueRouter from 'vue-router'
 import Painregistry from './components/Painregistry.vue'
-import Painstrength from './components/Painstrength.vue'
+import Profile from './components/Profile.vue'
+import Paindrawer from './components/Paindrawer.vue'
+
 
 const routes = [
-  { path: '*', redirect: "/home" },
+  { path: '', redirect: "/welcome" },
   { path: '/welcome', component: Welcome },
   { path: '/login', component: Login},
   { path: '/register', component: Register},
   { path: '/home', component: Home},
-  { path: '/painregistry', component: Painregistry,
-    children: [
-      {path: '/painstrength', component: Painstrength}
-    ]}
+  { path: '/painregistry', component: Painregistry},
+  { path: '/profile', component: Profile},
+  { path: '/paindrawer', component: Paindrawer}
+
   
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+  mode: "history"
 })
 
 export default router

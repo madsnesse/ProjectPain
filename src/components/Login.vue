@@ -1,6 +1,6 @@
 <template>
     <b-container id = "main">
-        <b-row align-h="center" class="my-5 text-info"><b-header id="welcome">Log in!</b-header></b-row>
+        <b-row align-h="center" class="my-5 text-info"><h1 id="welcome">Log in!</h1></b-row>
         <b-row align-h="center" class="my-5"><b-input placeholder="e-mail" class="inputs">e-mail</b-input></b-row>
         <b-row align-h="center" class="my-5"><b-input placeholder="passord" class="inputs" >Registrer deg</b-input></b-row>
         <b-row align-h="between">

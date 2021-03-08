@@ -1,6 +1,6 @@
 <template>
     <b-container id = "main">
-        <b-row align-h="center" class="my-5"><b-header id="welcome">Welcome!</b-header></b-row>
+        <b-row align-h="center" class="my-5"><h1 id="welcome">Welcome!</h1></b-row>
         <b-row align-h="center" class="my-5"><router-link tag="b-button" class="buttons" to="/login">Logg inn</router-link></b-row>
         <b-row align-h="center" class="my-5"><router-link tag="b-button" class="buttons" to ="/register">Registrer deg</router-link></b-row>
         
