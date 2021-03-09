@@ -6,6 +6,7 @@ import VueRouter from 'vue-router'
 import Painregistry from './components/Painregistry.vue'
 import Profile from './components/Profile.vue'
 import Paindrawer from './components/Paindrawer.vue'
+import PainVisualizer from './components/PainVisualizer.vue'
 
 
 const routes = [
@@ -16,9 +17,8 @@ const routes = [
   { path: '/home', component: Home},
   { path: '/painregistry', component: Painregistry},
   { path: '/profile', component: Profile},
-  { path: '/paindrawer', component: Paindrawer}
-
-  
+  { path: '/paindrawer', component: Paindrawer},
+  { path: '/pain_visualizer', component: PainVisualizer}
 ]
 
 const router = new VueRouter({
