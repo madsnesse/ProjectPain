@@ -1,49 +1,18 @@
 // thanks to https://medium.com/js-dojo/experiment-with-p5-js-on-vue-7ebc05030d33
 // for general setup of p5 + vue
-
-class PainCircle {
-  /* For rendering circles corresponding to user's pain. */
-
-  constructor(p5, painType, radius) {
-    this.p5 = p5;
-    this.painType = painType;
-    this.radius = radius;
-  }
-
-  /* Renders a circle based on type of pain.
-   * Use this method unless saving circle on background.
-   */
-  render() {
-    switch (this.painType) {
-      case "static":
-        this.p5.fill(255, 0, 0, 150);
-        this.p5.circle(this.p5.mouseX, this.p5.mouseY, this.radius);
-        break;
-
-      default:
-        console.error("Non-valid render type.");
-    }
-  }
-
-  /* Use when saving circle render -> renders to background. */
-  saveCircle(backgroundObj) {
-    backgroundObj.fill(255, 0, 0, 150);
-    backgroundObj.circle(this.p5.mouseX, this.p5.mouseY, this.radius);
-  }
-
-  updateRadius(radius) { this.radius = radius; }
-}
-
 export function pain_visualize(p5) {
   // Constants
   const aspectImage = 490/1280;
   const aspectCanvas = 9/14;
 
   let bodyImage;        // reference to body image
-  let painCircle;       // used for rendering pain circle(s)
   let bg_canvas;        // back-most canvas, actually draw circles on this
   let usingUI = false;  // don't render while using UI
   var canvas;           // reference to the p5 canvas
+
+  // Circle
+  let circleRadius = 60;
+  let pain_type = "static";
 
   // Scaling variables
   let width_div;  // width of parent div
@@ -88,7 +57,7 @@ export function pain_visualize(p5) {
     relativeLabel = p5.createP();
     // Size slider
     radiusSliderLabel = p5.createP("Size");
-    radiusSlider = p5.createSlider(0, 125, 40);
+    radiusSlider = p5.createSlider(0, 125, circleRadius);
     radiusSlider.mouseOver(() => { usingUI = true; });
     radiusSlider.mouseOut(() => { usingUI = false; });
     // Reset button
@@ -98,9 +67,6 @@ export function pain_visualize(p5) {
     resetButton.mouseClicked(() => { resetBackground() });
 
     updateUI();
-
-    // Creating pain circle obj.
-    painCircle = new PainCircle(p5, "static", 60);
   }
 
   function resetBackground() {
@@ -123,7 +89,22 @@ export function pain_visualize(p5) {
     relativeR = Math.round(100*(radiusSlider.value() / 125));  // normalize to 0 to 100 %  scale
 
     // Update values from UI
-    painCircle.updateRadius(radiusSlider.value());
+    circleRadius = radiusSlider.value();
+  }
+
+  /* Renders a circle based on type of pain.
+   * Use this method unless saving circle on background.
+   */
+  function render() {
+    switch (pain_type) {
+      case "static":
+        p5.fill(255, 0, 0, 150);
+        p5.circle(p5.mouseX, p5.mouseY, circleRadius);
+        break;
+
+      default:
+        console.error("Non-valid render type.");
+    }
   }
 
   p5.draw = function() {
@@ -137,7 +118,7 @@ export function pain_visualize(p5) {
 
     // Render circle for top layer if not using UI
     if (!usingUI) {
-      painCircle.render();
+      render();
     }
   }
 
@@ -167,7 +148,9 @@ export function pain_visualize(p5) {
     /* Saving render */
     if (!usingUI) {
       console.log("Mouse clicked at ("+Math.round(p5.mouseX)+", "+Math.round(p5.mouseY)+")");
-      painCircle.saveCircle(bg_canvas);
+      // Save circle to background
+      bg_canvas.fill(255, 0, 0, 150);
+      bg_canvas.circle(p5.mouseX, p5.mouseY, circleRadius);
     }
   }
 
