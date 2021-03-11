@@ -35,12 +35,14 @@ class PainCircle {
 }
 
 export function pain_visualize(p5) {
+  // Constants
+  const aspectImage = 490/1280;
+  const aspectCanvas = 9/14;
+
   let bodyImage;        // reference to body image
-  const imgRatio = 490/1280;
   let painCircle;       // used for rendering pain circle(s)
   let bg_canvas;        // back-most canvas, actually draw circles on this
   let usingUI = false;  // don't render while using UI
-  let aspect = 9/14;    // aspect ratio, should have two - one for desktop, one for mobile
   var canvas;           // reference to the p5 canvas
 
   // Scaling variables
@@ -69,7 +71,7 @@ export function pain_visualize(p5) {
     width_div = document.getElementById("pain_visualizer").offsetWidth;
 
     // Create canvas
-    canvas = p5.createCanvas(width_div, width_div/aspect);
+    canvas = p5.createCanvas(width_div, width_div/aspectCanvas);
     canvas.elt.style.border = "solid 1px black";
     canvas.elt.style.background = "#ffffff";
     canvas.parent("pain_visualizer");  // Attach to <div>
@@ -104,7 +106,7 @@ export function pain_visualize(p5) {
   function resetBackground() {
     bg_canvas.clear();
     let imgWidth = 1.20*w
-    bg_canvas.image(bodyImage, w/3.8, h/15, imgWidth*imgRatio, imgWidth);
+    bg_canvas.image(bodyImage, w/3.8, h/15, imgWidth*aspectImage, imgWidth);
   }
 
   function updateValues() {
@@ -173,8 +175,8 @@ export function pain_visualize(p5) {
     updateValues();
 
     // Resize canvas and background_canvas
-    p5.resizeCanvas(width_div, width_div/aspect);
-    bg_canvas.resizeCanvas(width_div, width_div/aspect);
+    p5.resizeCanvas(width_div, width_div/aspectCanvas);
+    bg_canvas.resizeCanvas(width_div, width_div/aspectCanvas);
     resetBackground();
 
     updateUI();
