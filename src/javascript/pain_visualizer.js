@@ -5,26 +5,28 @@ export function pain_visualize(p5) {
   const aspectImage = 490/1280;
   const aspectCanvas = 9/14;
 
+  // p5 variables
   let bodyImage;        // reference to body image
   let bg_canvas;        // back-most canvas, actually draw circles on this
   let usingUI = false;  // don't render while using UI
   var canvas;           // reference to the p5 canvas
 
-  // Circle
-  let circleRadius = 30;  // Relative: from 0 to 100 % - radius
+  // Pain Circle
+  let circleRadius = 30;  // Relative: from 0 to 100
   let pain_type = "static";
 
-  // Scaling variables
+  // Size and positional variables
   let width_div;  // width of parent div
-  let w, h;  // width and height of canvas DOM
-  let x, y;  // x and y pos of canvas DOM
+  let w, h;       // width and height of canvas DOM
+  let x, y;       // x and y pos of canvas DOM
 
-  // Debug
-  var relativeLabel;
-  let relativeX = 0;  // From 0 to 100
-  let relativeY = 0;  // From 0 to 100
+  // Relative units, each an integer from 0 to 100
+  // e.g. Point(10*rx, 0) => x=1/10 of the width, y=0
+  let rx;  // canvas width / 100
+  let ry;  // canvas height / 100
 
   // UI
+  var debugLabel;
   var radiusSliderLabel;
   var radiusSlider;
   var resetButton;
@@ -48,12 +50,14 @@ export function pain_visualize(p5) {
     let canvas_rect = canvas.elt.getBoundingClientRect();
     w = canvas_rect.width, h = canvas_rect.height;
     x = canvas_rect.x, y = canvas_rect.y;
+    rx = w/100;  // normalize to 0 to 100 scale
+    ry = h/100;  // normalize to 0 to 100  scale
 
     bg_canvas = p5.createGraphics(w, h);
     resetBackground();
 
     // Create UI elements
-    relativeLabel = p5.createP();
+    debugLabel = p5.createP();
     // Size slider
     radiusSliderLabel = p5.createP("Size");
     radiusSlider = p5.createSlider(1, 100, circleRadius);
@@ -71,10 +75,12 @@ export function pain_visualize(p5) {
   function resetBackground() {
     bg_canvas.clear();
     let imgWidth = 1.20*w
-    bg_canvas.image(bodyImage, w/3.8, h/15, imgWidth*aspectImage, imgWidth);
+    bg_canvas.image(bodyImage, 26*rx, 5*ry, imgWidth*aspectImage, imgWidth);
   }
 
   function updateValues() {
+    circleRadius = radiusSlider.value();
+
     // width of parent div
     width_div = document.getElementById("pain_visualizer").offsetWidth;
 
@@ -83,9 +89,9 @@ export function pain_visualize(p5) {
     w = canvas_rect.width, h = canvas_rect.height;
     x = canvas_rect.x, y = canvas_rect.y;
 
-    relativeX = Math.round(100*(p5.mouseX / w));  // normalize to 0 to 100 %  scale
-    relativeY = Math.round(100*(p5.mouseY / h));  // normalize to 0 to 100 %  scale
-    circleRadius = Math.round(100*(radiusSlider.value() / 100));  // normalize to 0 to 100 %  scale
+    // Update relative variables
+    rx = w/100;
+    ry = h/100;
   }
 
   /* Renders a circle based on type of pain.
@@ -110,7 +116,7 @@ export function pain_visualize(p5) {
     p5.clear();
     p5.image(bg_canvas, 0, 0);
 
-    relativeLabel.elt.innerHTML = "Relative: (x="+relativeX+", y="+relativeY+", r="+circleRadius+")";
+    debugLabel.elt.innerHTML = "Relative: (x="+Math.round(100*(p5.mouseX / w))+", y="+Math.round(100*(p5.mouseY / h))+", r="+circleRadius+")";
 
     // Render circle for top layer if not using UI
     if (!usingUI) {
@@ -120,21 +126,21 @@ export function pain_visualize(p5) {
 
   /* Resizes, repositions and renders UI */
   function updateUI() {
-    let font_size = w/35+"pt";
-    radiusSliderLabel.position(x+2.5*w/10, y+h-(1.6*h/10), 70);
+    let font_size = rx*3+"pt";
+    radiusSliderLabel.position(x+(25*rx), y+(86*ry));
     radiusSliderLabel.style("font-size", font_size);
 
-    radiusSlider.position(x+0.3*w/10, y+h-(1.3*h/10), 70);
-    radiusSlider.style("width", w/1.8+"px");
-    radiusSlider.style("height", h/20+"px");
+    radiusSlider.position(x+(3*rx), y+(90*ry));
+    radiusSlider.style("width", 50*rx+"px");
+    radiusSlider.style("height", 2*ry+"px");
 
-    resetButton.position(x+0.3*w/10, y+h-(0.7*h/10), 70);
-    resetButton.style("width", w/1.8+"px");
-    resetButton.style("height", h/20+"px");
+    resetButton.position(x+(3*rx), y+(93*ry));
+    resetButton.style("width", 50*rx+"px");
+    resetButton.style("height", 5*ry+"px");
     resetButton.style("font-size", font_size);
 
-    relativeLabel.position(x+w/100, y+h/100, 70);
-    relativeLabel.style("font-size", font_size);
+    debugLabel.position(x+(rx), y);
+    debugLabel.style("font-size", font_size);
   }
 
   ///////////////////////////////////////////////////
