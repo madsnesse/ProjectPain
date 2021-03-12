@@ -11,7 +11,7 @@ export function pain_visualize(p5) {
   var canvas;           // reference to the p5 canvas
 
   // Circle
-  let circleRadius = 60;
+  let circleRadius = 30;  // Relative: from 0 to 100 % - radius
   let pain_type = "static";
 
   // Scaling variables
@@ -21,9 +21,8 @@ export function pain_visualize(p5) {
 
   // Debug
   var relativeLabel;
-  let relativeX = 0;  // From 0 to 100 %
-  let relativeY = 0;  // From 0 to 100 %
-  let relativeR = 0;  // From 0 to 100 % - radius
+  let relativeX = 0;  // From 0 to 100
+  let relativeY = 0;  // From 0 to 100
 
   // UI
   var radiusSliderLabel;
@@ -57,7 +56,7 @@ export function pain_visualize(p5) {
     relativeLabel = p5.createP();
     // Size slider
     radiusSliderLabel = p5.createP("Size");
-    radiusSlider = p5.createSlider(0, 125, circleRadius);
+    radiusSlider = p5.createSlider(1, 100, circleRadius);
     radiusSlider.mouseOver(() => { usingUI = true; });
     radiusSlider.mouseOut(() => { usingUI = false; });
     // Reset button
@@ -86,20 +85,17 @@ export function pain_visualize(p5) {
 
     relativeX = Math.round(100*(p5.mouseX / w));  // normalize to 0 to 100 %  scale
     relativeY = Math.round(100*(p5.mouseY / h));  // normalize to 0 to 100 %  scale
-    relativeR = Math.round(100*(radiusSlider.value() / 125));  // normalize to 0 to 100 %  scale
-
-    // Update values from UI
-    circleRadius = radiusSlider.value();
+    circleRadius = Math.round(100*(radiusSlider.value() / 100));  // normalize to 0 to 100 %  scale
   }
 
   /* Renders a circle based on type of pain.
    * Use this method unless saving circle on background.
    */
-  function render() {
+  function drawCircle() {
     switch (pain_type) {
       case "static":
         p5.fill(255, 0, 0, 150);
-        p5.circle(p5.mouseX, p5.mouseY, circleRadius);
+        p5.circle(p5.mouseX, p5.mouseY, circleRadius*w/200);
         break;
 
       default:
@@ -114,11 +110,11 @@ export function pain_visualize(p5) {
     p5.clear();
     p5.image(bg_canvas, 0, 0);
 
-    relativeLabel.elt.innerHTML = "Relative: (x="+relativeX+", y="+relativeY+", r="+relativeR+")";
+    relativeLabel.elt.innerHTML = "Relative: (x="+relativeX+", y="+relativeY+", r="+circleRadius+")";
 
     // Render circle for top layer if not using UI
     if (!usingUI) {
-      render();
+      drawCircle();
     }
   }
 
@@ -150,7 +146,7 @@ export function pain_visualize(p5) {
       console.log("Mouse clicked at ("+Math.round(p5.mouseX)+", "+Math.round(p5.mouseY)+")");
       // Save circle to background
       bg_canvas.fill(255, 0, 0, 150);
-      bg_canvas.circle(p5.mouseX, p5.mouseY, circleRadius);
+      bg_canvas.circle(p5.mouseX, p5.mouseY, circleRadius*w/200);
     }
   }
 
