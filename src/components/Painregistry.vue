@@ -3,7 +3,7 @@
         <b-row align-h="center" class="my-5"><h1 id="welcome">pain registry!</h1></b-row>
         <b-row align-h="center" class="my-5"><b-button v-on:click="toggleType" class="buttons">Type of pain</b-button></b-row>
         <b-row align-h="center" v-show="type">
-            <paintype></paintype>
+            <paintype ligma="balls"></paintype>
         </b-row>
 
         <b-row align-h="center" class="my-5"><b-button v-on:click="toggleChange" class="buttons">Change of pain</b-button></b-row>
