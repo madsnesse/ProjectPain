@@ -48,12 +48,6 @@
     </b-container>
 </template>
 
-<<<<<<< HEAD
-<script>
-export default {
-    props: {
-        ligma: String
-=======
 
 <script>
 export default {
@@ -68,7 +62,6 @@ export default {
             checked7: false,
             checked8: false
         }
->>>>>>> matias
     }
 }
 </script>
