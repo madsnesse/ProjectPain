@@ -1,5 +1,5 @@
 <template>
-    <b-contaier>
+    <b-container>
         <b-row align-h="center" class="my-2">
             <pain-visualizer></pain-visualizer>
         </b-row>
@@ -7,7 +7,7 @@
             <b-col class="text-center my-5"><router-link tag="b-button" class="buttons" to="/home">Back</router-link></b-col>
             <b-col class="text-center my-5"><router-link tag="b-button" class="buttons" to="/Painregistry">Register</router-link></b-col>
         </b-row>
-    </b-contaier>
+    </b-container>
 </template>
 
 <script>
