@@ -1,7 +1,7 @@
 <template>
     <b-contaier>
         <b-row align-h="center" class="my-2">
-            <b-img src="../assets/Placeholder.png" alt="placeholder"></b-img>
+            <pain-visualizer></pain-visualizer>
         </b-row>
         <b-row align-h="between">
             <b-col class="text-center my-5"><router-link tag="b-button" class="buttons" to="/home">Back</router-link></b-col>
@@ -11,7 +11,9 @@
 </template>
 
 <script>
+import PainVisualizer from './PainVisualizer.vue'
 export default {
+  components: { PainVisualizer },
     
 }
 </script>
