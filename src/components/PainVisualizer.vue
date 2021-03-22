@@ -135,7 +135,7 @@ function pain_visualize(p5) {
     p5.clear();
     p5.image(bg_canvas, 0, 0);
 
-    // debugLabel.elt.innerHTML = "Relative: (x="+Math.round(100*(p5.mouseX / w))+", y="+Math.round(100*(p5.mouseY / h))+", r="+circleRadius+")";
+    //debugLabel.elt.innerHTML = "Relative: (x="+Math.round(100*(p5.mouseX / w))+", y="+Math.round(100*(p5.mouseY / h))+", r="+circleRadius+")";
     document.getElementById("relative").innerHTML = "Relative: (x="+Math.round(100*(p5.mouseX / w))+", y="+Math.round(100*(p5.mouseY / h))+", r="+circleRadius+")";
     // Render circle for top layer if not using UI
     if (!usingUI) {
