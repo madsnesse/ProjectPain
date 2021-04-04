@@ -3,17 +3,17 @@
         <b-row align-h="center" class="my-5"><h1 id="welcome">pain registry!</h1></b-row>
         <b-row align-h="center" class="my-5"><b-button v-on:click="toggleType" class="buttons">Type of pain</b-button></b-row>
         <b-row align-h="center" v-show="type">
-            <paintype ligma="balls"></paintype>
+            <Paintype/>
         </b-row>
 
         <b-row align-h="center" class="my-5"><b-button v-on:click="toggleChange" class="buttons">Change of pain</b-button></b-row>
         <b-row align-h="center" v-show="change">
-            <painchange></painchange>
+            <Painchange/>
         </b-row>
 
         <b-row align-h="center" class="my-5"><b-button v-on:click="toggleStrength" class="buttons">Pain strength</b-button></b-row>
         <b-row align-h="center" v-show="strength">
-        <slider :values = '["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="1" :maximum="5"></slider>
+        <Slider :values = '["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="1" :maximum="5" :default="1" />
         </b-row>
         <b-row align-h="between">
             <b-col class="text-center my-5"><router-link tag="b-button" class="buttons" to="/home">Back</router-link></b-col>
