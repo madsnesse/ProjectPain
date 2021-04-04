@@ -39,6 +39,7 @@ export default {
     data: function(){
         return {
             visible: [false, false, false],
+            visIndex: 0,
             painstrength:3,
             values: {
                 numbers:[1,2,3],
@@ -54,9 +55,10 @@ export default {
     },
     methods: {
         toggleVisible: function (i) {
-            this.visible = [false, false, false]
-            this.visible[i] = true
-        }
+                if(i != this.visIndex)this.$set(this.visible,this.visIndex,false)
+                this.$set(this.visible,i, !this.visible[i])
+                this.visIndex = i        
+            }
         ,
         save: function() {
             console.log("saving to json");
