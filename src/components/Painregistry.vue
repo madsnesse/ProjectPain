@@ -13,7 +13,7 @@
 
         <b-row align-h="center" class="my-5"><b-button v-on:click="toggleStrength" class="buttons">Pain strength</b-button></b-row>
         <b-row align-h="center" v-show="strength">
-            <painstrength ></painstrength>
+        <slider :values = '["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="1" :maximum="5"></slider>
         </b-row>
         <b-row align-h="between">
             <b-col class="text-center my-5"><router-link tag="b-button" class="buttons" to="/home">Back</router-link></b-col>
@@ -24,7 +24,7 @@
 
 
 <script>
-import Painstrength from './Painstrength.vue'
+import Slider from './Slider.vue'
 import Paintype from './Paintype.vue'
 import Painchange from './Painchange.vue'
 
@@ -39,7 +39,7 @@ export default {
         }
     },
     components:{
-        Painstrength,
+        Slider,
         Paintype,
         Painchange
     },
