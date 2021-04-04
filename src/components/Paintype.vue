@@ -1,118 +1,120 @@
 <template>
     <b-container class="my-buttons">
         <b-row align-h="center">
+            <b-col class="mx-1" cols="4" xl="2">
+            <!--     <b-row>
+                    <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(0)" variant='info'>one</b-button></b-row>
+                </b-row>
+            </b-col>
 
-            <b-form-group
-                v-slot="{ ariaDescribedby }"
-                >
-                <b-form-checkbox-group
-                    class = "m-2"
-                    :aria-describedby="ariaDescribedby"
-                    v-model="left_group"
-                    stacked
-                    buttons
-                    :button-variant="'info'"
-                >
-                    <b-form-checkbox class="my-1" value="Temporal" name="check-button">
-                        Temporal
-                    </b-form-checkbox>
+            <b-col class="mx-1" cols="4" xl="2">
+                <b-row>
+                    <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(1)" variant='info'>two</b-button></b-row>
+                </b-row>
+            </b-col>
+            <b-col class="mx-1" cols="4" xl="8">
+                    <b-row align-h="center" v-show="btns[0]">one
+                        <Slider 
+                        :values = '["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' 
+                        :minimum="1" 
+                        :maximum="5"
+                        :default="3"
+                        @updateValue= "update($event)"
+                        :labels="['Weak','Strong']" 
+                    /></b-row>
+            </b-col>
+            <b-col class="mx-1" cols="4" xl="8">
+                    <b-row align-h="center" v-show="btns[1]">two
+                        <Slider 
+                        values = '["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' 
+                        minimum=1
+                        maximum=5
+                        default=3
+                        @updateValue= "update($event)"
+                        labels= "['Weak','Strong']"
+                    /></b-row>
+            </b-col>
+        </b-row> -->
+                <b-row>
+                    <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(0)" variant='info'>temporal</b-button></b-row>
+                </b-row>
+                <b-row>
+                    <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(1)" variant='info'>spatial</b-button></b-row>
+                </b-row>
+                <b-row>
+                    <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(2)" variant='info'>thermal</b-button></b-row>
+                </b-row>
+                <b-row>
+                    <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(3)" variant='info'>brightness</b-button></b-row>
+                </b-row>
+                <b-row>
+                    <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(4)" variant='info'>dullness</b-button></b-row>
+                </b-row>
+            </b-col>
 
-                    <b-form-checkbox class="my-1" value="Spatial" name="check-button">
-                        Spatial
-                    </b-form-checkbox>
-
-                    <b-form-checkbox class="my-1" value="Punctate" name="check-button">
-                        Punctate pressure
-                    </b-form-checkbox>
-
-                    <b-form-checkbox class="my-1" value="Incisive" name="check-button">
-                        Incisive pressure
-                    </b-form-checkbox>
-
-                    <b-form-checkbox class="my-1" value="Constrictive" name="check-button">
-                        Constrictive pressure
-                    </b-form-checkbox>
-
-                    <b-form-checkbox class="my-1" value="temps" name="check-button">
-                        Temporary buttons
-                    </b-form-checkbox>
+            <b-col class="mx-1" cols="3" xl="1">
+                <b-row>
+                    <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(5)" variant='info'>Rhytmic</b-button></b-row>
+                </b-row>
+                <b-row>
+                    <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(6)" variant='info'>Rhytmic</b-button></b-row>
+                </b-row>
+                <b-row>
+                    <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(7)" variant='info'>Rhytmic</b-button></b-row>
+                </b-row>
+                <b-row>
+                    <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(8)" variant='info'>Rhytmic</b-button></b-row>
+                </b-row>
+                <b-row>
+                    <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(9)" variant='info'>Rhytmic</b-button></b-row>
+                </b-row>
                 
-                </b-form-checkbox-group>
-            </b-form-group>
-            <b-form-group
-                v-slot="{ ariaDescribedby }"
-                >
-                <b-form-checkbox-group
-                    class = "m-2"
-                    :aria-describedby="ariaDescribedby"
-                    v-model="right_group"
-                    stacked
-                    buttons
-                    :button-variant="'info'"
-                >
-                    <b-form-checkbox class="my-1" value="Traction" name="check-button">
-                        Traction pressure
-                    </b-form-checkbox>
-
-                    <b-form-checkbox class="my-1" value="Thermal" name="check-button">
-                        Thermal
-                    </b-form-checkbox>
-
-                    <b-form-checkbox class="my-1" value="Brightness" name="check-button">
-                        Brightness
-                    </b-form-checkbox>
-
-                    <b-form-checkbox class="my-1" value="Sensory" name="check-button">
-                        Sensory
-                    </b-form-checkbox>
-
-                    <b-form-checkbox class="my-1" value="Evaluative" name="check-button">
-                        evaluative
-                    </b-form-checkbox>
-
-                    <b-form-checkbox class="my-1" value="Hello" name="check-button">
-                        Hello there
-                    </b-form-checkbox>
-                </b-form-checkbox-group>
-            </b-form-group>
-
+            </b-col>
             
-
         </b-row>
-        <b-row align-h="center">
-            
-            <!-- 1<input type="range" min="1" max="5" value="3" class="slider" id="sli">5 -->
-        </b-row>
-        <b-row align-h="center">
-            <!-- <span id="test2"></span> -->
-            <!-- 1<input type="range" min="1" max="5" value="3" class="slider" id="sli">5 -->
-        </b-row>
+            <b-row align-h="center">{{ btnVal }}</b-row>
+            <b-row align-h="center" v-show="btns[0]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef" @updateValue= "update($event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[1]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef" @updateValue= "update($event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[2]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef" @updateValue= "update($event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[3]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef" @updateValue= "update($event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[4]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef" @updateValue= "update($event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[5]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef" @updateValue= "update($event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[6]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef" @updateValue= "update($event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[7]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef" @updateValue= "update($event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[8]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef" @updateValue= "update($event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[9]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef" @updateValue= "update($event)" :labels="['Weak','Strong']" /></b-row>
     </b-container>
 </template>
 
 
 <script>
+import Slider from './Slider.vue'
+
 export default {
+    components:{
+        Slider
+    },
     data() {
         return {
-            left_group: [], // Must be an array reference!
-            right_group: [] // Must be an array reference!
-            // options_one: [
-            //     { text: 'Temporary', value: 'temporary' },
-            //     { text: 'Temporal', value: 'temporal' },
-            //     { text: 'Spatial', value: 'spatial' },
-            //     { text: 'Punctate Pressure', value: 'punctate_pressure' },
-            //     { text: 'Another Button', value: 'another_button' },
-            //     { text: 'The', value: 'the' }
-            // ],
-            // options_two: [
-            //     { text: 'Buttons', value: 'buttons' },
-            //     { text: 'Tension', value: 'tension' },
-            //     { text: 'Autonomic', value: 'autonomic' },
-            //     { text: 'You get the point', value: 'you' },
-            //     { text: 'Button', value: 'button' },
-            //     { text: 'Hello there', value: 'hello_there' }
-            // ]
+            btns: [false, false, false, false, false, false, false, false, false, false],
+            btnNames: ['temporal','spatial','thermal','brightness','dullness','Button6','Button7','Button8','Button9','Button10'],
+            btnVal: "",
+            indxOld: -1,
+            sliderMin: 1,
+            sliderMax: 5,
+            sliderDef: 1
+        };
+    },
+    methods: {
+        toggleBtn: function(indx) {
+            this.btnVal = this.btnNames[indx]
+            if (indx != this.indxOld) {
+                this.$set(this.btns, this.indxOld, false)
+            }
+            else this.btnVal = ""
+            this.$set(this.btns, indx, !this.btns[indx])
+            this.indxOld = indx
+            
         }
     }
 }
@@ -120,6 +122,6 @@ export default {
 
 <style scoped>
     .buttons{
-        width: 50%;
+        min-width: 100px;
     }
 </style>
