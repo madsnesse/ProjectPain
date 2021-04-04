@@ -44,6 +44,6 @@ export default {
 
 <style scoped>
     #painstr{
-        width: 75%;
+        width: 70%;
     }
 </style>
