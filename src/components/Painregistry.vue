@@ -1,18 +1,18 @@
 <template>
     <b-container id = "main">
         <b-row align-h="center" class="my-5"><h1 id="welcome">pain registry!</h1></b-row>
-        <b-row align-h="center" class="my-5"><b-button v-on:click="toggleType" class="buttons">Type of pain</b-button></b-row>
-        <b-row align-h="center" v-show="type">
+        <b-row align-h="center" class="my-5"><b-button v-on:click="toggleVisible(0)" class="buttons">Type of pain</b-button></b-row>
+        <b-row align-h="center" v-show="visible[0]">
             <Paintype/>
         </b-row>
 
-        <b-row align-h="center" class="my-5"><b-button v-on:click="toggleChange" class="buttons">Change of pain</b-button></b-row>
-        <b-row align-h="center" v-show="change">
+        <b-row align-h="center" class="my-5"><b-button v-on:click="toggleVisible(1)" class="buttons">Change of pain</b-button></b-row>
+        <b-row align-h="center" v-show="visible[1]">
             <Painchange/>
         </b-row>
 
-        <b-row align-h="center" class="my-5"><b-button v-on:click="toggleStrength" class="buttons">Pain strength</b-button></b-row>
-        <b-row align-h="center" v-show="strength">
+        <b-row align-h="center" class="my-5"><b-button v-on:click="toggleVisible(2)" class="buttons">Pain strength</b-button></b-row>
+        <b-row align-h="center" v-show="visible[2]">
         <Slider 
             :values = '["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' 
             :minimum="1" 
@@ -38,9 +38,7 @@ export default {
     name: "Painregistry",
     data: function(){
         return {
-            strength: false,
-            change: false,
-            type: false,
+            visible: [false, false, false],
             painstrength:3,
             values: {
                 numbers:[1,2,3],
@@ -55,21 +53,11 @@ export default {
         Painchange
     },
     methods: {
-        toggleStrength: function () {
-            this.strength = !this.strength
-            this.type = false
-            this.change = false
-        },
-        toggleChange: function () {
-            this.change = !this.change
-            this.strength = false
-            this.type = false
-        },
-        toggleType: function () {
-            this.type = !this.type
-            this.strength = false
-            this.change = false
-        },
+        toggleVisible: function (i) {
+            this.visible = [false, false, false]
+            this.visible[i] = true
+        }
+        ,
         save: function() {
             console.log("saving to json");
             var asJson = JSON.stringify(this.values);

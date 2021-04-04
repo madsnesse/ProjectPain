@@ -41,3 +41,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+    #painstr{
+        width: 75%;
+    }
+</style>
