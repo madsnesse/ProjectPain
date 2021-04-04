@@ -1,22 +1,27 @@
 <template>
     <b-container>
         <b-row align-h="center">
-            <b-form-checkbox name="check-button" button @input="toggleOne()" :button-variant="!one ? 'info' : 'success'">
-                Continous
-            </b-form-checkbox>
-            <b-form-checkbox name="check-button" button @input="toggleTwo()" :button-variant="!two ? 'info' : 'success'">
-                Rythmic
-            </b-form-checkbox>
-            <b-form-checkbox name="check-button" button @input="toggleThree()" :button-variant="!three ? 'info' : 'success'">
-                brief
-            </b-form-checkbox>
+            <b-col>
+                <b-button @click="toggleOne" :variant="!one ? 'info' : 'success'">
+                    Continous
+                </b-button>
+            </b-col>
+            <b-col>
+                <b-button @click="toggleTwo" :variant="!two ? 'info' : 'success'">
+                    Rhytmic
+                </b-button>
+            </b-col>
+            <b-col>
+                <b-button @click="toggleThree" :variant="!three ? 'info' : 'success'">
+                    Brief
+                </b-button>
+            </b-col>
         </b-row>
     </b-container>
 </template>
 
 
 <script>
-
 export default {
     data: function(){
         return {
