@@ -3,7 +3,7 @@
         <b-col>
             <b-row align-h="center">
                 <span id="test2"></span>
-                Weak<input type="range" :min = minimum :max = maximum class="slider" id="painstr" v-model="index">Strong
+                {{ labels[0] }}<input type="range" :min = minimum :max = maximum class="slider" id="painstr" v-model="value">{{ labels[1] }}
             </b-row>
             <b-row align-h="center">
                 {{ out }}
@@ -17,24 +17,27 @@ export default {
     props: {
         values: Array,
         minimum: Number,
-        maximum: Number
+        maximum: Number,
+        labels: Array,
+        default: Number
     },
     data() {
         return {
-            index: Math.round(this.maximum / 2, 1),
+            value: this.default,
             pain: this.values,
             out: ""
         }
     },
     watch: {
-        index: {
+        value: {
             handler() {
-                this.out = this.pain[this.index - 1]
+                this.out = this.pain[this.value - 1]
+                this.$emit('updateValue', this.value)
             }
         }
     },
     mounted: function(){
-        this.out = this.pain[this.index - 1]
+        this.out = this.pain[this.value - 1]
     }
 }
 </script>

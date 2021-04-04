@@ -13,11 +13,18 @@
 
         <b-row align-h="center" class="my-5"><b-button v-on:click="toggleStrength" class="buttons">Pain strength</b-button></b-row>
         <b-row align-h="center" v-show="strength">
-        <Slider :values = '["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="1" :maximum="5" :default="1" />
+        <Slider 
+            :values = '["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' 
+            :minimum="1" 
+            :maximum="5"
+            :default="3"
+            v-on:updateValue= "update($event)"
+            :labels="['Weak','Strong']" 
+        />
         </b-row>
         <b-row align-h="between">
             <b-col class="text-center my-5"><router-link tag="b-button" class="buttons" to="/home">Back</router-link></b-col>
-            <b-col class="text-center my-5"><router-link tag="b-button" class="buttons" to="/home">Register</router-link></b-col>
+            <b-col class="text-center my-5"><b-button v-on:click="save" class="buttons" to="/home">Register</b-button></b-col>
         </b-row>
     </b-container>
 </template> 
@@ -27,15 +34,19 @@
 import Slider from './Slider.vue'
 import Paintype from './Paintype.vue'
 import Painchange from './Painchange.vue'
-
 export default {
     name: "Painregistry",
-
     data: function(){
         return {
             strength: false,
             change: false,
-            type: false
+            type: false,
+            painstrength:3,
+            values: {
+                numbers:[1,2,3],
+                values:["read","one"],
+                painstrength:0
+            }
         }
     },
     components:{
@@ -58,9 +69,19 @@ export default {
             this.type = !this.type
             this.strength = false
             this.change = false
+        },
+        save: function() {
+            console.log("saving to json");
+            var asJson = JSON.stringify(this.values);
+            console.log(asJson);
+        },
+        update: function(updatedStrength) {
+            this.values.painstrength = updatedStrength
         }
     }
+    
 }
+
 </script>
 
 <style scoped>
