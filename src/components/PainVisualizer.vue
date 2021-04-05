@@ -129,7 +129,20 @@ export default {
         ///////////////////////////////////////////////////
         //// EVENTS BELOW                              ////
         //////////////////////////////////////////////////
-        p5.mouseClicked = function() {
+        p5.touchEnded = function() {
+          console.log("touch event @ abs("+Math.round(p5.mouseX)+", "+Math.round(p5.mouseY)+") rel(x="+Math.round(100*(p5.mouseX / w))+", y="+Math.round(100*(p5.mouseY / h))+", r="+circleRadius+")");
+
+          // Save circle to background
+          let tx = p5.mouseX / w;  // rel. mouse pos., 0 to 1
+          let ty = p5.mouseY / h;
+
+          if (0 <= tx && tx <= 1 && 0 <= ty && ty <= 1) {  // bounds check
+            bg_canvas.fill(255, 0, 0, 150);
+            bg_canvas.circle(p5.mouseX, p5.mouseY, circleRadius*w/200);
+          }
+        }
+
+        p5.mouseReleased = function() {
           console.log("mouse event @ abs("+Math.round(p5.mouseX)+", "+Math.round(p5.mouseY)+") rel(x="+Math.round(100*(p5.mouseX / w))+", y="+Math.round(100*(p5.mouseY / h))+", r="+circleRadius+")");
 
           // Save circle to background
