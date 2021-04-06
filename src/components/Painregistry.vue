@@ -34,6 +34,7 @@
 import Slider from './Slider.vue'
 import Paintype from './Paintype.vue'
 import Painchange from './Painchange.vue'
+import saveToDB from '../main.js' 
 export default {
     name: "Painregistry",
     data: function(){
@@ -63,8 +64,10 @@ export default {
         save: function() {
             console.log("saving to json");
             var asJson = JSON.stringify(this.values);
-            console.log(asJson);
+            window.localStorage.setItem('values', asJson);
+            saveToDB(JSON.parse(window.localStorage.getItem('values')))
         },
+        //TODO: should update other stuff tahn strength
         update: function(updatedStrength) {
             this.values.painstrength = updatedStrength
         }

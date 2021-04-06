@@ -6,6 +6,11 @@ import App from './App.vue'
 import router from './router.js'
 import VueRouter from 'vue-router'
 
+export default function saveToDB(json){
+  console.log(json)
+}
+
+
 Vue.config.productionTip = false
 
 Vue.use(VueRouter)
