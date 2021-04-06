@@ -11,6 +11,8 @@ export default function saveToDB(json){
 }
 
 
+var PouchDB = require('pouchdb');
+
 Vue.config.productionTip = false
 
 Vue.use(VueRouter)
