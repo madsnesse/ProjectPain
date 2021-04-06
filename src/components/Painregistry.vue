@@ -3,7 +3,7 @@
         <b-row align-h="center" class="my-5"><h1 id="welcome">pain registry!</h1></b-row>
         <b-row align-h="center" class="my-5"><b-button v-on:click="toggleVisible(0)" class="buttons">Type of pain</b-button></b-row>
         <b-row align-h="center" v-show="visible[0]">
-            <Paintype/>
+            <Paintype v-on:update= "update('painType',$event)"/>
         </b-row>
 
         <b-row align-h="center" class="my-5"><b-button v-on:click="toggleVisible(1)" class="buttons">Change of pain</b-button></b-row>
@@ -18,7 +18,7 @@
             :minimum="1" 
             :maximum="5"
             :default="3"
-            v-on:updateValue= "update($event)"
+            v-on:updateValue= "update('painstrength',$event)"
             :labels="['Weak','Strong']" 
         />
         </b-row>
@@ -41,11 +41,9 @@ export default {
         return {
             visible: [false, false, false],
             visIndex: 0,
-            painstrength:3,
             values: {
-                numbers:[1,2,3],
-                values:["read","one"],
-                painstrength:0
+                painstrength:0,
+                painType:[]
             }
         }
     },
@@ -59,17 +57,19 @@ export default {
                 if(i != this.visIndex)this.$set(this.visible,this.visIndex,false)
                 this.$set(this.visible,i, !this.visible[i])
                 this.visIndex = i        
-            }
-        ,
-        save: function() {
-            console.log("saving to json");
-            var asJson = JSON.stringify(this.values);
-            window.localStorage.setItem('values', asJson);
-            saveToDB(JSON.parse(window.localStorage.getItem('values')))
         },
-        //TODO: should update other stuff tahn strength
-        update: function(updatedStrength) {
-            this.values.painstrength = updatedStrength
+        save: function() {
+                console.log("saving to json");
+                saveToDB(JSON.stringify(this.values));
+        },
+
+        update: function(valueToChange,event) {
+            if (valueToChange == "painType"){
+                this.values.painType = event
+            }
+            else if(valueToChange == "painstrength"){
+                this.values.painstrength = event
+            }
         }
     }
     
