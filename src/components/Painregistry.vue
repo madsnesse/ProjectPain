@@ -34,7 +34,7 @@
 import Slider from './Slider.vue'
 import Paintype from './Paintype.vue'
 import Painchange from './Painchange.vue'
-import saveToDB from '../main.js' 
+import '../main.js'
 export default {
     name: "Painregistry",
     data: function(){
