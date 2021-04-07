@@ -14,7 +14,6 @@
 
 
 <script>
-import registerUser from '../main.js'
 export default {
     name: "Register",
     methods: {
@@ -24,8 +23,9 @@ export default {
             var password = document.getElementById("password").innerText
             var secondpassword = document.getElementById("reppass").innerText
             console.log(email + " " + password + " " + secondpassword)
-            registerUser(email,password,secondpassword)
+            //$pouch.createUser(email,password)
         }
+
     }   
 }
 </script>
