@@ -6,16 +6,18 @@ import App from './App.vue'
 import router from './router.js'
 import VueRouter from 'vue-router'
 import PouchDB from 'pouchdb-browser'
-//import PouchFind from 'pouchdb-find'
-//import PouchLiveFind from 'pouchdb-live-find'
+import PouchFind from 'pouchdb-find'
+import PouchLiveFind from 'pouchdb-live-find'
 import PouchVue from 'pouch-vue'
+
+PouchDB.plugin(PouchFind)
+PouchDB.plugin(PouchLiveFind)
+PouchDB.plugin(require('pouchdb-authentication'));
 
 const db = new PouchDB('http://localhost:5984/_utils/my_database')
 
 
-PouchDB.plugin(require('pouchdb-authentication'));
-
-Vue.use(PouchVue, {
+Vue.use(PouchVue,{
   pouch: PouchDB,
   defaultDB: 'http://localhost:5984/_utils/my_database',
   optionsDB: {},
