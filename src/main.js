@@ -10,11 +10,20 @@ import PouchFind from 'pouchdb-find'
 import PouchLiveFind from 'pouchdb-live-find'
 import PouchVue from 'pouch-vue'
 
-PouchDB.plugin(PouchFind)
-PouchDB.plugin(PouchLiveFind)
+PouchDB.plugin(PouchFind);
+PouchDB.plugin(PouchLiveFind);
 PouchDB.plugin(require('pouchdb-authentication'));
 
-const db = new PouchDB('http://localhost:5984/_utils/my_database')
+Vue.config.productionTip = false
+
+Vue.use(VueRouter)
+
+new Vue({
+  router,
+  render: h => h(App),
+}).$mount('#app')
+
+const db = new PouchDB('http://localhost:5984/_utils/my_database');
 
 
 Vue.use(PouchVue,{
@@ -22,11 +31,11 @@ Vue.use(PouchVue,{
   defaultDB: 'http://localhost:5984/_utils/my_database',
   optionsDB: {},
   debug: '*'
-})
+});
 
 
 export default function saveToDB(json){
-  db.put(json, function (err){
+  db.put(JSON.parse(json), function (err){
     if (err){
       return console.log(err)
     }else{
@@ -44,11 +53,5 @@ db.info(function (err,info) {
   }
 })
 
-Vue.config.productionTip = false
 
-Vue.use(VueRouter)
 
-new Vue({
-  router,
-  render: h => h(App),
-}).$mount('#app')
