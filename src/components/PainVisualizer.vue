@@ -4,6 +4,20 @@
 
     <input id="radiusSlider" type="range" min="1" max="100" value="25">
     <button id="resetButton">Reset</button>
+
+    <div style="border : solid 1 px black;">
+      <input type="checkbox" id="temporal" value="temporal" name="pain_type">
+      <label for="temporal">temporal</label>
+
+      <input type="checkbox" id="spatial" value="spatial" name="pain_type">
+      <label for="spatial">spatial</label>
+
+      <input type="checkbox" id="thermal" value="thermal" name="pain_type">
+      <label for="thermal">thermal</label>
+
+      <input type="checkbox" id="sensory" value="sensory" name="pain_type">
+      <label for="sensory">sensory</label>
+    </div>
     <h3>Thanks to</h3>
     <a href="https://www.freepik.com/vectors/education">Education vector created by brgfx - www.freepik.com</a>
   </div>
@@ -30,7 +44,8 @@ export default {
 
         // Pain Circle
         let circleRadius = 30;  // Relative: from 0 to 100
-        let pain_type = "static";
+        let innerCircleR = 0;
+        let pain_types = [];
 
         // Size and positional variables
         let width_div;  // width of parent div
@@ -73,6 +88,9 @@ export default {
           radiusSlider = document.getElementById("radiusSlider");
           resetButton = document.getElementById("resetButton");
           resetButton.onclick = function(){resetBackground()};
+
+          // BLENDMODE
+          p5.blendMode(p5.DODGE);
         }
 
         function resetBackground() {
@@ -82,8 +100,6 @@ export default {
         }
 
         function updateValues() {
-          circleRadius = radiusSlider.value;
-
           // width of parent div
           try {
             width_div = document.getElementById("canvas").offsetWidth;
@@ -91,6 +107,17 @@ export default {
             console.log("[  P5  ] User exited -> canvas destroyed.");
             p5.remove();
           }
+
+          // get pain_types from checkboxes
+          pain_types = [];  // reset
+          let cbs = document.getElementsByName("pain_type");
+          for (var i = 0; i < cbs.length; i ++) {
+            if (cbs[i].checked) {
+                pain_types.push(cbs[i].value);
+            }
+          }
+
+          circleRadius = radiusSlider.value;
 
           // Updated scaling variables
           let canvas_rect = canvas.elt.getBoundingClientRect();
@@ -104,15 +131,53 @@ export default {
         /* Renders a circle based on type of pain.
          * Use this method unless saving circle on background.
          */
-        function drawCircle() {
+        function drawCircle(pain_type) {
           switch (pain_type) {
             case "static":
               p5.fill(255, 0, 0, 150);
               p5.circle(p5.mouseX, p5.mouseY, circleRadius*w/200);
               break;
 
+            case "thermal":
+              p5.fill(255, 0, 0, 150);
+              p5.circle(p5.mouseX, p5.mouseY, circleRadius*w/200);
+              break;
+
+            case "sensory":
+              p5.fill(0, 0, 255, 150);
+              p5.circle(p5.mouseX, p5.mouseY, circleRadius*w/200);
+              break;
+
+            case "temporal":
+              if (innerCircleR > circleRadius) {
+                innerCircleR = 0;
+              } else {
+                innerCircleR++;
+              }
+              p5.fill(255, 0, 0, 120);
+              p5.circle(p5.mouseX, p5.mouseY, circleRadius*w/200);
+
+              // inner circle
+              p5.fill(255, 0, 0, 50);
+              p5.circle(p5.mouseX, p5.mouseY, innerCircleR*w/200);
+              break;
+
+            case "spatial":
+              if (innerCircleR > circleRadius) {
+                innerCircleR = 0;
+              } else {
+                innerCircleR += 2;
+              }
+              p5.fill(255, 0, 0, 120);
+              p5.circle(p5.mouseX, p5.mouseY, circleRadius*w/200);
+
+              // inner circle
+              p5.fill(255, 0, 0, 50);
+              p5.circle(p5.mouseX, p5.mouseY, innerCircleR*w/200);
+              break;
+
             default:
-              console.error("Non-valid render type.");
+              console.error("Non-valid render type \"" + pain_type + "\"");
           }
         }
 
@@ -127,7 +192,7 @@ export default {
           let my = p5.mouseY / h;
 
           if (0 <= mx && mx <= 1 && 0 <= my && my <= 1) {  // bounds check
-            drawCircle();
+            pain_types.forEach(drawCircle);
           }
         }
 
@@ -148,14 +213,13 @@ export default {
         }
 
         p5.mouseReleased = function() {
-          console.log("mouse event @ abs("+Math.round(p5.mouseX)+", "+Math.round(p5.mouseY)+") rel(x="+Math.round(100*(p5.mouseX / w))+", y="+Math.round(100*(p5.mouseY / h))+", r="+circleRadius+")");
-
           // Save circle to background
           let mx = p5.mouseX / w;  // rel. mouse pos., 0 to 1
           let my = p5.mouseY / h;
           if (0 <= mx && mx <= 1 && 0 <= my && my <= 1) {  // bounds check
             bg_canvas.fill(255, 0, 0, 150);
             bg_canvas.circle(p5.mouseX, p5.mouseY, circleRadius*w/200);
+            console.log("mouse event @ abs("+Math.round(p5.mouseX)+", "+Math.round(p5.mouseY)+") rel(x="+Math.round(100*(p5.mouseX / w))+", y="+Math.round(100*(p5.mouseY / h))+", r="+circleRadius+")");
           }
         }
 
