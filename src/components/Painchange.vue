@@ -1,6 +1,6 @@
 <template>
     <b-container>
-        <b-row align-h="center">
+        <b-row align-h="center" class="my-3">
             <b-col>
                 <b-button @click="toggleOne" :variant="!one ? 'info' : 'success'">
                     Continous
@@ -16,6 +16,10 @@
                     Brief
                 </b-button>
             </b-col>
+        </b-row>
+        <b-row class="my-3">
+            <b-col><b-button>hei</b-button></b-col>
+            <b-col><b-button>du</b-button></b-col>
         </b-row>
     </b-container>
 </template>
