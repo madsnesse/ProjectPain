@@ -85,7 +85,12 @@ export default {
           circleRadius = radiusSlider.value;
 
           // width of parent div
-          width_div = document.getElementById("canvas").offsetWidth;
+          try {
+            width_div = document.getElementById("canvas").offsetWidth;
+          } catch (error) {
+            console.log("[  P5  ] User exited -> canvas destroyed.");
+            p5.remove();
+          }
 
           // Updated scaling variables
           let canvas_rect = canvas.elt.getBoundingClientRect();
