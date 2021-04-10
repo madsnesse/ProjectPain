@@ -144,6 +144,9 @@ export default {
               break;
 
             case "sensory":
+              p5.textSize(27);
+              p5.fill(255, 255, 255);
+              p5.text("🥶", p5.mouseX-30 - (circleRadius*w/200)/4, p5.mouseY-30- (circleRadius*w/200)/4);
               p5.fill(0, 0, 255, 150);
               p5.circle(p5.mouseX, p5.mouseY, circleRadius*w/200);
               break;
