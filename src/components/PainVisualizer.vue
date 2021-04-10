@@ -18,8 +18,6 @@
       <input type="checkbox" id="sensory" value="sensory" name="pain_type">
       <label for="sensory">sensory</label>
     </div>
-    <h3>Thanks to</h3>
-    <a href="https://www.freepik.com/vectors/education">Education vector created by brgfx - www.freepik.com</a>
   </div>
 </template>
 
@@ -61,7 +59,7 @@ export default {
         var resetButton;
 
         p5.preload = function() {
-          let img = require("@/assets/body.png")  // thanks to https://stackoverflow.com/a/65872755
+          let img = require("@/assets/man-front-med.png")  // thanks to https://stackoverflow.com/a/65872755
           bodyImage = p5.loadImage(img);  // todo resize image - too large atm
         }
 
