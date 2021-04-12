@@ -61,6 +61,11 @@ export default {
         ];
         let selectedPains = ["thermal"];  // actually renders
 
+        // Rendering
+        let pressureRendering = false;
+        let pressureCircles = [];
+        let pressureRadiusIncrease = true;
+
         // Size and positional variables
         let width_div;  // width of parent div
         let w, h;       // width and height of canvas DOM
@@ -116,6 +121,8 @@ export default {
 
           // BLENDMODE
           p5.blendMode(p5.MULTIPLY);
+
+          p5.noStroke();
         }
 
         p5.draw = function() {
@@ -227,13 +234,18 @@ export default {
          */
         function drawCircle(pain_type) {
           switch (pain_type) {
-            case "static":
-              p5.fill(255, 0, 0, 150);
+            case "thermal":
+              p5.fill(200, 0, 0, 150);
               p5.circle(p5.mouseX, p5.mouseY, circleRadius*w/200);
               break;
 
-            case "thermal":
-              p5.fill(255, 0, 0, 150);
+            case "pressure":
+              renderPressure();
+              break;
+
+            case "brightness":
+              p5.blendMode(p5.DODGE);
+              p5.fill(210, 210, 210, 150);
               p5.circle(p5.mouseX, p5.mouseY, circleRadius*w/200);
               break;
 
@@ -278,6 +290,50 @@ export default {
           }
         }
 
+        function renderPressure() {
+          const n = 200;  // num of circles
+          const r = circleRadius / 15;  // 1/25 of main circle
+          const dr = 0.1;
+
+          if (pressureRendering) {
+            // render circles
+            for (let c of pressureCircles) {
+              if (pressureRadiusIncrease) {
+                c.radius += dr;
+              } else {
+                c.radius -= dr;
+              }
+
+              p5.fill(200, 0, 0, 40);
+              p5.circle(p5.mouseX+c.xd, p5.mouseY+c.yd, c.radius);
+            }
+          }
+          else {  // create new circles
+            pressureCircles = [];  // reset
+            for (var i = 0; i < n; i++) {
+              // delta from mouse origin
+              let x_delta = randFromRange(-circleRadius, circleRadius);
+              let y_delta = randFromRange(-circleRadius, circleRadius);
+
+              // check if point within circle
+              let hyp = Math.sqrt(x_delta**2 + y_delta**2);
+              if (hyp <= circleRadius-(2*r+20*dr)) {
+                // add circle
+                pressureCircles.push({xd: x_delta, yd: y_delta, radius:r});
+              }
+            }
+
+            // start rendering
+            let t = 3000;
+            pressureRendering = true;
+            setTimeout(function() { pressureRendering = false; }, t);
+
+            // decrease circles halfway through
+            pressureRadiusIncrease = true;
+            setTimeout(function() { pressureRadiusIncrease = false; }, t/2);
+          }
+        }
+
         ////////////////////////////////////////////////////
         //// EVENTS BELOW                              ////
         //////////////////////////////////////////////////
@@ -313,6 +369,15 @@ export default {
           bg_canvas.resizeCanvas(width_div, width_div/aspectCanvas);
           resetBackground();
         }
+      }
+
+      ////////////////////////////////////////////////////
+      //// UTILITY FUNCTIONS BELOW                   ////
+      //////////////////////////////////////////////////
+      /* Returns random number from given range */
+      function randFromRange(from, to) {
+        // line below is from https://www.w3schools.com/js/js_random.asp
+        return Math.floor(Math.random() * (to - from + 1) ) + from;
       }
 
       // thanks to https://stackoverflow.com/a/61855707
