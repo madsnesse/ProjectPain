@@ -53,8 +53,11 @@ export default {
         let innerCircleR = 0;   // Used for pulsating circle
         let figure = "man-front-large";
         let availablePains = [
+          "temporal",
+          "spatial",
+          "pressure",
           "thermal",
-          "spatial"
+          "brightness"
         ];
         let selectedPains = ["thermal"];  // actually renders
 
