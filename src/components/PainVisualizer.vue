@@ -9,13 +9,18 @@
     </div>
 
     <!-- RESET -->
-    <b-button variant="primary" id="resetButton" class="w-100 mt-3">Reset</b-button>
+    <b-button variant="primary" id="resetButton" class="w-100 mt-2">Reset</b-button>
 
     <!-- FIGURE -->
-    <b-form-input id="figureInput" placeholder="Set figure" class="w-100 mt-3"></b-form-input>
+    <label for="figureInput" id="figureInputLabel" class="w-100 mt-3">Value</label>
+    <b-form-input id="figureInput" placeholder="Set figure"></b-form-input>
 
-    <!-- PAIN -->
-    <b-form-input id="painInput" placeholder="Add pain" class="w-100 mt-3"></b-form-input>
+    <!-- ADD PAIN -->
+    <label for="addPainInput" id="addPainInputLabel" class="w-100 mt-4">Value</label>
+    <b-form-input id="addPainInput" placeholder="Add pain"></b-form-input>
+
+    <!-- REMOVE PAIN -->
+    <b-form-input id="removePainInput" placeholder="Remove pain" class="w-100 mt-1"></b-form-input>
   </div>
 </template>
 
@@ -66,7 +71,8 @@ export default {
         var radiusSlider;
         var resetButton;
         var figureInput;
-        var painInput;
+        var addPainInput;
+        var removePainInput;  // TODO: better name, "remove" & "input" can be confusing
 
         ////////////////////////////////////////////////////
         //// p5-FUNCTIONS BELOW                        ////
@@ -74,6 +80,7 @@ export default {
         p5.preload = function() {
           let img = require("@/assets/"+figure+".png")  // thanks to https://stackoverflow.com/a/65872755
           bodyImage = p5.loadImage(img);  // todo resize image - too large atm
+          document.getElementById("figureInputLabel").innerText = figure;
         }
 
         p5.setup = function() {
@@ -99,7 +106,9 @@ export default {
           radiusSlider = document.getElementById("radiusSlider");
           resetButton = document.getElementById("resetButton");
           figureInput = document.getElementById("figureInput");
-          painInput = document.getElementById("painInput");
+          addPainInput = document.getElementById("addPainInput");
+          document.getElementById("addPainInputLabel").innerText = selectedPains;
+          removePainInput = document.getElementById("removePainInput");
           resetButton.onclick = function(){resetBackground()};
 
           // BLENDMODE
@@ -138,6 +147,7 @@ export default {
             let new_img = require("@/assets/"+new_figure+".png")  // thanks to https://stackoverflow.com/a/65872755
             bodyImage = p5.loadImage(new_img, resetBackground);  // callback to resetBackground
             figureInput.value = "";  // reset field
+            document.getElementById("figureInputLabel").innerText = new_figure;
           } catch (error) {
             console.log("Figure invalid.");
           }
@@ -150,8 +160,23 @@ export default {
               console.warn("Pain already selected, skipping.");
             } else {
               selectedPains.push(pain);
+              // update label
+              document.getElementById("addPainInputLabel").innerText = selectedPains;
             }
-            painInput.value = "";  // reset
+            addPainInput.value = "";  // reset
+          }
+        }
+
+        /* Tries to remove pain for rendering. */
+        function removePain(pain) {
+          try {
+            let i = selectedPains.indexOf(pain);
+            selectedPains.splice(i, i+1); // remove element
+            // update label
+            document.getElementById("addPainInputLabel").innerHtml = selectedPains;
+            removePainInput.value = "";  // reset
+          } catch (error) {
+            console.warn("Could not remove pain.");
           }
         }
 
@@ -172,9 +197,15 @@ export default {
           }
 
           // check if user sel. pain
-          let pain = painInput.value;
+          let pain = addPainInput.value;
           if (pain != "") {
             addPain(pain);  // tries to add pain
+          }
+
+          // check if user rem. pain
+          pain = removePainInput.value;
+          if (pain != "") {
+            removePain(pain);  // tries to remove pain
           }
 
           circleRadius = radiusSlider.value;
