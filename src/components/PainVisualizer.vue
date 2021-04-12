@@ -179,14 +179,16 @@ export default {
 
         /* Tries to remove pain for rendering. */
         function removePain(pain) {
-          try {
-            let i = selectedPains.indexOf(pain);
-            selectedPains.splice(i, i+1); // remove element
-            // update label
-            document.getElementById("addPainInputLabel").innerHtml = selectedPains;
-            removePainInput.value = "";  // reset
-          } catch (error) {
-            console.warn("Could not remove pain.");
+          if (selectedPains.includes(pain)) {
+            try {
+              let i = selectedPains.indexOf(pain);
+              selectedPains.splice(i, i+1); // remove element
+              // update label
+              document.getElementById("addPainInputLabel").innerText = selectedPains;
+              removePainInput.value = "";  // reset
+            } catch (error) {
+              console.warn(error);
+            }
           }
         }
 
