@@ -1,6 +1,7 @@
 <template>
     <b-container id = "main">
         <b-row align-h="center" class="my-5"><h1 id="welcome">Register!</h1></b-row>
+        <b-row align-h="center" class="my-5"><b-input placeholder="username" class="inputs" id= "username">e-mail</b-input></b-row>
         <b-row align-h="center" class="my-5"><b-input placeholder="e-mail" class="inputs" id= "email">e-mail</b-input></b-row>
         <b-row align-h="center" class="my-5"><b-input placeholder="passord" class="inputs" id = "password"></b-input></b-row>
         <b-row align-h="center" class="my-5"><b-input placeholder="gjenta passord" class="inputs" id ="reppass"></b-input></b-row>
@@ -14,16 +15,19 @@
 
 
 <script>
+    import * as pouchDB from "../database.js"
 export default {
+
     name: "Register",
     methods: {
         register: function(i){
             console.log(i)
-            var email = document.getElementById("email").innerText
-            var password = document.getElementById("password").innerText
-            var secondpassword = document.getElementById("reppass").innerText
-            console.log(email + " " + password + " " + secondpassword)
-            this.$pouch.createUser(email,password)
+            var username = document.getElementById("username").innerText;
+            var email = document.getElementById("email").innerText;
+            var password = document.getElementById("password").innerText;
+            var secondpassword = document.getElementById("reppass").innerText;
+            console.log(email + " " + password + " " + secondpassword);
+            pouchDB.createUser(username,password,email);
         }
 
     }   

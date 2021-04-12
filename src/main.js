@@ -5,14 +5,19 @@ import './plugins/bootstrap-vue'
 import App from './App.vue'
 import router from './router.js'
 import VueRouter from 'vue-router'
+//import PouchVue from "pouch-vue";
+import PouchDB from "pouchdb-browser";
+/*
 import PouchDB from 'pouchdb-browser'
 import PouchFind from 'pouchdb-find'
 import PouchLiveFind from 'pouchdb-live-find'
 import PouchVue from 'pouch-vue'
-
-PouchDB.plugin(PouchFind);
-PouchDB.plugin(PouchLiveFind);
+*/
+//PouchDB.plugin(PouchFind);
+//PouchDB.plugin(PouchLiveFind);
 PouchDB.plugin(require('pouchdb-authentication'));
+
+
 
 Vue.config.productionTip = false
 
@@ -23,6 +28,17 @@ new Vue({
   render: h => h(App),
 }).$mount('#app')
 
+/*
+Vue.use(PouchVue,{
+  pouch: PouchDB,
+  defaultDB: 'defaultDB',
+  optionsDB: {},
+  debug: '*'
+});
+
+ */
+
+/*
 const db = new PouchDB('http://localhost:5984/_utils/my_database');
 
 
@@ -35,7 +51,7 @@ Vue.use(PouchVue,{
 
 
 export default function saveToDB(json){
-  db.put(JSON.parse(json), function (err){
+  this.$pouch.put(JSON.parse(json), function (err){
     if (err){
       return console.log(err)
     }else{
@@ -45,7 +61,7 @@ export default function saveToDB(json){
   console.log(json)
 }
 
-db.info(function (err,info) {
+this.$pouch.info(function (err,info) {
   if (err) {
     return console.log(err)
   } else {
@@ -53,5 +69,7 @@ db.info(function (err,info) {
   }
 })
 
+
+ */
 
 

@@ -35,7 +35,7 @@ import Slider from './Slider.vue'
 import Paintype from './Paintype.vue'
 import Painchange from './Painchange.vue'
 import '../main.js'
-import saveToDB from "@/main";
+import * as PoucheDB from '../database'
 export default {
     name: "Painregistry",
     data: function(){
@@ -61,7 +61,8 @@ export default {
         },
         save: function() {
                 console.log("saving to json");
-                saveToDB(JSON.stringify(this.values));
+                PoucheDB.saveToDB(JSON.stringify(this.values));
+            //PoucheDB.saveTestToDB()
         },
 
         update: function(valueToChange,event) {
