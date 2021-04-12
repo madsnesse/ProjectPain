@@ -146,10 +146,12 @@ export default {
         /* Tries to add pain for rendering. */
         function addPain(pain) {
           if (availablePains.includes(pain)) {
-            selectedPains.push(pain);
+            if (selectedPains.includes(pain)) {
+              console.warn("Pain already selected, skipping.");
+            } else {
+              selectedPains.push(pain);
+            }
             painInput.value = "";  // reset
-          } else {
-            console.warn("Pain not correct.");
           }
         }
 
