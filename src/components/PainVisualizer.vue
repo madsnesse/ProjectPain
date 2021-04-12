@@ -2,22 +2,20 @@
   <div id="parent">
     <div id="canvas"></div>
 
-    <input id="radiusSlider" type="range" min="1" max="100" value="25">
-    <button id="resetButton">Reset</button>
-
-    <div style="border : solid 1 px black;">
-      <input type="checkbox" id="temporal" value="temporal" name="pain_type">
-      <label for="temporal">temporal</label>
-
-      <input type="checkbox" id="spatial" value="spatial" name="pain_type">
-      <label for="spatial">spatial</label>
-
-      <input type="checkbox" id="thermal" value="thermal" name="pain_type">
-      <label for="thermal">thermal</label>
-
-      <input type="checkbox" id="sensory" value="sensory" name="pain_type">
-      <label for="sensory">sensory</label>
+    <!-- RADIUS -->
+    <div>
+      <label for="radiusSlider">Radius: {{ radius }}</label>
+      <b-form-input id="radiusSlider" v-model="radius" type="range" min="1" max="100"></b-form-input>
     </div>
+
+    <!-- RESET -->
+    <b-button variant="primary" id="resetButton" class="w-100 mt-3">Reset</b-button>
+
+    <!-- FIGURE -->
+    <b-form-input id="figureInput" placeholder="Set figure" class="w-100 mt-3"></b-form-input>
+
+    <!-- PAIN -->
+    <b-form-input id="painInput" placeholder="Add pain" class="w-100 mt-3"></b-form-input>
   </div>
 </template>
 
@@ -29,21 +27,31 @@ const p5_lib = require('p5');
 
 export default {
     name: "PainVisualizer",
+    data() {
+      return {
+          radius: 25
+      }
+    },
     created() {
       const pain_visualize = p5 => {
         // Constants
-        const aspectImage = 490/1280;
+        const aspectImage = 437/853;
         const aspectCanvas = 9/14;
 
         // p5 variables
-        let bodyImage;        // reference to body image
-        let bg_canvas;        // back-most canvas, actually draw circles on this
+        var bodyImage;        // reference to body image
+        var bg_canvas;        // back-most canvas, actually draw circles on this
         var canvas;           // reference to the p5 canvas
 
         // Pain Circle
         let circleRadius = 30;  // Relative: from 0 to 100
         let innerCircleR = 0;
-        let pain_types = [];
+        let figure = "man-front-large";
+        let availablePains = [
+          "thermal",
+          "spatial"
+        ];
+        let selectedPains = ["thermal"];
 
         // Size and positional variables
         let width_div;  // width of parent div
@@ -57,9 +65,14 @@ export default {
         var parent;
         var radiusSlider;
         var resetButton;
+        var figureInput;
+        var painInput;
 
+        ////////////////////////////////////////////////////
+        //// p5-FUNCTIONS BELOW                        ////
+        //////////////////////////////////////////////////
         p5.preload = function() {
-          let img = require("@/assets/man-front-med.png")  // thanks to https://stackoverflow.com/a/65872755
+          let img = require("@/assets/"+figure+".png")  // thanks to https://stackoverflow.com/a/65872755
           bodyImage = p5.loadImage(img);  // todo resize image - too large atm
         }
 
@@ -85,16 +98,56 @@ export default {
           // Get UI elements
           radiusSlider = document.getElementById("radiusSlider");
           resetButton = document.getElementById("resetButton");
+          figureInput = document.getElementById("figureInput");
+          painInput = document.getElementById("painInput");
           resetButton.onclick = function(){resetBackground()};
 
           // BLENDMODE
-          p5.blendMode(p5.DODGE);
+          p5.blendMode(p5.MULTIPLY);
         }
 
+        p5.draw = function() {
+          updateValues();
+
+          // Clear & render background
+          p5.clear();
+          p5.image(bg_canvas, 0, 0);
+
+          let mx = p5.mouseX / w;  // rel. mouse pos., 0 to 1
+          let my = p5.mouseY / h;
+
+          if (0 <= mx && mx <= 1 && 0 <= my && my <= 1) {  // bounds check
+            selectedPains.forEach(drawCircle);
+          }
+        }
+
+        ////////////////////////////////////////////////////
+        //// CUSTOM FUNCTIONS (NON-p5)                 ////
+        //////////////////////////////////////////////////
         function resetBackground() {
           bg_canvas.clear();
           let imgWidth = 1.20*w
-          bg_canvas.image(bodyImage, 26*rx, 5*ry, imgWidth*aspectImage, imgWidth);
+
+          bg_canvas.image(bodyImage, 19*rx, 10*ry, imgWidth*aspectImage, imgWidth);
+        }
+
+        function changeFigure(new_figure) {
+          try {
+            let new_img = require("@/assets/"+new_figure+".png")  // thanks to https://stackoverflow.com/a/65872755
+            bodyImage = p5.loadImage(new_img, resetBackground);  // callback to resetBackground
+            figureInput.value = "";  // reset field
+          } catch (error) {
+            console.log("Figure invalid.");
+          }
+        }
+
+        function addPain(pain) {
+          if (availablePains.includes(pain)) {
+            selectedPains.push(pain);
+            painInput.value = "";  // reset
+          } else {
+            console.warn("Pain not correct.");
+          }
         }
 
         function updateValues() {
@@ -106,13 +159,16 @@ export default {
             p5.remove();
           }
 
-          // get pain_types from checkboxes
-          pain_types = [];  // reset
-          let cbs = document.getElementsByName("pain_type");
-          for (var i = 0; i < cbs.length; i ++) {
-            if (cbs[i].checked) {
-                pain_types.push(cbs[i].value);
-            }
+          // check if user sel. diff figure
+          let fig = figureInput.value;
+          if (fig != "") {
+            changeFigure(fig);  // tries to change figure
+          }
+
+          // check if user sel. pain
+          let pain = painInput.value;
+          if (pain != "") {
+            addPain(pain);  // tries to add pain
           }
 
           circleRadius = radiusSlider.value;
@@ -182,22 +238,7 @@ export default {
           }
         }
 
-        p5.draw = function() {
-          updateValues();
-
-          // Clear & render background
-          p5.clear();
-          p5.image(bg_canvas, 0, 0);
-
-          let mx = p5.mouseX / w;  // rel. mouse pos., 0 to 1
-          let my = p5.mouseY / h;
-
-          if (0 <= mx && mx <= 1 && 0 <= my && my <= 1) {  // bounds check
-            pain_types.forEach(drawCircle);
-          }
-        }
-
-        ///////////////////////////////////////////////////
+        ////////////////////////////////////////////////////
         //// EVENTS BELOW                              ////
         //////////////////////////////////////////////////
         p5.touchEnded = function() {
@@ -226,7 +267,7 @@ export default {
 
         p5.windowResized = function() {
           updateValues();
-          console.log(parent.offsetWidth);
+          console.log("Resized to width " + parent.offsetWidth);
           // Resize canvas and background_canvas
           p5.resizeCanvas(width_div, width_div/aspectCanvas);
           bg_canvas.resizeCanvas(width_div, width_div/aspectCanvas);
