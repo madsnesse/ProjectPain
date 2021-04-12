@@ -57,9 +57,13 @@ export default {
           "spatial",
           "pressure",
           "thermal",
-          "brightness"
+          "brightness",
+          "sharp"  // this one is custom, for testing
         ];
         let selectedPains = ["thermal"];  // actually renders
+
+        // Icons
+        let sharp_pain_img;
 
         // Rendering
         let pressureRendering = false;
@@ -89,6 +93,10 @@ export default {
           let img = require("@/assets/"+figure+".png")  // thanks to https://stackoverflow.com/a/65872755
           bodyImage = p5.loadImage(img);  // todo resize image - too large atm
           document.getElementById("figureInputLabel").innerText = figure;
+
+          // Load icon
+          let sharp_pain_asset = require("@/assets/sharp_pain.png")
+          sharp_pain_img = p5.loadImage(sharp_pain_asset);  // callback to resetBackground
         }
 
         p5.setup = function() {
@@ -266,11 +274,11 @@ export default {
                 innerCircleR++;
               }
               p5.fill(255, 0, 0, 120);
-              p5.circle(p5.mouseX, p5.mouseY, circleRadius*w/200);
+              p5.circle(p5.mouseX, p5.mouseY, circleRadius*0.5*rx);
 
               // inner circle
               p5.fill(255, 0, 0, 50);
-              p5.circle(p5.mouseX, p5.mouseY, innerCircleR*w/200);
+              p5.circle(p5.mouseX, p5.mouseY, innerCircleR*0.5*rx);
               break;
 
             case "spatial":
@@ -285,6 +293,11 @@ export default {
               // inner circle
               p5.fill(255, 0, 0, 50);
               p5.circle(p5.mouseX, p5.mouseY, innerCircleR*w/200);
+              break;
+
+            case "sharp":
+              // for now - just render icon
+              p5.image(sharp_pain_img, p5.mouseX-circleRadius*1.5, p5.mouseY-circleRadius*1.5, 20, 20);
               break;
 
             default:
