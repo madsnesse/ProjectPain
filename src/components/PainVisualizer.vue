@@ -45,13 +45,13 @@ export default {
 
         // Pain Circle
         let circleRadius = 30;  // Relative: from 0 to 100
-        let innerCircleR = 0;
+        let innerCircleR = 0;   // Used for pulsating circle
         let figure = "man-front-large";
         let availablePains = [
           "thermal",
           "spatial"
         ];
-        let selectedPains = ["thermal"];
+        let selectedPains = ["thermal"];  // actually renders
 
         // Size and positional variables
         let width_div;  // width of parent div
@@ -124,6 +124,7 @@ export default {
         ////////////////////////////////////////////////////
         //// CUSTOM FUNCTIONS (NON-p5)                 ////
         //////////////////////////////////////////////////
+        /* Re-draws bg. */
         function resetBackground() {
           bg_canvas.clear();
           let imgWidth = 1.20*w
@@ -131,6 +132,7 @@ export default {
           bg_canvas.image(bodyImage, 19*rx, 10*ry, imgWidth*aspectImage, imgWidth);
         }
 
+        /* Tries to change background figure -> resets bg if changed. */
         function changeFigure(new_figure) {
           try {
             let new_img = require("@/assets/"+new_figure+".png")  // thanks to https://stackoverflow.com/a/65872755
@@ -141,6 +143,7 @@ export default {
           }
         }
 
+        /* Tries to add pain for rendering. */
         function addPain(pain) {
           if (availablePains.includes(pain)) {
             selectedPains.push(pain);
@@ -150,6 +153,7 @@ export default {
           }
         }
 
+        /* Updates values before rendering every frame. */
         function updateValues() {
           // width of parent div
           try {
