@@ -2,7 +2,7 @@
   <b-container id="main">
     <b-row align-h="center" class="my-5"><h1 id="welcome">Profile!</h1></b-row>
     <b-row align-h="center" class="my-5"
-      ><router-link tag="b-button" class="buttons" to="/home"
+      ><router-link tag="b-button" class="buttons" to="/history"
         >history</router-link
       ></b-row
     >
