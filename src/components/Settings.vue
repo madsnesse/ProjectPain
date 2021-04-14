@@ -7,12 +7,18 @@
       <router-link tag="b-button" class="buttons" to="/home">Change Password</router-link>
     </b-row>
 
-    <b-row>
-      <b-button v-b-toggle.accordion-2>Accordion 2</b-button>
+    <b-row align-h="center">
+      <b-button v-b-toggle.accordion-2>Calibrate pain levels</b-button>
       <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
-        <b-card-body>
-          {{ text }}
-        </b-card-body>
+          <b-col>
+            example questions
+            <b-row>How bad is the worst toothache</b-row>
+            <b-row>Add sliders here</b-row>
+            <b-row>How bad is the worst pain you've felt</b-row>
+            <b-row>Add sliders here</b-row>
+            <b-row>How bad is stubbing your toe</b-row>
+            <b-row>Add sliders here</b-row>
+          </b-col>
       </b-collapse>
     </b-row>
 
