@@ -4,21 +4,29 @@
 
     <b-row align-h="center" class="my-5">
       Not ready yet
-      <router-link tag="b-button" class="buttons" to="/home">Change Password</router-link>
+      <b-button v-b-toggle.accordion-1>Change Password</b-button>
+      <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
+        <label class="mt-3" for="OldPass">Old Password:</label>
+        <b-form-input id="OldPass" type="password" v-model="OldPassword" placeholder="Old Password"></b-form-input>
+
+        <label class="mt-3" for="NewPass">New Password:</label>
+        <b-form-input id="NewPass" type="password" v-model="NewPassOne" placeholder="New Password"></b-form-input>
+
+        <label class="mt-3" for="NewPassAgain">New Password again:</label>
+        <b-form-input id="NewPassAgain" type="password" v-model="NewPassTwo" placeholder="New Password again"></b-form-input>
+      </b-collapse>
     </b-row>
 
     <b-row align-h="center">
       <b-button v-b-toggle.accordion-2>Calibrate pain levels</b-button>
       <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
-          <b-col>
-            example questions
-            <b-row>How bad is the worst toothache</b-row>
-            <b-row>Add sliders here</b-row>
-            <b-row>How bad is the worst pain you've felt</b-row>
-            <b-row>Add sliders here</b-row>
-            <b-row>How bad is stubbing your toe</b-row>
-            <b-row>Add sliders here</b-row>
-          </b-col>
+          example questions
+          <b-row>How bad is the worst toothache</b-row>
+          <b-row>Add sliders here</b-row>
+          <b-row>How bad is the worst pain you've felt</b-row>
+          <b-row>Add sliders here</b-row>
+          <b-row>How bad is stubbing your toe</b-row>
+          <b-row>Add sliders here</b-row>
       </b-collapse>
     </b-row>
 
@@ -44,7 +52,10 @@
           wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
           vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic
           synth nesciunt you probably haven't heard of them accusamus labore VHS.
-        `
+        `,
+        OldPassword: "",
+        NewPassOne: "",
+        NewPassTwo: ""
       }
     }
   }
