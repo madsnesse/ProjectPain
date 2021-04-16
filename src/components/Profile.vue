@@ -7,15 +7,15 @@
       ></b-row
     >
     <b-row align-h="center" class="my-5"
-      ><router-link tag="b-button" class="buttons" to="/settings"
-        >settings</router-link
-      ></b-row
+      ><router-link tag="b-button" class="buttons" to="/settings">
+        settings
+      </router-link></b-row
     >
 
     <b-row align-h="center" class="my-5"
-      ><router-link tag="b-button" class="buttons" to="/home"
-        >back</router-link
-      ></b-row
+      ><router-link tag="b-button" class="buttons" to="/home">
+        back
+      </router-link></b-row
     >
   </b-container>
 </template> 
