@@ -3,7 +3,9 @@
         <b-col>
             <b-row align-h="center">
                 <span id="test2"></span>
-                {{ labels[0] }}<input type="range" :min = minimum :max = maximum class="slider" id="painstr" v-model="value">{{ labels[1] }}
+                <b-input-group :prepend= labels[0] :append=labels[1]>
+                   <b-form-input type="range" :min = minimum :max = maximum class="slider" id="painstr" v-model="value"></b-form-input>
+                </b-input-group>
             </b-row>
             <b-row align-h="center">
                 {{ out }}
@@ -43,7 +45,4 @@ export default {
 </script>
 
 <style scoped>
-    #painstr{
-        width: 70%;
-    }
 </style>
