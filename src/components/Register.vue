@@ -27,7 +27,7 @@ export default {
             var password = document.getElementById("password").innerText;
             var secondpassword = document.getElementById("reppass").innerText;
             console.log(email + " " + password + " " + secondpassword);
-            pouchDB.createUser(username,password,email);
+            //pouchDB.createUser(username,password,email);
         }
 
     }   
