@@ -5,6 +5,7 @@ import './plugins/bootstrap-vue'
 import App from './App.vue'
 import router from './router.js'
 import VueRouter from 'vue-router'
+import {BootstrapVue, VBTogglePlugin, IconsPlugin} from 'bootstrap-vue'
 
 export default function saveToDB(json){
   console.log(json)
@@ -13,7 +14,9 @@ export default function saveToDB(json){
 
 Vue.config.productionTip = false
 
-Vue.use(VueRouter)
+Vue.use(VueRouter,BootstrapVue, VBTogglePlugin)
+
+Vue.use(IconsPlugin)
 
 new Vue({
   router,

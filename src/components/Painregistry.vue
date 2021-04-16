@@ -1,18 +1,22 @@
 <template>
     <b-container id = "main">
-        <b-row align-h="center" class="my-5"><h1 id="welcome">pain registry!</h1></b-row>
-        <b-row align-h="center" class="my-5"><b-button v-on:click="toggleVisible(0)" class="buttons">Type of pain</b-button></b-row>
-        <b-row align-h="center" v-show="visible[0]">
-            <Paintype v-on:update= "update('painType',$event)"/>
-        </b-row>
+        <b-row align-h="center" class="mb-3"><h1 id="welcome">pain registry!</h1></b-row>
 
-        <b-row align-h="center" class="my-5"><b-button v-on:click="toggleVisible(1)" class="buttons">Change of pain</b-button></b-row>
-        <b-row align-h="center" v-show="visible[1]">
-            <Painchange/>
-        </b-row>
+        <b-row align-h="center" class="border-bottom"><b-button squared v-b-toggle.paintype class="buttons"  @click="toggleVisible(0)" :variant="visible[0]?'success':'secondary'">Type of pain</b-button></b-row>
+             <b-collapse id="paintype" accordion="accordion-group">
+                    <Paintype v-on:update= "update('painType',$event)" class="mb-3"/>
+            </b-collapse>
 
-        <b-row align-h="center" class="my-5"><b-button v-on:click="toggleVisible(2)" class="buttons">Pain strength</b-button></b-row>
-        <b-row align-h="center" v-show="visible[2]">
+        <b-row align-h="center" class="border-bottom"><b-button squared v-b-toggle.painchange class="buttons"  @click="toggleVisible(1)" :variant="visible[1]?'success':'secondary'">Change of pain</b-button></b-row>
+        <b-row>
+       
+            <b-collapse id="painchange" accordion="accordion-group" class="m-0 p-0 w-100">
+                <Painchange />
+            </b-collapse>
+
+        </b-row>
+        <b-row align-h="center" class=""><b-button squared v-b-toggle.painstrength class="buttons"  @click="toggleVisible(2)" :variant="visible[2]?'success':'secondary'">Pain strength</b-button></b-row>
+        <b-collapse id = "painstrength" accordion="accordion-group">
         <Slider 
             :values = '["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' 
             :minimum="1" 
@@ -21,7 +25,7 @@
             v-on:updateValue= "update('painstrength',$event)"
             :labels="['Weak','Strong']" 
         />
-        </b-row>
+        </b-collapse>
         <b-row align-h="between">
             <b-col class="text-center my-5"><router-link tag="b-button" class="buttons" to="/home">Back</router-link></b-col>
             <b-col class="text-center my-5"><b-button v-on:click="save" class="buttons" to="/home">Register</b-button></b-col>
@@ -70,6 +74,9 @@ export default {
             else if(valueToChange == "painstrength"){
                 this.values.painstrength = event
             }
+        },
+        getVariant: function(i) {
+            return this.visible[i] ? "success" : "secondary"
         }
     }
     
@@ -83,6 +90,6 @@ export default {
         text-align: center;
     }
     .buttons{
-        width: 50%;
+        width: 100%;
     }
 </style>
