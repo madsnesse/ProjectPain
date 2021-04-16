@@ -31,7 +31,7 @@
     </b-row>
 
     <b-row align-h="center" class="my-5">
-      <router-link tag="b-button" class="buttons" to="/home">Go back</router-link>
+      <router-link tag="b-button" class="buttons" to="/profile">Go back</router-link>
     </b-row>
 
   </b-container>
