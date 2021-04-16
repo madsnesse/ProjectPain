@@ -41,7 +41,7 @@ export default {
       const pain_visualize = p5 => {
         // Constants
         const aspectImage = 437/853;
-        const aspectCanvas = 9/14;
+        const aspectCanvas = 5/7;
 
         // p5 variables
         var bodyImage;        // reference to body image
@@ -57,15 +57,11 @@ export default {
           "spatial",
           "pressure",
           "thermal",
-          "brightness",
-          "sharp"  // this one is custom, for testing
+          "brightness"
         ];
         let selectedPains = ["thermal"];  // actually renders
 
-        // Icons
-        let sharp_pain_img;
-
-        // Rendering
+        // Pressure Pain
         let pressureRendering = false;
         let pressureCircles = [];
         let pressureRadiusIncrease = true;
@@ -73,8 +69,6 @@ export default {
         // Size and positional variables
         let width_div;  // width of parent div
         let w, h;       // width and height of canvas DOM
-
-        // Relative units
         let rx;  // canvas width / 100
         let ry;  // canvas height / 100
 
@@ -94,9 +88,6 @@ export default {
           bodyImage = p5.loadImage(img);  // todo resize image - too large atm
           document.getElementById("figureInputLabel").innerText = figure;
 
-          // Load icon
-          let sharp_pain_asset = require("@/assets/sharp_pain.png")
-          sharp_pain_img = p5.loadImage(sharp_pain_asset);  // callback to resetBackground
         }
 
         p5.setup = function() {
@@ -295,11 +286,6 @@ export default {
               p5.circle(p5.mouseX, p5.mouseY, innerCircleR*w/200);
               break;
 
-            case "sharp":
-              // for now - just render icon
-              p5.image(sharp_pain_img, p5.mouseX-circleRadius*1.5, p5.mouseY-circleRadius*1.5, 20, 20);
-              break;
-
             default:
               console.error("Non-valid render type \"" + pain_type + "\"");
           }
@@ -398,7 +384,7 @@ export default {
       // thanks to https://stackoverflow.com/a/61855707
       // for setting up p5 in an vue component
       new p5_lib(pain_visualize);
-    },
+    }
 }
 </script>
 
