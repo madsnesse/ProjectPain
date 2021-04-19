@@ -3,9 +3,36 @@
     <b-row align-h="center" class="my-5"
       ><h1 id="welcome">It's ya boy, Settings page here</h1></b-row
     >
+    <b-row class="my-5">
+      <b-button v-b-toggle.accordion-3>Change gender / weight</b-button>
+      <b-collapse class="w-100" id="accordion-3" accordion="my-accordion" role="tabpanel">
+        <b-row>
+        <b-col cols="5">
+          <b-button @click="updatePict(0)">button 1</b-button>
+          <b-button @click="updatePict(1)">button 2</b-button>
+          <b-button @click="updatePict(2)">button 1</b-button>
+          <b-button @click="updatePict(3)">button 2</b-button>
 
-    <b-row align-h="center" class="my-5">
-      Not ready yet
+        </b-col>
+        <b-col cols="7">
+          <img :src="require(`@/assets/${pictures[currentPict]}`)" class="picture"/>
+        </b-col>
+        </b-row>
+        <!-- <b-row>
+          <b-button v-b-toggle.accordion-4>show</b-button>
+          <b-button @click="updatePict(0)">button 1</b-button>
+          <b-button @click="updatePict(1)">button 2</b-button>
+            <b-collapse id="accordion-4" accordion="my-accordion-2" role="tabpanel">
+              <b-row>
+                <img :src="require(`@/assets/${pictures[currentPict]}`)" class="picture"/>
+              </b-row>
+            </b-collapse>
+        </b-row> -->
+      </b-collapse>
+    </b-row>
+
+
+    <b-row align-h="center">
       <b-button v-b-toggle.accordion-1>Change Password</b-button>
       <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
         <label class="mt-3" for="OldPass">Old Password:</label>
@@ -34,7 +61,7 @@
       </b-collapse>
     </b-row>
 
-    <b-row align-h="center">
+    <b-row align-h="center" class="my-5">
       <b-button v-b-toggle.accordion-2>Calibrate pain levels</b-button>
       <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
         example questions
@@ -66,7 +93,20 @@ export default {
       OldPassword: "",
       NewPassOne: "",
       NewPassTwo: "",
+      currentPict: 0,
+      pictures: ["man-front-large.svg", "man-front-med.svg", "woman-back-large.svg", "woman-back-med.svg"]
     };
   },
+  methods: {
+    updatePict: function(n) {
+      this.currentPict = n;
+    }
+  }
 };
 </script>
+
+<style>
+  .picture{
+    width: 200px;
+  }
+</style>
