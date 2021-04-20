@@ -1,33 +1,25 @@
 <template>
   <b-container id="main">
     <b-row align-h="center" class="my-5"
-      ><h1 id="welcome">It's ya boy, Settings page here</h1></b-row
+      ><h1 id="welcome">Settings</h1></b-row
     >
     <b-row class="my-5">
       <b-button v-b-toggle.accordion-3>Change gender / weight</b-button>
       <b-collapse class="w-100" id="accordion-3" accordion="my-accordion" role="tabpanel">
         <b-row>
-        <b-col cols="5">
-          <b-button @click="updatePict(0)">button 1</b-button>
-          <b-button @click="updatePict(1)">button 2</b-button>
-          <b-button @click="updatePict(2)">button 1</b-button>
-          <b-button @click="updatePict(3)">button 2</b-button>
-
-        </b-col>
         <b-col cols="7">
           <img :src="require(`@/assets/${pictures[currentPict]}`)" class="picture"/>
         </b-col>
+        <b-col class="my-2" cols="5">
+          <b-button @click="updatePict(0)">Male L</b-button>
+          <b-button @click="updatePict(1)">Male M</b-button>
+          <b-button @click="updatePict(1)">Male S</b-button>
+          <b-button @click="updatePict(2)">Female L</b-button>
+          <b-button @click="updatePict(3)">Female M</b-button>
+          <b-button @click="updatePict(3)">Female S</b-button>
+          <b-row>small not implemented</b-row>
+        </b-col>
         </b-row>
-        <!-- <b-row>
-          <b-button v-b-toggle.accordion-4>show</b-button>
-          <b-button @click="updatePict(0)">button 1</b-button>
-          <b-button @click="updatePict(1)">button 2</b-button>
-            <b-collapse id="accordion-4" accordion="my-accordion-2" role="tabpanel">
-              <b-row>
-                <img :src="require(`@/assets/${pictures[currentPict]}`)" class="picture"/>
-              </b-row>
-            </b-collapse>
-        </b-row> -->
       </b-collapse>
     </b-row>
 
@@ -65,13 +57,11 @@
       <b-button v-b-toggle.accordion-2>Calibrate pain levels</b-button>
       <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
         example questions
-        <b-row>How bad is the worst toothache</b-row>
+        <b-row>How bad is the worst headache you ever had?</b-row>
         <b-row>Add sliders here</b-row>
-        <b-row>How bad is the worst pain you've felt</b-row>
+        <b-row>How bad is the worst headache you ever had</b-row>
         <b-row>Add sliders here</b-row>
-        <b-row>How bad is stubbing your toe</b-row>
-        <b-row>Add sliders here</b-row>
-        <b-row>How bad was The Rise of Skywalker</b-row>
+        <b-row>How bad is the worst stomach ache you ever had</b-row>
         <b-row>Add sliders here</b-row>
       </b-collapse>
     </b-row>
