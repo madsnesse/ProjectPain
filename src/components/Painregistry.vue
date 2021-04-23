@@ -90,6 +90,8 @@ export default {
         text-align: center;
     }
     .buttons{
+        height: 50px;
         width: 100%;
+        text-align: center;
     }
 </style>

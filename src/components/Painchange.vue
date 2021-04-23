@@ -15,12 +15,18 @@
             
             <b-button 
                 squared 
+                size="lg"
                 v-b-toggle.increase 
                 :variant="accordion[0]?'success':'primary'"
                 @click="toggleAccord(0)"
                 id="topOfInc"
-                class="border-bottom border-dark text-center align-items-right">
-                    Does the following <b>increase </b>your pain? <b-icon :hidden = "!accordion[0]" icon="chevron-up"></b-icon> <b-icon :hidden = "accordion[0]" icon="chevron-down"></b-icon>
+                class="border-bottom border-dark d-flex justify-content-center align-items-right">
+                    
+                    
+                        <b-container class="w-100 text">Does the following <b>increase</b> your pain?</b-container>
+
+                        <b-icon :hidden = "!accordion[0]" icon="dash" scale="2"></b-icon> 
+                        <b-icon :hidden = "accordion[0]" icon="plus" scale="2"></b-icon>
             </b-button>
             <b-collapse id="increase" accordion="painchange">
                 <b-button 
@@ -34,19 +40,22 @@
                     {{option.text}}
                 </b-button>
             </b-collapse>
-        </b-row>
-        <b-row class="">
             <b-button
                 squared 
+                size="lg"
                 v-b-toggle.decrease 
                 :variant="accordion[1]?'success':'primary'" 
                 @click="toggleAccord(1)"
                 id="topOfDec"
-                class="border-bottom border-dark">
-                    
-                   <template> the following <b> decrease </b>your pain? </template>
-                   <template #append><b-icon :hidden = '!accordion[1]' icon='chevron-up'></b-icon> <b-icon :hidden = 'accordion[1]' icon='chevron-down'></b-icon>
-                </template>
+                class="border-bottom border-dark d-flex justify-content-center"
+                >
+                        <b-container class="w-100">Does the following decrease your pain?</b-container>
+
+                        <b-icon :hidden = "!accordion[1]" icon="dash" scale="2"></b-icon> 
+                        <b-icon :hidden = "accordion[1]" icon="plus" scale="2"></b-icon>
+                        
+                
+            
             </b-button>
              <b-collapse id="decrease" accordion="painchange">
                 <b-button 
