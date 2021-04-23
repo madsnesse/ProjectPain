@@ -57,10 +57,8 @@ export default {
 
         const availablePains = [
           "temporal",
-          "spatial",
-          "pressure",
           "thermal",
-          "brightness"
+          "sensory"
         ];
 
         // Size and positional variables
@@ -205,15 +203,19 @@ export default {
               circle.pain_obj.sinus_arg %= Math.PI;
 
               // Outer circle
-              p5.stroke(0);
               p5.fill(230, 0, 0, 150);
               p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
 
               // Inner circle
-              p5.noStroke();
               p5.fill(230, 0, 0, 100);
               radius = (circle.r*rx)*p5.sin(circle.pain_obj.sinus_arg);
               p5.circle(circle.x*rx, circle.y*ry, radius);
+              break;
+
+            case "sensory":
+              // Outer circle
+              p5.fill(0, 0, 230, 150);
+              p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
               break;
 
             default:
@@ -229,6 +231,9 @@ export default {
 
             case "temporal":
               return {x:p5.mouseX, y:p5.mouseY, r:radiusSlider.value, pain_obj: {type:"temporal", sinus_arg: 0, speed: 0.01}};
+
+            case "sensory":
+              return {x:p5.mouseX, y:p5.mouseY, r:radiusSlider.value, pain_obj: {type:"sensory"}};
 
             default:
               console.error("Non-valid pain type \"" + pain_type + "\"");
