@@ -4,7 +4,7 @@
       ><h1 id="welcome">Settings</h1></b-row
     >
     <b-row class="my-5">
-      <b-button v-b-toggle.accordion-3>Change gender / weight</b-button>
+      <b-button v-b-toggle.accordion-3 class="mb-2">Change gender / weight</b-button>
       <b-collapse class="w-100" id="accordion-3" accordion="my-accordion" role="tabpanel">
         <b-row>
         <b-col cols="7">
