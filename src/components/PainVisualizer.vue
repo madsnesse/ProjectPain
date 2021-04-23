@@ -263,6 +263,7 @@ export default {
         p5.windowResized = function() {
           updateValues();
           console.log("Resized to width " + parent.offsetWidth);
+          circles = [];
           // Resize canvas and background_canvas
           p5.resizeCanvas(width_div, width_div/aspectCanvas);
         }
