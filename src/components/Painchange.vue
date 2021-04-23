@@ -15,7 +15,7 @@
             
             <b-button 
                 squared 
-                size="lg"
+                size="md"
                 v-b-toggle.increase 
                 :variant="accordion[0]?'success':'primary'"
                 @click="toggleAccord(0)"
@@ -42,7 +42,7 @@
             </b-collapse>
             <b-button
                 squared 
-                size="lg"
+                size="md"
                 v-b-toggle.decrease 
                 :variant="accordion[1]?'success':'primary'" 
                 @click="toggleAccord(1)"
