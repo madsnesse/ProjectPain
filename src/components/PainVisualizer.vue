@@ -118,7 +118,7 @@ export default {
           p5.clear();
           p5.image(bodyFigure, 19*rx, 10*ry, w*aspectImage, w);
 
-          // Saved circles
+          // draw each saved circle
           for (let circle of circles) {
             drawCircle(circle);
           }
