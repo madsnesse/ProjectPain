@@ -181,8 +181,8 @@ export default {
           w = canvas_rect.width, h = canvas_rect.height;
 
           // Update curr_circle
-          curr_circle["x"] = p5.mouseX;
-          curr_circle["y"] = p5.mouseY;
+          curr_circle["x"] = 100*(p5.mouseX/w);
+          curr_circle["y"] = 100*(p5.mouseY/h);
           curr_circle["r"] = radiusSlider.value;
 
           // Update relative variables
@@ -197,7 +197,7 @@ export default {
           switch (circle.pain_obj.type) {
             case "thermal":
               p5.fill(200, 0, 0, 150);
-              p5.circle(circle.x, circle.y, circle.r*rx);
+              p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
               break;
 
             case "temporal":
@@ -207,13 +207,13 @@ export default {
               // Outer circle
               p5.stroke(0);
               p5.fill(230, 0, 0, 150);
-              p5.circle(circle.x, circle.y, circle.r*rx);
+              p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
 
               // Inner circle
               p5.noStroke();
               p5.fill(230, 0, 0, 100);
               radius = (circle.r*rx)*p5.sin(circle.pain_obj.sinus_arg);
-              p5.circle(circle.x, circle.y, radius);
+              p5.circle(circle.x*rx, circle.y*ry, radius);
               break;
 
             default:
@@ -240,10 +240,12 @@ export default {
         //////////////////////////////////////////////////
         p5.touchEnded = function() {
           // Save circle if within bounds
-          let tx = p5.mouseX / w;  // rel. mouse pos., 0 to 1
-          let ty = p5.mouseY / h;
-          if (0 <= tx && tx <= 1 && 0 <= ty && ty <= 1) {  // bounds check
+          let tx = 100*(p5.mouseX / w);  // rel. mouse pos., 0 to 100
+          let ty = 100*(p5.mouseY / h);
+          if (0 <= tx && tx <= 100 && 0 <= ty && ty <= 100) {  // bounds check
             console.log("touch event @ abs("+Math.round(p5.mouseX)+", "+Math.round(p5.mouseY)+")");
+            curr_circle.x = tx;
+            curr_circle.y = ty;
             circles.push(Object.assign({}, curr_circle));
             curr_circle = circleFactory("thermal");  // reset
           }
@@ -251,10 +253,12 @@ export default {
 
         p5.mouseReleased = function() {
           // Save circle if within bounds
-          let mx = p5.mouseX / w;  // rel. mouse pos., 0 to 1
-          let my = p5.mouseY / h;
-          if (0 <= mx && mx <= 1 && 0 <= my && my <= 1) {  // bounds check
+          let mx = 100*(p5.mouseX / w);  // rel. mouse pos., 0 to 100
+          let my = 100*(p5.mouseY / h);
+          if (0 <= mx && mx <= 100 && 0 <= my && my <= 100) {  // bounds check
             console.log("mouse event @ abs("+Math.round(p5.mouseX)+", "+Math.round(p5.mouseY)+")");
+            curr_circle.x = mx;
+            curr_circle.y = my;
             circles.push(Object.assign({}, curr_circle));
             curr_circle = circleFactory("thermal");  // reset
           }
@@ -263,7 +267,6 @@ export default {
         p5.windowResized = function() {
           updateValues();
           console.log("Resized to width " + parent.offsetWidth);
-          circles = [];
           // Resize canvas and background_canvas
           p5.resizeCanvas(width_div, width_div/aspectCanvas);
         }
