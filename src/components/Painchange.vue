@@ -34,7 +34,7 @@
                     :key="option.value"
                     squared
                     @click="selectMultInc(option.value)"
-                    :variant="option.selected ? 'success' : 'secondary'"
+                    :variant="option.selected ? 'outline-success' : 'secondary'"
                     class="border-bottom border-dark"
                     >
                     {{option.text}}
@@ -62,7 +62,7 @@
                     v-for="option in decreaseOptions" 
                     :key="option.value"
                     squared
-                    @click="selectMult(option.value)"
+                    @click="selectMultDec(option.value)"
                     :variant="option.selected ? 'success' : 'secondary'"
                     class="border-bottom border-dark"
                     >

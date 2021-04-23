@@ -11,7 +11,7 @@
         <b-row>
        
             <b-collapse id="painchange" accordion="accordion-group" class="m-0 p-0 w-100">
-                <Painchange />
+                <Painchange v-on:update= "update('painChange', $event)" />
             </b-collapse>
 
         </b-row>
