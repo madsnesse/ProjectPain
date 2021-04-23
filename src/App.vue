@@ -19,17 +19,18 @@ export default{
 </script>
 <style scoped>
   #test{
-        background-color: rgb(209, 248, 255);
+        background-color: var(--primary);
         color: grey;
         min-height: 100vh;
 
     }
-    #test1{
-        background-color: rgb(128, 78, 245);
-    }
   #app{
-    background-color: cornflowerblue;
+    background-color: var(--background);
     min-height: 100vh;
     min-width: 100%;
   }
+</style>
+<style lang="scss">
+@import './assets/custom.scss';
+@import './node_modules/bootstrap/scss/bootstrap.scss';
 </style>
