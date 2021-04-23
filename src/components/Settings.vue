@@ -3,11 +3,11 @@
     <b-row align-h="center" class="my-5"
       ><h1 id="welcome">Settings</h1></b-row
     >
-    <b-row class="my-5">
-      <b-button v-b-toggle.accordion-3 class="mb-2">Change gender / weight</b-button>
+    <b-row class="mt-5 mb-5">
+      <b-button v-b-toggle.accordion-3 class="">Change gender / weight</b-button>
       <b-collapse class="w-100" id="accordion-3" accordion="my-accordion" role="tabpanel">
         <b-row>
-        <b-col cols="7">
+        <b-col class="mt-2" cols="7">
           <img :src="require(`@/assets/${pictures[currentPict]}`)" class="picture"/>
         </b-col>
         <b-col class="my-2" cols="5">
@@ -56,13 +56,33 @@
     <b-row align-h="center" class="my-5">
       <b-button v-b-toggle.accordion-2>Calibrate pain levels</b-button>
       <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
-        example questions
-        <b-row>How bad is the worst headache you ever had?</b-row>
-        <b-row>Add sliders here</b-row>
-        <b-row>How bad is the worst headache you ever had</b-row>
-        <b-row>Add sliders here</b-row>
-        <b-row>How bad is the worst stomach ache you ever had</b-row>
-        <b-row>Add sliders here</b-row>
+        
+        <b-row class="mt-2">How bad is the worst headache you ever had?</b-row>
+        <b-row align-h="center">
+          <Slider 
+          :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' 
+          :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef" 
+          @updateValue= "update(0,$event)" 
+          :labels="['Weak','Strong']" />
+        </b-row>
+
+        <b-row class="mt-2">How bad is the worst headache you ever had</b-row>
+        <b-row align-h="center">
+          <Slider 
+          :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' 
+          :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef" 
+          @updateValue= "update(0,$event)" 
+          :labels="['Weak','Strong']" />
+        </b-row>
+        
+        <b-row class="mt-2">How bad is the worst stomach ache you ever had</b-row>
+        <b-row align-h="center">
+          <Slider 
+          :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' 
+          :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef" 
+          @updateValue= "update(0,$event)" 
+          :labels="['Weak','Strong']" />
+        </b-row>
       </b-collapse>
     </b-row>
 
@@ -76,7 +96,11 @@
 
 
 <script>
+import Slider from './Slider.vue'
 export default {
+  components:{
+        Slider
+    },
   name: "Settings",
   data() {
     return {
@@ -84,7 +108,10 @@ export default {
       NewPassOne: "",
       NewPassTwo: "",
       currentPict: 0,
-      pictures: ["man-front-large.svg", "man-front-med.svg", "woman-back-large.svg", "woman-back-med.svg"]
+      pictures: ["man-front-large.svg", "man-front-med.svg", "woman-back-large.svg", "woman-back-med.svg"],
+      sliderMin: 1,
+      sliderMax: 5,
+      sliderDef:1
     };
   },
   methods: {
