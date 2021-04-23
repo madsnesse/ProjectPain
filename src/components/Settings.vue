@@ -57,7 +57,7 @@
       <b-button v-b-toggle.accordion-2>Calibrate pain levels</b-button>
       <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
         
-        <b-row class="mt-2">How bad is the worst headache you ever had?</b-row>
+        <b-row class="mt-3 ml-2 mr-2">How bad is the worst headache you ever had?</b-row>
         <b-row align-h="center">
           <Slider 
           :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' 
@@ -66,7 +66,7 @@
           :labels="['Weak','Strong']" />
         </b-row>
 
-        <b-row class="mt-2">How bad is the worst headache you ever had</b-row>
+        <b-row class="mt-2 ml-2 mr-2">How bad is the worst headache you ever had</b-row>
         <b-row align-h="center">
           <Slider 
           :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' 
@@ -75,7 +75,7 @@
           :labels="['Weak','Strong']" />
         </b-row>
         
-        <b-row class="mt-2">How bad is the worst stomach ache you ever had</b-row>
+        <b-row class="mt-2 ml-2 mr-2">How bad is the worst stomach ache you ever had</b-row>
         <b-row align-h="center">
           <Slider 
           :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' 
