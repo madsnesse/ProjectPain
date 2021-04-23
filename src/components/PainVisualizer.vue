@@ -51,7 +51,7 @@ export default {
          * r        =  value from 0 to 100 (% of width)
          * pain_obj =  object for rendering, see 'circleFactory()' for more
         */
-        var curr_circle = {x:p5.mouseX, y:p5.mouseY, r:25, pain_obj: {type:"temporal", sinus_arg: 0, speed: 0.01}};
+        var current_circle = {x:p5.mouseX, y:p5.mouseY, r:25, pain_obj: {type:"temporal", sinus_arg: 0, speed: 0.01}};
         var circles = [];
         var radius;  // reusable variable
 
@@ -131,7 +131,7 @@ export default {
           }
 
           // Overlaying circle
-          drawCircle(curr_circle);
+          drawCircle(current_circle);
         }
 
         ////////////////////////////////////////////////////
@@ -171,26 +171,24 @@ export default {
             // update label
             document.getElementById("setPainInputLabel").innerText = "Pain: " + pain;
             setPainInput.value = "";  // reset
-            curr_circle = circleFactory(pain); // TODO add multiple pains
+            current_circle = circleFactory(pain); // TODO add multiple pains
           }
 
           // Updated scaling variables
           let canvas_rect = canvas.elt.getBoundingClientRect();
           w = canvas_rect.width, h = canvas_rect.height;
 
-          // Update curr_circle
-          curr_circle["x"] = 100*(p5.mouseX/w);
-          curr_circle["y"] = 100*(p5.mouseY/h);
-          curr_circle["r"] = radiusSlider.value;
+          // Update current_circle
+          current_circle["x"] = 100*(p5.mouseX/w);
+          current_circle["y"] = 100*(p5.mouseY/h);
+          current_circle["r"] = radiusSlider.value;
 
           // Update relative variables
           rx = w/100;
           ry = h/100;
         }
 
-        /* Renders a circle based on type of pain.
-         * Use this method unless saving circle on background.
-         */
+        /* Renders a circle based on type of pain. */
         function drawCircle(circle) {
           switch (circle.pain_obj.type) {
             case "thermal":
@@ -249,10 +247,10 @@ export default {
           let ty = 100*(p5.mouseY / h);
           if (0 <= tx && tx <= 100 && 0 <= ty && ty <= 100) {  // bounds check
             console.log("touch event @ abs("+Math.round(p5.mouseX)+", "+Math.round(p5.mouseY)+")");
-            curr_circle.x = tx;
-            curr_circle.y = ty;
-            circles.push(Object.assign({}, curr_circle));
-            curr_circle = circleFactory("thermal");  // reset
+            current_circle.x = tx;
+            current_circle.y = ty;
+            circles.push(Object.assign({}, current_circle));
+            current_circle = circleFactory("thermal");  // reset
           }
         }
 
@@ -262,10 +260,10 @@ export default {
           let my = 100*(p5.mouseY / h);
           if (0 <= mx && mx <= 100 && 0 <= my && my <= 100) {  // bounds check
             console.log("mouse event @ abs("+Math.round(p5.mouseX)+", "+Math.round(p5.mouseY)+")");
-            curr_circle.x = mx;
-            curr_circle.y = my;
-            circles.push(Object.assign({}, curr_circle));
-            curr_circle = circleFactory("thermal");  // reset
+            current_circle.x = mx;
+            current_circle.y = my;
+            circles.push(Object.assign({}, current_circle));
+            current_circle = circleFactory("thermal");  // reset
           }
         }
 
