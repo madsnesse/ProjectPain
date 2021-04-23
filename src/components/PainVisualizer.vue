@@ -207,7 +207,7 @@ export default {
 
             case "sensory":
               // Outer circle
-              p5.fill(0, 0, 230, 150);
+              p5.fill(0, 0, 255, 85);
               p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
               break;
 
