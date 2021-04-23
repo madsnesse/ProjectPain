@@ -35,7 +35,7 @@ import Slider from './Slider.vue'
 import Paintype from './Paintype.vue'
 import Painchange from './Painchange.vue'
 import '../main.js'
-import * as PoucheDB from '../database'
+import * as PoucheDB from '../database.js'
 export default {
     name: "Painregistry",
     data: function(){
@@ -43,6 +43,7 @@ export default {
             visible: [false, false, false],
             visIndex: 0,
             values: {
+                _id: "",
                 painstrength:0,
                 painType:[]
             }
@@ -60,9 +61,17 @@ export default {
                 this.visIndex = i        
         },
         save: function() {
+                console.log("Length of database " + PoucheDB.lengthOfDatabase());
                 console.log("saving to json");
+                this.values._id = PoucheDB.lengthOfDatabase();
+                PoucheDB.logIn()
+
+                console.log("Length of database " + PoucheDB.lengthOfDatabase());
+
                 PoucheDB.saveToDB(JSON.stringify(this.values));
-            //PoucheDB.saveTestToDB()
+                //console.log("Data From  DB")
+                //PoucheDB.getAllDataFromDB();
+
         },
 
         update: function(valueToChange,event) {
@@ -73,6 +82,7 @@ export default {
                 this.values.painstrength = event
             }
         }
+
     }
     
 }

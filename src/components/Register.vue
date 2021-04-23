@@ -15,19 +15,19 @@
 
 
 <script>
-    import * as pouchDB from "../database.js"
+    //import * as pouchDB from "../database.js"
 export default {
 
     name: "Register",
     methods: {
         register: function(i){
-            console.log(i)
-            var username = document.getElementById("username").innerText;
-            var email = document.getElementById("email").innerText;
-            var password = document.getElementById("password").innerText;
-            var secondpassword = document.getElementById("reppass").innerText;
+            console.log(i);
+            //var username = document.getElementById("username").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var secondpassword = document.getElementById("reppass").value;
             console.log(email + " " + password + " " + secondpassword);
-            //pouchDB.createUser(username,password,email);
+            //pouchDB.lengthOfDatabase()
         }
 
     }   
