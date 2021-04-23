@@ -20,7 +20,7 @@ export default{
 <style scoped>
   #test{
         background-color: var(--primary);
-        color: grey;
+        color: rgb(0, 0, 0);
         min-height: 100vh;
 
     }
