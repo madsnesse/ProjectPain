@@ -40,8 +40,8 @@ export default {
         const aspectImage = 437/853;
         const aspectCanvas = 5/7;
 
-        // p5 variables
-        let figure = "man-front-large";
+        // p5 background & misc.
+        var figure = "man-front-large";
         var bodyFigure;        // reference to body image
         var canvas;            // reference to the p5 canvas
 
@@ -53,13 +53,12 @@ export default {
         */
         var current_circle = {x:p5.mouseX, y:p5.mouseY, r:25, pain_obj: {type:"temporal", sinus_arg: 0, speed: 0.01}};
         var circles = [];
-        var radius;  // reusable variable
-
         const availablePains = [
           "temporal",
           "thermal",
           "sensory"
         ];
+        var radius;  // reusable variable
 
         // Size and positional variables
         let width_div;  // width of parent div
@@ -121,21 +120,17 @@ export default {
 
           // Saved circles
           for (let circle of circles) {
-            // relative position from 0 to 1
-            let x_ = circle.x / w;
-            let y_ = circle.y / h;
-
-            if (0 <= x_ && x_ <= 1 && 0 <= y_ && y_ <= 1) {  // bounds check
-              drawCircle(circle);
-            }
+            drawCircle(circle);
           }
 
-          // Overlaying circle
-          drawCircle(current_circle);
+          // draw overlaying circle if within bounds
+          if (0 <= current_circle.x && current_circle.x <= 100 && 0 <= current_circle.y && current_circle.y <= 100) {
+            drawCircle(current_circle);
+          }
         }
 
         ////////////////////////////////////////////////////
-        //// CUSTOM FUNCTIONS (NON-p5)                 ////
+        //// CUSTOM FUNCTIONS (NON-p5) BELOW           ////
         //////////////////////////////////////////////////
         /* Tries to change background figure. */
         function changeFigure(new_figure) {
@@ -246,10 +241,13 @@ export default {
           let tx = 100*(p5.mouseX / w);  // rel. mouse pos., 0 to 100
           let ty = 100*(p5.mouseY / h);
           if (0 <= tx && tx <= 100 && 0 <= ty && ty <= 100) {  // bounds check
-            console.log("touch event @ abs("+Math.round(p5.mouseX)+", "+Math.round(p5.mouseY)+")");
+            console.log("touch event @ ("+Math.round(p5.mouseX)+", "+Math.round(p5.mouseY)+")");
+
+            // Push circle to array
             current_circle.x = tx;
             current_circle.y = ty;
             circles.push(Object.assign({}, current_circle));
+
             current_circle = circleFactory("thermal");  // reset
           }
         }
@@ -259,19 +257,23 @@ export default {
           let mx = 100*(p5.mouseX / w);  // rel. mouse pos., 0 to 100
           let my = 100*(p5.mouseY / h);
           if (0 <= mx && mx <= 100 && 0 <= my && my <= 100) {  // bounds check
-            console.log("mouse event @ abs("+Math.round(p5.mouseX)+", "+Math.round(p5.mouseY)+")");
+            console.log("mouse event @ ("+Math.round(p5.mouseX)+", "+Math.round(p5.mouseY)+")");
+
+            // Push circle to array
             current_circle.x = mx;
             current_circle.y = my;
             circles.push(Object.assign({}, current_circle));
+
             current_circle = circleFactory("thermal");  // reset
           }
         }
 
         p5.windowResized = function() {
           updateValues();
-          console.log("Resized to width " + parent.offsetWidth);
+
           // Resize canvas and background_canvas
           p5.resizeCanvas(width_div, width_div/aspectCanvas);
+          console.log("Resized canvas to (" + width_div + ", " + width_div/aspectCanvas + ")");
         }
       }
 
