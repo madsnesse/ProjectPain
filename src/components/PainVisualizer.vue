@@ -51,7 +51,10 @@ export default {
          * r          =  value from 0 to 100 (% of width)
          * pain_types =  array of pain types for rendering, see 'circleFactory()' / 'addPainToCircle()' for more
         */
-        var current_circle = {x:p5.mouseX, y:p5.mouseY, r:25, pain_types: [{name:"temporal", sinus_arg: 0, speed: 0.01}]};
+        var current_circle = {x:p5.mouseX, y:p5.mouseY, r:25, pain_types: [
+          {name:"temporal", sinus_arg: 0, speed: 0.01},
+          {name:"thermal"}
+        ]};
         var circles = [];
         const availablePains = [
           "temporal",
@@ -179,7 +182,13 @@ export default {
           // Update current_circle
           current_circle.x = 100*(p5.mouseX/w);
           current_circle.y = 100*(p5.mouseY/h);
-          current_circle.r = radiusSlider.value;
+
+          // Update radius after check
+          if (radiusSlider.value < 0 || radiusSlider > 100) {
+            console.error("Slider for radius should only have values between 0 to 100.");
+          } else {
+              current_circle.r = radiusSlider.value;
+          }
 
           // Update relative variables
           rx = w/100;
@@ -188,6 +197,13 @@ export default {
 
         /* Renders a circle based on type of pain. */
         function drawCircle(circle) {
+          // Draw border
+          p5.noFill();
+          p5.strokeWeight(1);
+          p5.stroke(0, 0, 0, 100);
+          p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
+          p5.noStroke();
+
           for (let i = 0; i < circle.pain_types.length; i++) {  // render attached pain types of a circle
             switch (circle.pain_types[i].name) {  // pain name
               case "thermal":
@@ -199,14 +215,13 @@ export default {
                 circle.pain_types[i].sinus_arg += circle.pain_types[i].speed;
                 circle.pain_types[i].sinus_arg %= Math.PI;
 
-                // Outer circle
-                p5.fill(230, 0, 0, 150);
-                p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
-
                 // Inner circle
-                p5.fill(230, 0, 0, 100);
+                p5.noFill();
+                p5.strokeWeight(2);
                 radius = (circle.r*rx)*p5.sin(circle.pain_types[i].sinus_arg);
+                p5.stroke(50, 50, 50, 50);
                 p5.circle(circle.x*rx, circle.y*ry, radius);
+                p5.noStroke();
                 break;
 
               case "sensory":
@@ -224,8 +239,13 @@ export default {
         /* Creates a new circle based on the type of pain */
         function circleFactory(pain_type="thermal") {
           let c = {x:p5.mouseX, y:p5.mouseY, r:radiusSlider.value, pain_types: []};
-          addPainToCircle(c, pain_type);
-          return c;
+
+          if (pain_type === "empty") {
+            return c;
+          } else {
+            addPainToCircle(c, pain_type);
+            return c;
+          }
         }
 
         /* Adds pain to a circle */
@@ -263,7 +283,7 @@ export default {
             current_circle.y = ty;
             circles.push(Object.assign({}, current_circle));
 
-            current_circle = circleFactory("thermal");  // reset
+            current_circle = circleFactory("empty");  // reset
           }
         }
 
@@ -279,7 +299,7 @@ export default {
             current_circle.y = my;
             circles.push(Object.assign({}, current_circle));
 
-            current_circle = circleFactory("thermal");  // reset
+            current_circle = circleFactory("empty");  // reset
           }
         }
 
