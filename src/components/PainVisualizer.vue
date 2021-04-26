@@ -46,12 +46,12 @@ export default {
         var canvas;            // reference to the p5 canvas
 
         /* Save each pain circle in an array of objects.
-         * x        =  value from 0 to 100 (% of width)
-         * y        =  value from 0 to 100 (% of height)
-         * r        =  value from 0 to 100 (% of width)
-         * pain_obj =  object for rendering, see 'circleFactory()' for more
+         * x          =  value from 0 to 100 (% of width)
+         * y          =  value from 0 to 100 (% of height)
+         * r          =  value from 0 to 100 (% of width)
+         * pain_types =  array of pain types for rendering, see 'circleFactory()' / 'addPainToCircle()' for more
         */
-        var current_circle = {x:p5.mouseX, y:p5.mouseY, r:25, pain_obj: {type:"temporal", sinus_arg: 0, speed: 0.01}};
+        var current_circle = {x:p5.mouseX, y:p5.mouseY, r:25, pain_types: [{name:"temporal", sinus_arg: 0, speed: 0.01}]};
         var circles = [];
         const availablePains = [
           "temporal",
@@ -109,6 +109,9 @@ export default {
           // p5-settings
           p5.blendMode(p5.MULTIPLY);
           p5.noStroke();
+
+          // Start debug printer
+          debug();
         }
 
         p5.draw = function() {
@@ -166,7 +169,7 @@ export default {
             // update label
             document.getElementById("setPainInputLabel").innerText = "Pain: " + pain;
             setPainInput.value = "";  // reset
-            current_circle = circleFactory(pain); // TODO add multiple pains
+            addPainToCircle(current_circle, pain);
           }
 
           // Updated scaling variables
@@ -174,9 +177,9 @@ export default {
           w = canvas_rect.width, h = canvas_rect.height;
 
           // Update current_circle
-          current_circle["x"] = 100*(p5.mouseX/w);
-          current_circle["y"] = 100*(p5.mouseY/h);
-          current_circle["r"] = radiusSlider.value;
+          current_circle.x = 100*(p5.mouseX/w);
+          current_circle.y = 100*(p5.mouseY/h);
+          current_circle.r = radiusSlider.value;
 
           // Update relative variables
           rx = w/100;
@@ -185,48 +188,60 @@ export default {
 
         /* Renders a circle based on type of pain. */
         function drawCircle(circle) {
-          switch (circle.pain_obj.type) {
-            case "thermal":
-              p5.fill(200, 0, 0, 150);
-              p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
-              break;
+          for (let i = 0; i < circle.pain_types.length; i++) {  // render attached pain types of a circle
+            switch (circle.pain_types[i].name) {  // pain name
+              case "thermal":
+                p5.fill(200, 0, 0, 150);
+                p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
+                break;
 
-            case "temporal":
-              circle.pain_obj.sinus_arg += circle.pain_obj.speed;
-              circle.pain_obj.sinus_arg %= Math.PI;
+              case "temporal":
+                circle.pain_types[i].sinus_arg += circle.pain_types[i].speed;
+                circle.pain_types[i].sinus_arg %= Math.PI;
 
-              // Outer circle
-              p5.fill(230, 0, 0, 150);
-              p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
+                // Outer circle
+                p5.fill(230, 0, 0, 150);
+                p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
 
-              // Inner circle
-              p5.fill(230, 0, 0, 100);
-              radius = (circle.r*rx)*p5.sin(circle.pain_obj.sinus_arg);
-              p5.circle(circle.x*rx, circle.y*ry, radius);
-              break;
+                // Inner circle
+                p5.fill(230, 0, 0, 100);
+                radius = (circle.r*rx)*p5.sin(circle.pain_types[i].sinus_arg);
+                p5.circle(circle.x*rx, circle.y*ry, radius);
+                break;
 
-            case "sensory":
-              // Outer circle
-              p5.fill(0, 0, 255, 85);
-              p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
-              break;
+              case "sensory":
+                // Outer circle
+                p5.fill(0, 0, 255, 85);
+                p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
+                break;
 
-            default:
-              console.error("Non-valid render type \"" + circle.type + "\"");
+              default:
+                console.error("Non-valid render type \"" + circle.name + "\"");
+            }
           }
         }
 
         /* Creates a new circle based on the type of pain */
-        function circleFactory(pain_type) {
+        function circleFactory(pain_type="thermal") {
+          let c = {x:p5.mouseX, y:p5.mouseY, r:radiusSlider.value, pain_types: []};
+          addPainToCircle(c, pain_type);
+          return c;
+        }
+
+        /* Adds pain to a circle */
+        function addPainToCircle(circle, pain_type) {
           switch (pain_type) {
             case "thermal":
-              return {x:p5.mouseX, y:p5.mouseY, r:25, pain_obj: {type:"thermal"}};
+              circle.pain_types.push({name:"thermal"});
+              break;
 
             case "temporal":
-              return {x:p5.mouseX, y:p5.mouseY, r:radiusSlider.value, pain_obj: {type:"temporal", sinus_arg: 0, speed: 0.01}};
+              circle.pain_types.push({name:"temporal", sinus_arg: 0, speed: 0.01});
+              break;
 
             case "sensory":
-              return {x:p5.mouseX, y:p5.mouseY, r:radiusSlider.value, pain_obj: {type:"sensory"}};
+              circle.pain_types.push({name:"sensory"});
+              break;
 
             default:
               console.error("Non-valid pain type \"" + pain_type + "\"");
@@ -274,6 +289,16 @@ export default {
           // Resize canvas and background_canvas
           p5.resizeCanvas(width_div, width_div/aspectCanvas);
           console.log("Resized canvas to (" + width_div + ", " + width_div/aspectCanvas + ")");
+        }
+
+        ////////////////////////////////////////////////////
+        //// DEBUG BELOW                               ////
+        //////////////////////////////////////////////////
+        function debug() {
+          console.log("\nCircles:");
+          console.log(circles);
+
+          setTimeout(debug, 30000);
         }
       }
 
