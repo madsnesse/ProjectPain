@@ -8,6 +8,9 @@
       <b-form-input id="radiusSlider" v-model="radius" type="range" min="1" max="100"></b-form-input>
     </div>
 
+    <!-- POP LAST PAIN CIRCLE -->
+    <b-button variant="info" id="undoLastDraw" class="w-100 mt-2">Undo Last Draw</b-button>
+
     <!-- RESET -->
     <b-button variant="primary" id="resetButton" class="w-100 mt-2">Reset</b-button>
 
@@ -72,6 +75,7 @@ export default {
         // UI
         var parent;
         var radiusSlider;
+        var undoLastDrawButton;
         var resetButton;
         var figureInput;
         var setPainInput;
@@ -103,10 +107,11 @@ export default {
 
           // Get UI elements
           radiusSlider = document.getElementById("radiusSlider");
+          undoLastDrawButton = document.getElementById("undoLastDraw");
+          undoLastDrawButton.onclick = function() {circles.pop();};
           resetButton = document.getElementById("resetButton");
           figureInput = document.getElementById("figureInput");
           setPainInput = document.getElementById("setPainInput");
-          //document.getElementById("setPainInputLabel").innerText = selectedPains;
           resetButton.onclick = function(){circles = [];};  // Empty circles
 
           // p5-settings
