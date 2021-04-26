@@ -112,9 +112,6 @@ export default {
           // p5-settings
           p5.blendMode(p5.MULTIPLY);
           p5.noStroke();
-
-          // Start debug printer
-          debug();
         }
 
         p5.draw = function() {
@@ -309,16 +306,6 @@ export default {
           // Resize canvas and background_canvas
           p5.resizeCanvas(width_div, width_div/aspectCanvas);
           console.log("Resized canvas to (" + width_div + ", " + width_div/aspectCanvas + ")");
-        }
-
-        ////////////////////////////////////////////////////
-        //// DEBUG BELOW                               ////
-        //////////////////////////////////////////////////
-        function debug() {
-          console.log("\nCircles:");
-          console.log(circles);
-
-          setTimeout(debug, 30000);
         }
       }
 
