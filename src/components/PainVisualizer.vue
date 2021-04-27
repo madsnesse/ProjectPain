@@ -14,13 +14,16 @@
     <!-- RESET -->
     <b-button variant="primary" id="resetButton" class="w-100 mt-2">Reset</b-button>
 
+    <!-- SET PAIN -->
+    <b-button-group style="width: 100%">
+      <b-button variant="success" id="temporalButton" class="w-100 mt-2">Temporal</b-button>
+      <b-button variant="success" id="thermalButton" class="w-100 mt-2">Thermal</b-button>
+      <b-button variant="success" id="sensoryButton" class="w-100 mt-2">Sensory</b-button>
+    </b-button-group>
+
     <!-- FIGURE -->
     <label for="figureInput" id="figureInputLabel" class="w-100 mt-3">Value</label>
     <b-form-input id="figureInput" placeholder="Set figure"></b-form-input>
-
-    <!-- SET PAIN -->
-    <label for="setPainInput" id="setPainInputLabel" class="w-100 mt-4">Value</label>
-    <b-form-input id="setPainInput" placeholder="Set pain"></b-form-input>
   </div>
 </template>
 
@@ -59,11 +62,6 @@ export default {
           {name:"thermal"}
         ]};
         var circles = [];
-        const availablePains = [
-          "temporal",
-          "thermal",
-          "sensory"
-        ];
         var radius;  // reusable variable
 
         // Size and positional variables
@@ -77,8 +75,8 @@ export default {
         var radiusSlider;
         var undoLastDrawButton;
         var resetButton;
+        var temporalButton, thermalButton, sensoryButton;
         var figureInput;
-        var setPainInput;
 
         ////////////////////////////////////////////////////
         //// p5-FUNCTIONS BELOW                        ////
@@ -107,12 +105,24 @@ export default {
 
           // Get UI elements
           radiusSlider = document.getElementById("radiusSlider");
+
           undoLastDrawButton = document.getElementById("undoLastDraw");
           undoLastDrawButton.onclick = function() {circles.pop();};
+
+          temporalButton = document.getElementById("temporalButton");
+          temporalButton.onclick = function() {addPainToCircle(current_circle, "temporal")};
+
+          thermalButton = document.getElementById("thermalButton");
+          thermalButton.onclick = function() {addPainToCircle(current_circle, "thermal")};
+
+          sensoryButton = document.getElementById("sensoryButton");
+          sensoryButton.onclick = function() {addPainToCircle(current_circle, "sensory")};
+
           resetButton = document.getElementById("resetButton");
-          figureInput = document.getElementById("figureInput");
-          setPainInput = document.getElementById("setPainInput");
           resetButton.onclick = function(){circles = [];};  // Empty circles
+
+          figureInput = document.getElementById("figureInput");
+
 
           // p5-settings
           p5.blendMode(p5.MULTIPLY);
@@ -166,15 +176,6 @@ export default {
           let fig = figureInput.value;
           if (fig != "") {
             changeFigure(fig);  // tries to change figure
-          }
-
-          // check if user sel. pain
-          let pain = setPainInput.value;
-          if (pain != "" && availablePains.includes(pain)) {
-            // update label
-            document.getElementById("setPainInputLabel").innerText = "Pain: " + pain;
-            setPainInput.value = "";  // reset
-            addPainToCircle(current_circle, pain);
           }
 
           // Updated scaling variables
