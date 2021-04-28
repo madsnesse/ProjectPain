@@ -15,7 +15,7 @@
 
 
 <script>
-    //import * as pouchDB from "../database.js"
+    import * as pouchDB from "../database.js"
 export default {
 
     name: "Register",
@@ -27,7 +27,7 @@ export default {
             var password = document.getElementById("password").value;
             var secondpassword = document.getElementById("reppass").value;
             console.log(email + " " + password + " " + secondpassword);
-            //pouchDB.lengthOfDatabase()
+            pouchDB.createUser(email,password);
         }
 
     }   

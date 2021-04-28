@@ -7,35 +7,37 @@ import PouchLiveFind from 'pouchdb-live-find'
 import PouchDBAuthentication from 'pouchdb-authentication';
 
 import "./main"
-PouchDB.plugin(require('pouchdb-users'))
+PouchDB.plugin(require('pouchdb-users'));
 PouchDB.plugin(PouchFind);
 PouchDB.plugin(PouchLiveFind);
 PouchDB.plugin(PouchDBAuthentication);
+PouchDB.plugin(require("pouchdb-security-helper"));
 
-var db = new PouchDB("http://admin:admin@localhost:5984/projectpain");
-
-// TODO: Implement comment underneath to allow "access" for users to their db
-//"http://" + name + ":" + password + "@localhost:5984/" + "dbName"
+const db = new PouchDB("http://admin:admin@localhost:5984/projectpain");
+const security = db.security();
 
 /***
  * returns the length of the database
  *
  */
 export function lengthOfDatabase() {
-    console.log("inn i funksjonen")
+    console.log("inn i funksjonen");
+    let number = 0;
     db.allDocs({
         include_docs: true,
         attachments: true,
     }).then(function (result) {
         console.log(result);
-        var number = result.total_rows;
+        number = result.total_rows;
         number ++;
         console.log(" wow number " + number); // number blir en mer enn result.total_rows
         return "2222";
     }).catch(function (err) {
-        console.log("wops there was an error")
-        console.log(err)
+        console.log("wops there was an error");
+        console.log(err);
     });
+    console.log("Ut av funksjonen")
+    return number;
 }
 
 /***
@@ -48,7 +50,26 @@ export function createDataBase(dbName){
     console.log('dbName: ' + dbName)
     console.log(database);
     var db = new PouchDB(database);
+    security.fetch().then(()=>{
+        security.members.roles.add(dbName);
+        security.admins.roles.add(dbName);
+        return security.save();
+
+    }).catch(e =>{
+        console.error(e);
+    });
     db.info();
+}
+
+export function hasAccess(username){
+    const user = { name: username, roles: [ "admin" ] };
+    security.fetch().then(() => {
+        if (!security.userHasAccess(user)) {
+            throw new Error("User does not have access.");
+        }
+    }).catch(e => {
+        console.log(e);
+    });
 }
 
 /***
@@ -58,9 +79,25 @@ export function createDataBase(dbName){
  * @param password
  */
 
-export function logIn() {
+export function logIn(username,password) {
     //this.$pouch.connect(username,password);
-    console.log("Denne er her")
+    db.logIn(username, password).then(function (batman) {
+        console.log(batman)
+        console.log("Logged in");
+    }).catch(function (err) {
+        console.error(err);
+    });
+
+    db.getSession(function (err, response) {
+        if (err) {
+            // network error
+        } else if (!response.userCtx.name) {
+            // nobody's logged in
+        } else {
+            // response.userCtx.name is the current use
+            console.log(response.userCtx.name + " is the user")
+        }
+    });
 }
 
 /***
@@ -77,7 +114,7 @@ export function getAllDataFromDB(){
         console.log(result);
         return result;
     }).catch(function (err){
-        console.log(err);
+        console.error(err);
         }
     )
 }
@@ -96,25 +133,32 @@ export function removeFromDB(json){
         //handle result
         console.log(result)
     }).catch( function (err) {
-        console.log(err);
+        console.error(err);
     })
 }
 
 /***
  * creates a new user and gives that user a database
- * currently does not work
  * @param username - gives new user username
  * @param password -
- * @param dbName - creates a new database named after username
  */
-export function createUser(username,password,dbName) {
-    this.$pouch.info()
-    //createDataBase(username);
-    console.log("wow much fun");
-    this.$pouch.createUser(username,password,dbName);
-    console.log("wow much fun 2");
-    this.$pouch.connect(username,password, dbName);
-    createDataBase(dbName);
+export function createUser(username,password) {
+    db.signUp(username,password, function (err, response){
+        if (err){
+            if (err.name == 'conflict'){
+                console.log(username + " already exists, choose another")
+            } else if (err.name == 'forbidden'){
+                console.log(username + " is invalid, choose another")
+            }else{
+                console.error(err)
+            }
+        }
+        console.log(response);
+    });
+    createDataBase(username);
+    logIn(username,password);
+    hasAccess(username);
+    console.log(db)
 }
 /*
 Try to use "this.$pouch.put" when using vue.use
@@ -133,7 +177,7 @@ export function saveToDB(json) {
         console.log("SaveToDB Response")
         console.log(response)
     }).catch(function (err) {
-        console.log(err);
+        console.error(err);
     });
     console.log(json);
     db.info();
