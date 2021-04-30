@@ -1,6 +1,7 @@
 <template>
-    <b-container style="background-color:cornflowerblue;">
-        <b-row class="border-bottom border-dark">
+    <b-container >
+        <b-row><b-container style="background-color:var(--secondary)">How would you describe the <i>cycle</i> of the pain</b-container></b-row>
+        <b-row class="border-bottom ">
             <b-col class="p-0" cols="4">
                 <b-button @click="toggleButton(1)" :variant="btns[1]?'success':'secondary'" squared>Continous</b-button>
             </b-col>
@@ -17,16 +18,17 @@
                 squared 
                 size="md"
                 v-b-toggle.increase 
-                :variant="accordion[0]?'success':'primary'"
+                variant='secondary'
                 @click="toggleAccord(0)"
                 id="topOfInc"
-                class="border-bottom border-dark d-flex justify-content-center align-items-right">
+                class="d-flex justify-content-center align-items-right text-left"
+                :class="accordion[0]?'border-light':'border-bottom'">
                     
                     
                         <b-container class="w-100 text">Does the following <b>increase</b> your pain?</b-container>
 
-                        <b-icon :hidden = "!accordion[0]" icon="dash" scale="2"></b-icon> 
-                        <b-icon :hidden = "accordion[0]" icon="plus" scale="2"></b-icon>
+                        <b-icon :hidden = "!accordion[0]" icon="dash" scale="1"></b-icon> 
+                        <b-icon :hidden = "accordion[0]" icon="plus" scale="1"></b-icon>
             </b-button>
             <b-collapse id="increase" accordion="painchange">
                 <b-button 
@@ -35,7 +37,7 @@
                     squared
                     @click="selectMultInc(option.value)"
                     :variant="option.selected ? 'outline-success' : 'secondary'"
-                    class="border-bottom border-dark"
+                    class="border-bottom"
                     >
                     {{option.text}}
                 </b-button>
@@ -44,15 +46,16 @@
                 squared 
                 size="md"
                 v-b-toggle.decrease 
-                :variant="accordion[1]?'success':'primary'" 
+                variant='secondary' 
                 @click="toggleAccord(1)"
                 id="topOfDec"
-                class="border-bottom border-dark d-flex justify-content-center"
+                class="d-flex justify-content-center text-left"
+                :class="accordion[1]?'border-light':'border-bottom'"
                 >
-                        <b-container class="w-100">Does the following decrease your pain?</b-container>
+                        <b-container class="w-100">Does the following <b>decrease</b> your pain?</b-container>
 
-                        <b-icon :hidden = "!accordion[1]" icon="dash" scale="2"></b-icon> 
-                        <b-icon :hidden = "accordion[1]" icon="plus" scale="2"></b-icon>
+                        <b-icon :hidden = "!accordion[1]" icon="dash" scale="1"></b-icon> 
+                        <b-icon :hidden = "accordion[1]" icon="plus" scale="1"></b-icon>
                         
                 
             
@@ -64,7 +67,7 @@
                     squared
                     @click="selectMultDec(option.value)"
                     :variant="option.selected ? 'success' : 'secondary'"
-                    class="border-bottom border-dark"
+                    class="border-bottom"
                     >
                     {{option.text}}
                 </b-button>
@@ -144,8 +147,9 @@ export default {
                 this.selected = this.selected.filter(function(value){
                     return value != select;
                 });
-            }            
+            }   
             this.$set(this.increaseOptions[select-1],'selected', !this.increaseOptions[select-1].selected)
+            this.update()         
 
             
             //selecteded.$set(selecteded,select)
@@ -159,16 +163,37 @@ export default {
                 this.selected = this.selected.filter(function(value){
                     return value != select;
                 });
-            }            
+            }           
             this.$set(this.decreaseOptions[select-1],'selected', !this.decreaseOptions[select-1].selected)
-
+            this.update() 
             
             //selecteded.$set(selecteded,select)
+        },
+        update: function(){
+            var inc = new Array();
+            var dec = new Array();
+            for(var i = 0;   i < this.increaseOptions.length; i++){
+                if (this.increaseOptions[i].selected){
+                    inc.push(i);
+                }
+                if (this.decreaseOptions[i].selected){
+                    dec.push(i);
+                }
+            }
+            var ch = 0;
+            for (var j = 0; j < this.btns.length; j++){
+                if (this.btns[j]){
+                    ch = j;
+                }
+            }
+            var output = {change:ch ,increase: inc, decrease: dec}
+            this.$emit('update', output);
         },
         toggleButton: function(i){
             var t = !this.btns[i]
             this.btns = [false,false,false]
             this.$set(this.btns, i, t)
+            this.update();
         },
         toggleAccord: function(i){
             var t = !this.accordion[i]

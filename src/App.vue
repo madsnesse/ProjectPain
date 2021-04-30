@@ -19,8 +19,8 @@ export default{
 </script>
 <style scoped>
   #test{
-        background-color: var(--primary);
-        color: grey;
+        background-color: var(--foreground);
+        color: rgb(0, 0, 0);
         min-height: 100vh;
 
     }
