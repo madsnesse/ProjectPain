@@ -2,10 +2,28 @@
   <div id="parent">
     <div id="canvas"></div>
 
-    <input id="radiusSlider" type="range" min="1" max="100" value="25">
-    <button id="resetButton">Reset</button>
-    <h3>Thanks to</h3>
-    <a href="https://www.freepik.com/vectors/education">Education vector created by brgfx - www.freepik.com</a>
+    <!-- RADIUS -->
+    <div>
+      <label for="radiusSlider">Radius: {{ radius }}</label>
+      <b-form-input id="radiusSlider" v-model="radius" type="range" min="1" max="100"></b-form-input>
+    </div>
+
+    <!-- POP LAST PAIN CIRCLE -->
+    <b-button variant="info" id="undoLastDraw" class="w-100 mt-2">Undo Last Draw</b-button>
+
+    <!-- RESET -->
+    <b-button variant="primary" id="resetButton" class="w-100 mt-2">Reset</b-button>
+
+    <!-- SET PAIN -->
+    <b-button-group class="w-100 mt-2">
+      <b-button variant="success" id="temporalButton">Temporal</b-button>
+      <b-button variant="success" id="thermalButton">Thermal</b-button>
+      <b-button variant="success" id="sensoryButton">Sensory</b-button>
+    </b-button-group>
+
+    <!-- FIGURE -->
+    <label for="figureInput" id="figureInputLabel" class="w-100 mt-3">Value</label>
+    <b-form-input id="figureInput" placeholder="Set figure"></b-form-input>
   </div>
 </template>
 
@@ -17,37 +35,56 @@ const p5_lib = require('p5');
 
 export default {
     name: "PainVisualizer",
+    data() {
+      return {
+          radius: 25
+      }
+    },
     created() {
       const pain_visualize = p5 => {
         // Constants
-        const aspectImage = 490/1280;
-        const aspectCanvas = 9/14;
+        const aspectImage = 437/853;
+        const aspectCanvas = 5/7;
 
-        // p5 variables
-        let bodyImage;        // reference to body image
-        let bg_canvas;        // back-most canvas, actually draw circles on this
-        var canvas;           // reference to the p5 canvas
+        // p5 background & misc.
+        var figure = "man-front-large";
+        var bodyFigure;        // reference to body image
+        var canvas;            // reference to the p5 canvas
 
-        // Pain Circle
-        let circleRadius = 30;  // Relative: from 0 to 100
-        let pain_type = "static";
+        /* Save each pain circle in an array of objects.
+         * x          =  value from 0 to 100 (% of width)
+         * y          =  value from 0 to 100 (% of height)
+         * r          =  value from 0 to 100 (% of width)
+         * pain_types =  array of pain types for rendering, see 'circleFactory()' / 'addPainToCircle()' for more
+        */
+        var current_circle = {x:p5.mouseX, y:p5.mouseY, r:25, pain_types: [
+          {name:"temporal", sinus_arg: 0, speed: 0.01},
+          {name:"thermal"}
+        ]};
+        var circles = [];
+        var radius;  // reusable variable
 
         // Size and positional variables
         let width_div;  // width of parent div
         let w, h;       // width and height of canvas DOM
-
-        // Relative units
-        let rx;  // canvas width / 100
-        let ry;  // canvas height / 100
+        let rx;         // 1/100 of width  ==usage==> 75*rx (75% of width)
+        let ry;         // 1/100 of height ==usage==> 25*ry (25% of height)
 
         // UI
         var parent;
         var radiusSlider;
+        var undoLastDrawButton;
         var resetButton;
+        var temporalButton, thermalButton, sensoryButton;
+        var figureInput;
 
+        ////////////////////////////////////////////////////
+        //// p5-FUNCTIONS BELOW                        ////
+        //////////////////////////////////////////////////
         p5.preload = function() {
-          let img = require("@/assets/body.png")  // thanks to https://stackoverflow.com/a/65872755
-          bodyImage = p5.loadImage(img);  // todo resize image - too large atm
+          let img = require("@/assets/"+figure+".png")  // thanks to https://stackoverflow.com/a/65872755
+          bodyFigure = p5.loadImage(img);  // todo resize image - too large atm
+          document.getElementById("figureInputLabel").innerText = figure;
         }
 
         p5.setup = function() {
@@ -66,49 +103,30 @@ export default {
           rx = w/100;  // normalize to 0 to 100 scale
           ry = h/100;  // normalize to 0 to 100  scale
 
-          bg_canvas = p5.createGraphics(w, h);
-          resetBackground();
-
           // Get UI elements
           radiusSlider = document.getElementById("radiusSlider");
+
+          undoLastDrawButton = document.getElementById("undoLastDraw");
+          undoLastDrawButton.onclick = function() {circles.pop();};
+
+          temporalButton = document.getElementById("temporalButton");
+          temporalButton.onclick = function() {addPainToCircle(current_circle, "temporal")};
+
+          thermalButton = document.getElementById("thermalButton");
+          thermalButton.onclick = function() {addPainToCircle(current_circle, "thermal")};
+
+          sensoryButton = document.getElementById("sensoryButton");
+          sensoryButton.onclick = function() {addPainToCircle(current_circle, "sensory")};
+
           resetButton = document.getElementById("resetButton");
-          resetButton.onclick = function(){resetBackground()};
-        }
+          resetButton.onclick = function(){circles = [];};  // Empty circles
 
-        function resetBackground() {
-          bg_canvas.clear();
-          let imgWidth = 1.20*w
-          bg_canvas.image(bodyImage, 26*rx, 5*ry, imgWidth*aspectImage, imgWidth);
-        }
+          figureInput = document.getElementById("figureInput");
 
-        function updateValues() {
-          circleRadius = radiusSlider.value;
 
-          // width of parent div
-          width_div = document.getElementById("canvas").offsetWidth;
-
-          // Updated scaling variables
-          let canvas_rect = canvas.elt.getBoundingClientRect();
-          w = canvas_rect.width, h = canvas_rect.height;
-
-          // Update relative variables
-          rx = w/100;
-          ry = h/100;
-        }
-
-        /* Renders a circle based on type of pain.
-         * Use this method unless saving circle on background.
-         */
-        function drawCircle() {
-          switch (pain_type) {
-            case "static":
-              p5.fill(255, 0, 0, 150);
-              p5.circle(p5.mouseX, p5.mouseY, circleRadius*w/200);
-              break;
-
-            default:
-              console.error("Non-valid render type.");
-          }
+          // p5-settings
+          p5.blendMode(p5.MULTIPLY);
+          p5.noStroke();
         }
 
         p5.draw = function() {
@@ -116,45 +134,191 @@ export default {
 
           // Clear & render background
           p5.clear();
-          p5.image(bg_canvas, 0, 0);
+          p5.image(bodyFigure, 19*rx, 10*ry, w*aspectImage, w);
 
-          let mx = p5.mouseX / w;  // rel. mouse pos., 0 to 1
-          let my = p5.mouseY / h;
+          // draw each saved circle
+          for (let circle of circles) {
+            drawCircle(circle);
+          }
 
-          if (0 <= mx && mx <= 1 && 0 <= my && my <= 1) {  // bounds check
-            drawCircle();
+          // draw overlaying circle if within bounds
+          if (0 <= current_circle.x && current_circle.x <= 100 && 0 <= current_circle.y && current_circle.y <= 100) {
+            drawCircle(current_circle);
           }
         }
 
-        ///////////////////////////////////////////////////
+        ////////////////////////////////////////////////////
+        //// CUSTOM FUNCTIONS (NON-p5) BELOW           ////
+        //////////////////////////////////////////////////
+        /* Tries to change background figure. */
+        function changeFigure(new_figure) {
+          try {
+            let new_img = require("@/assets/"+new_figure+".png")  // thanks to https://stackoverflow.com/a/65872755
+            bodyFigure = p5.loadImage(new_img);
+            figureInput.value = "";  // reset field
+            document.getElementById("figureInputLabel").innerText = new_figure;
+          } catch (error) {
+            console.log("Figure invalid.");
+          }
+        }
+
+        /* Updates values before rendering every frame. */
+        function updateValues() {
+          // width of parent div
+          try {
+            width_div = document.getElementById("canvas").offsetWidth;
+          } catch (error) {
+            console.log("[  P5  ] User exited -> destroying canvas.");
+            p5.remove();
+          }
+
+          // check if user sel. diff figure
+          let fig = figureInput.value;
+          if (fig != "") {
+            changeFigure(fig);  // tries to change figure
+          }
+
+          // Updated scaling variables
+          let canvas_rect = canvas.elt.getBoundingClientRect();
+          w = canvas_rect.width, h = canvas_rect.height;
+
+          // Update current_circle
+          current_circle.x = 100*(p5.mouseX/w);
+          current_circle.y = 100*(p5.mouseY/h);
+
+          // Update radius after check
+          if (radiusSlider.value < 0 || radiusSlider > 100) {
+            console.error("Slider for radius should only have values between 0 to 100.");
+          } else {
+              current_circle.r = radiusSlider.value;
+          }
+
+          // Update relative variables
+          rx = w/100;
+          ry = h/100;
+        }
+
+        /* Renders a circle based on type of pain. */
+        function drawCircle(circle) {
+          // Draw border
+          p5.noFill();
+          p5.strokeWeight(1);
+          p5.stroke(0, 0, 0, 100);
+          p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
+          p5.noStroke();
+
+          for (let i = 0; i < circle.pain_types.length; i++) {  // render attached pain types of a circle
+            switch (circle.pain_types[i].name) {  // pain name
+              case "thermal":
+                p5.fill(200, 0, 0, 150);
+                p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
+                break;
+
+              case "temporal":
+                circle.pain_types[i].sinus_arg += circle.pain_types[i].speed;
+                circle.pain_types[i].sinus_arg %= Math.PI;
+
+                // Inner circle
+                p5.noFill();
+                p5.strokeWeight(2);
+                radius = (circle.r*rx)*p5.sin(circle.pain_types[i].sinus_arg);
+                p5.stroke(50, 50, 50, 50);
+                p5.circle(circle.x*rx, circle.y*ry, radius);
+                p5.noStroke();
+                break;
+
+              case "sensory":
+                // Outer circle
+                p5.fill(0, 0, 255, 85);
+                p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
+                break;
+
+              default:
+                console.error("Non-valid render type \"" + circle.name + "\"");
+            }
+          }
+        }
+
+        /* Creates a new circle based on the type of pain */
+        function circleFactory(pain_type="thermal") {
+          let c = {x:p5.mouseX, y:p5.mouseY, r:radiusSlider.value, pain_types: []};
+
+          if (pain_type === "empty") {
+            return c;
+          } else {
+            addPainToCircle(c, pain_type);
+            return c;
+          }
+        }
+
+        /* Adds pain to a circle */
+        function addPainToCircle(circle, pain_type) {
+          switch (pain_type) {
+            case "thermal":
+              circle.pain_types.push({name:"thermal"});
+              break;
+
+            case "temporal":
+              circle.pain_types.push({name:"temporal", sinus_arg: 0, speed: 0.01});
+              break;
+
+            case "sensory":
+              circle.pain_types.push({name:"sensory"});
+              break;
+
+            default:
+              console.error("Non-valid pain type \"" + pain_type + "\"");
+          }
+        }
+
+        ////////////////////////////////////////////////////
         //// EVENTS BELOW                              ////
         //////////////////////////////////////////////////
-        p5.mouseClicked = function() {
-          console.log("mouse event @ abs("+Math.round(p5.mouseX)+", "+Math.round(p5.mouseY)+") rel(x="+Math.round(100*(p5.mouseX / w))+", y="+Math.round(100*(p5.mouseY / h))+", r="+circleRadius+")");
+        p5.touchEnded = function() {
+          // Save circle if within bounds
+          let tx = 100*(p5.mouseX / w);  // rel. mouse pos., 0 to 100
+          let ty = 100*(p5.mouseY / h);
+          if (0 <= tx && tx <= 100 && 0 <= ty && ty <= 100) {  // bounds check
+            console.log("touch event @ ("+Math.round(p5.mouseX)+", "+Math.round(p5.mouseY)+")");
 
-          // Save circle to background
-          let mx = p5.mouseX / w;  // rel. mouse pos., 0 to 1
-          let my = p5.mouseY / h;
-          if (0 <= mx && mx <= 1 && 0 <= my && my <= 1) {  // bounds check
-            bg_canvas.fill(255, 0, 0, 150);
-            bg_canvas.circle(p5.mouseX, p5.mouseY, circleRadius*w/200);
+            // Push circle to array
+            current_circle.x = tx;
+            current_circle.y = ty;
+            circles.push(Object.assign({}, current_circle));
+
+            current_circle = circleFactory("empty");  // reset
+          }
+        }
+
+        p5.mouseReleased = function() {
+          // Save circle if within bounds
+          let mx = 100*(p5.mouseX / w);  // rel. mouse pos., 0 to 100
+          let my = 100*(p5.mouseY / h);
+          if (0 <= mx && mx <= 100 && 0 <= my && my <= 100) {  // bounds check
+            console.log("mouse event @ ("+Math.round(p5.mouseX)+", "+Math.round(p5.mouseY)+")");
+
+            // Push circle to array
+            current_circle.x = mx;
+            current_circle.y = my;
+            circles.push(Object.assign({}, current_circle));
+
+            current_circle = circleFactory("empty");  // reset
           }
         }
 
         p5.windowResized = function() {
           updateValues();
-          console.log(parent.offsetWidth);
+
           // Resize canvas and background_canvas
           p5.resizeCanvas(width_div, width_div/aspectCanvas);
-          bg_canvas.resizeCanvas(width_div, width_div/aspectCanvas);
-          resetBackground();
+          console.log("Resized canvas to (" + width_div + ", " + width_div/aspectCanvas + ")");
         }
       }
 
       // thanks to https://stackoverflow.com/a/61855707
       // for setting up p5 in an vue component
       new p5_lib(pain_visualize);
-    },
+    }
 }
 </script>
 
