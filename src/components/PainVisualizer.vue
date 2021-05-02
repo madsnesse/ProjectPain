@@ -15,10 +15,10 @@
     <b-button variant="primary" id="resetButton" class="w-100 mt-2">Reset</b-button>
 
     <!-- SET PAIN -->
-    <b-button-group style="width: 100%">
-      <b-button variant="success" id="temporalButton" class="w-100 mt-2">Temporal</b-button>
-      <b-button variant="success" id="thermalButton" class="w-100 mt-2">Thermal</b-button>
-      <b-button variant="success" id="sensoryButton" class="w-100 mt-2">Sensory</b-button>
+    <b-button-group class="w-100 mt-2">
+      <b-button variant="success" id="temporalButton">Temporal</b-button>
+      <b-button variant="success" id="thermalButton">Thermal</b-button>
+      <b-button variant="success" id="sensoryButton">Sensory</b-button>
     </b-button-group>
 
     <!-- FIGURE -->
