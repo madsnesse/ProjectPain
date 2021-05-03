@@ -44,21 +44,27 @@ export function lengthOfDatabase() {
  * creates a new database with server admin
  * @param dbName - database name
  */
-export function createDataBase(dbName){
+export function createDataBase(username, password){
     let database = "http://admin:admin@localhost:5984/";
-    database = database + dbName.toString();
-    console.log('dbName: ' + dbName)
+    database = database + username.toString();
+    console.log('dbName: ' + username);
     console.log(database);
-    var db = new PouchDB(database);
-    security.fetch().then(()=>{
-        security.members.roles.add(dbName);
-        security.admins.roles.add(dbName);
-        return security.save();
+    let newDataBase = new PouchDB(database);
+    newDataBase.signUpAdmin(username, password, username);
+    let secure = newDataBase.security();
+    //secure.members.roles.add(username);
+    //secure.admins.roles.add(username);
+    secure.fetch().then(()=>{
+        console.log("Inside fetch");
+        secure.members.roles.add(username);
+        secure.admins.roles.add(username);
+        return secure.save();
 
     }).catch(e =>{
         console.error(e);
     });
     db.info();
+    logIn(username,password);
 }
 
 export function hasAccess(username){
@@ -80,14 +86,15 @@ export function hasAccess(username){
  */
 
 export function logIn(username,password) {
-    //this.$pouch.connect(username,password);
+    console.log("Login LInj1")
     db.logIn(username, password).then(function (batman) {
         console.log(batman)
         console.log("Logged in");
     }).catch(function (err) {
+        console.log("logInError")
         console.error(err);
     });
-
+    console.log("Login linje2")
     db.getSession(function (err, response) {
         if (err) {
             // network error
@@ -112,7 +119,6 @@ export function getAllDataFromDB(){
     }).then( function (result) {
         //handle result, need to return
         console.log(result);
-        return result;
     }).catch(function (err){
         console.error(err);
         }
@@ -143,6 +149,7 @@ export function removeFromDB(json){
  * @param password -
  */
 export function createUser(username,password) {
+    createDataBase(username, password, username);
     db.signUp(username,password, function (err, response){
         if (err){
             if (err.name == 'conflict'){
@@ -150,13 +157,12 @@ export function createUser(username,password) {
             } else if (err.name == 'forbidden'){
                 console.log(username + " is invalid, choose another")
             }else{
+                console.log("createUser error")
                 console.error(err)
             }
         }
         console.log(response);
     });
-    createDataBase(username);
-    logIn(username,password);
     hasAccess(username);
     console.log(db)
 }
