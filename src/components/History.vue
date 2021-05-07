@@ -1,5 +1,18 @@
 <template>
     <b-container>
+        <b-breadcrumb>
+            <b-breadcrumb-item :to="'/home'">
+                <b-icon icon="house-fill" scale="1.25" shift-v="1.25" aria-hidden="true"></b-icon>
+                Home
+            </b-breadcrumb-item>
+            <b-breadcrumb-item :to="'/profile'">
+                Profile
+            </b-breadcrumb-item>
+            <b-breadcrumb-item active>
+                History
+            </b-breadcrumb-item>
+        </b-breadcrumb>
+
         <b-row align-h="center" class="my-5"><h1 id="welcome">History!</h1></b-row>
 
         <b-row align-h="center" class="mt-2 mb-4">
@@ -42,4 +55,5 @@ export default {
         font-size: 200%;
         text-align: center;
     }
+    
 </style>

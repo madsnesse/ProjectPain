@@ -1,5 +1,15 @@
 <template>
     <b-container>
+        <b-breadcrumb>
+            <b-breadcrumb-item :to="'/home'">
+                <b-icon icon="house-fill" scale="1.25" shift-v="1.25" aria-hidden="true"></b-icon>
+                Home
+            </b-breadcrumb-item>
+            <b-breadcrumb-item active>
+                Pain Registry
+            </b-breadcrumb-item>
+        </b-breadcrumb>
+
         <b-row><b-container class="m-5"><h1 id="welcome">Pain registry</h1></b-container></b-row>
         
         <PainVisualizer :hidden="toggleVis"/>

@@ -11,3 +11,11 @@ $theme-colors: (
   "success": #5FF5EB,
   "foreground": #66ABE8,
 );
+
+.breadcrumb-item a{
+  color: var(--background);
+}
+
+.breadcrumb {
+  background-color: var(--foreground) !important
+}

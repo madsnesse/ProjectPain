@@ -1,22 +1,36 @@
 <template>
   <b-container id="main">
+    <b-breadcrumb>
+      <b-breadcrumb-item :to="'/home'">
+        <b-icon icon="house-fill" scale="1.25" shift-v="1.25" aria-hidden="true"></b-icon>
+        Home
+      </b-breadcrumb-item>
+      <b-breadcrumb-item :to="'/profile'">
+        Profile
+      </b-breadcrumb-item>
+      <b-breadcrumb-item active>
+        Settings
+      </b-breadcrumb-item>
+    </b-breadcrumb>
+
+
     <b-row align-h="center" class="my-5"
       ><h1 id="welcome">Settings</h1></b-row
     >
     <b-row align-h="center" class="mt-5 mb-5">
-      <b-button v-b-toggle.accordion-3 class="buttons" variant="primary">Change gender / weight</b-button>
+      <b-button v-b-toggle.accordion-3 class="buttons" variant="primary">Change Body</b-button>
       <b-collapse class="w-100" id="accordion-3" accordion="my-accordion" role="tabpanel">
         <b-row>
-        <b-col class="mt-2" cols="7">
+        <b-card class="mt-2 ml-2" cols="7">
           <img :src="require(`@/assets/${pictures[currentPict]}`)" class="picture"/>
-        </b-col>
+        </b-card>
         <b-col class="my-2" cols="5">
           <b-button class="mt-1" @click="updatePict(0)" variant="primary">Male L</b-button>
           <b-button class="mt-1" @click="updatePict(1)" variant="primary">Male M</b-button>
-          <b-button class="mt-1" @click="updatePict(1)" variant="primary">Male S</b-button>
-          <b-button class="mt-1" @click="updatePict(2)" variant="primary">Female L</b-button>
-          <b-button class="mt-1" @click="updatePict(3)" variant="primary">Female M</b-button>
-          <b-button class="mt-1" @click="updatePict(3)" variant="primary">Female S</b-button>
+          <b-button class="mt-1" @click="updatePict(2)" variant="primary">Male S</b-button>
+          <b-button class="mt-1" @click="updatePict(3)" variant="primary">Female L</b-button>
+          <b-button class="mt-1" @click="updatePict(4)" variant="primary">Female M</b-button>
+          <b-button class="mt-1" @click="updatePict(5)" variant="primary">Female S</b-button>
         </b-col>
         </b-row>
       </b-collapse>
@@ -107,7 +121,7 @@ export default {
       NewPassOne: "",
       NewPassTwo: "",
       currentPict: 0,
-      pictures: ["man-front-large.svg", "man-front-med.svg", "woman-back-large.svg", "woman-back-med.svg"],
+      pictures: ["man-large-front.png", "man-med-front.png", "man-sm-front.png", "woman-large-front.png", "woman-med-front.png", "woman-sm-front.png"],
       sliderMin: 1,
       sliderMax: 5,
       sliderDef:1
