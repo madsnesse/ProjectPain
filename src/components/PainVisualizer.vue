@@ -43,11 +43,11 @@ export default {
     created() {
       const pain_visualize = p5 => {
         // Constants
-        const aspectImage = 437/853;
+        const aspectImage = 1876/3646;
         const aspectCanvas = 5/7;
 
         // p5 background & misc.
-        var figure = "man-front-large";
+        var figure = "woman-large-front";
         var bodyFigure;        // reference to body image
         var canvas;            // reference to the p5 canvas
 
@@ -83,7 +83,7 @@ export default {
         //////////////////////////////////////////////////
         p5.preload = function() {
           let img = require("@/assets/"+figure+".png")  // thanks to https://stackoverflow.com/a/65872755
-          bodyFigure = p5.loadImage(img);  // todo resize image - too large atm
+          bodyFigure = p5.loadImage(img);
           document.getElementById("figureInputLabel").innerText = figure;
         }
 
@@ -123,7 +123,6 @@ export default {
 
           figureInput = document.getElementById("figureInput");
 
-
           // p5-settings
           p5.blendMode(p5.MULTIPLY);
           p5.noStroke();
@@ -134,7 +133,11 @@ export default {
 
           // Clear & render background
           p5.clear();
-          p5.image(bodyFigure, 19*rx, 10*ry, w*aspectImage, w);
+          let widthImageDraw = h*aspectImage;
+          let heightImageDraw = h;
+          let x = (w - widthImageDraw) / 2;
+
+          p5.image(bodyFigure, x, 1*ry, widthImageDraw, heightImageDraw);
 
           // draw each saved circle
           for (let circle of circles) {
