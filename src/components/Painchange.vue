@@ -27,8 +27,8 @@
                     
                         <b-container class="w-100 text">Does the following <b>increase</b> your pain?</b-container>
 
-                        <b-icon :hidden = "!accordion[0]" icon="dash" scale="1"></b-icon> 
-                        <b-icon :hidden = "accordion[0]" icon="plus" scale="1"></b-icon>
+                        <b-icon :hidden = "!accordion[0]" icon="chevron-up" scale="1"></b-icon> 
+                        <b-icon :hidden = "accordion[0]" icon="chevron-down" scale="1"></b-icon>
             </b-button>
             <b-collapse id="increase" accordion="painchange">
                 <b-button 
@@ -54,8 +54,8 @@
                 >
                         <b-container class="w-100">Does the following <b>decrease</b> your pain?</b-container>
 
-                        <b-icon :hidden = "!accordion[1]" icon="dash" scale="1"></b-icon> 
-                        <b-icon :hidden = "accordion[1]" icon="plus" scale="1"></b-icon>
+                        <b-icon :hidden = "!accordion[1]" icon="chevron-up" scale="1"></b-icon> 
+                        <b-icon :hidden = "accordion[1]" icon="chevron-down" scale="1"></b-icon>
                         
                 
             
