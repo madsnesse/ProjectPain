@@ -1,19 +1,21 @@
 <template>
-    <b-container id = "main">
-        <b-row align-h="center" class="m-5"><h1 id="welcome">pain registry!</h1></b-row>
+    <b-container>
+        <b-row><b-container class="m-5"><h1 id="welcome">Pain registry</h1></b-container></b-row>
+        
+        <PainVisualizer :hidden="toggleVis"/>
+        <b-container :hidden="!toggleVis">
+            <b-row align-h="center" class="border-bottom">
+                <b-button squared v-b-toggle.paintype class="d-flex justify-content-center text-left" size="lg"  @click="toggleVisible(0)" variant='primary'>
+                    <b-container class="w-100">Type of pain</b-container>
+                    <b-icon :hidden = "!visible[0]" icon="chevron-up" scale="1"></b-icon> 
+                    <b-icon :hidden = "visible[0]" icon="chevron-down" scale="1"></b-icon>
+                </b-button>
+            </b-row>
+            <b-collapse id="paintype" accordion="accordion-group">
+                <Paintype v-on:update= "update('painType',$event)" class="mb-3"/>
+            </b-collapse>
 
-        <b-row align-h="center" class="border-bottom">
-            <b-button squared v-b-toggle.paintype class="d-flex justify-content-center text-left" size="lg"  @click="toggleVisible(0)" variant='primary'>
-                <b-container class="w-100">Type of pain</b-container>
-                <b-iconstack>
-                    <b-icon stacked :hidden = "!visible[0]" icon="chevron-up" scale="0.75"></b-icon> 
-                    <b-icon stacked :hidden = "visible[0]" icon="chevron-down" scale="0.75"></b-icon>
-                </b-iconstack>
-            </b-button>
-        </b-row>
-        <b-collapse id="paintype" accordion="accordion-group">
-            <Paintype v-on:update= "update('painType',$event)" class="mb-3"/>
-        </b-collapse>
+        
 
         <b-row align-h="center" class="border-bottom">
             <b-button squared v-b-toggle.painchange class="d-flex justify-content-center text-left" size="lg"  @click="toggleVisible(1)" variant='primary'>
@@ -47,8 +49,10 @@
             :labels="['Weak','Strong']" 
         />
         </b-collapse>
+        </b-container>
         <b-row align-h="between">
             <b-col class="text-center my-5"><b-button variant='primary' class="w-100" to="/home">Back</b-button></b-col>
+            <b-col class="text-center my-5"><b-button variant='primary' class="w-100" @click="toggle()">Show</b-button></b-col>
             <b-col class="text-center my-5"><b-button variant='primary' @click="save" class="w-100" to="/home">Register</b-button></b-col>
         </b-row>
     </b-container>
@@ -60,11 +64,13 @@ import Slider from './Slider.vue'
 import Paintype from './Paintype.vue'
 import Painchange from './Painchange.vue'
 import saveToDB from '../main.js' 
+import PainVisualizer from './PainVisualizer.vue'
 export default {
     name: "Painregistry",
     data: function(){
         return {
             visible: [false, false, false],
+            toggleVis: false,
             visIndex: 0,
             values: {
                 painstrength:0,
@@ -80,9 +86,13 @@ export default {
     components:{
         Slider,
         Paintype,
-        Painchange
+        Painchange,
+        PainVisualizer
     },
     methods: {
+        toggle: function() {
+            this.toggleVis = !this.toggleVis
+        },
         toggleVisible: function (i) {
                 if(i != this.visIndex)this.$set(this.visible,this.visIndex,false)
                 this.$set(this.visible,i, !this.visible[i])
