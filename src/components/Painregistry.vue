@@ -5,8 +5,10 @@
         <b-row align-h="center" class="border-bottom">
             <b-button squared v-b-toggle.paintype class="d-flex justify-content-center text-left" size="lg"  @click="toggleVisible(0)" variant='primary'>
                 <b-container class="w-100">Type of pain</b-container>
-                <b-icon :hidden = "!visible[0]" icon="dash" scale="1"></b-icon> 
-                <b-icon :hidden = "visible[0]" icon="plus" scale="1"></b-icon>
+                <b-iconstack>
+                    <b-icon stacked :hidden = "!visible[0]" icon="chevron-up" scale="0.75"></b-icon> 
+                    <b-icon stacked :hidden = "visible[0]" icon="chevron-down" scale="0.75"></b-icon>
+                </b-iconstack>
             </b-button>
         </b-row>
         <b-collapse id="paintype" accordion="accordion-group">
@@ -16,8 +18,10 @@
         <b-row align-h="center" class="border-bottom">
             <b-button squared v-b-toggle.painchange class="d-flex justify-content-center text-left" size="lg"  @click="toggleVisible(1)" variant='primary'>
                 <b-container class="w-100">Change of pain</b-container>
-                <b-icon :hidden = "!visible[1]" icon="dash" scale="1"></b-icon> 
-                <b-icon :hidden = "visible[1]" icon="plus" scale="1"></b-icon>
+                <b-iconstack>
+                    <b-icon stacked :hidden = "!visible[1]" icon="dash" scale="1"></b-icon> 
+                    <b-icon stacked :hidden = "visible[1]" icon="plus" scale="1"></b-icon>
+                </b-iconstack>
             </b-button></b-row>
         <b-row>
        
@@ -28,8 +32,10 @@
         </b-row>
         <b-row align-h="center" class=""><b-button squared v-b-toggle.painstrength class="d-flex justify-content-center text-left" size="lg"  @click="toggleVisible(2)" variant='primary'>
             <b-container class="w-100">Strength of pain</b-container>
-                <b-icon :hidden = "!visible[2]" icon="dash" scale="1"></b-icon> 
-                <b-icon :hidden = "visible[2]" icon="plus" scale="1"></b-icon>
+                <b-iconstack>
+                    <b-icon stacked :hidden = "!visible[2]" icon="dash" scale="1"></b-icon> 
+                    <b-icon stacked :hidden = "visible[2]" icon="plus" scale="1"></b-icon>
+                </b-iconstack>
             </b-button></b-row>
         <b-collapse id = "painstrength" accordion="accordion-group">
         <Slider 
