@@ -3,21 +3,20 @@
     <b-row align-h="center" class="my-5"
       ><h1 id="welcome">Settings</h1></b-row
     >
-    <b-row class="mt-5 mb-5">
-      <b-button v-b-toggle.accordion-3 class="">Change gender / weight</b-button>
+    <b-row align-h="center" class="mt-5 mb-5">
+      <b-button v-b-toggle.accordion-3 class="buttons" variant="primary">Change gender / weight</b-button>
       <b-collapse class="w-100" id="accordion-3" accordion="my-accordion" role="tabpanel">
         <b-row>
         <b-col class="mt-2" cols="7">
           <img :src="require(`@/assets/${pictures[currentPict]}`)" class="picture"/>
         </b-col>
         <b-col class="my-2" cols="5">
-          <b-button @click="updatePict(0)">Male L</b-button>
-          <b-button @click="updatePict(1)">Male M</b-button>
-          <b-button @click="updatePict(1)">Male S</b-button>
-          <b-button @click="updatePict(2)">Female L</b-button>
-          <b-button @click="updatePict(3)">Female M</b-button>
-          <b-button @click="updatePict(3)">Female S</b-button>
-          <b-row>small not implemented</b-row>
+          <b-button class="mt-1" @click="updatePict(0)" variant="primary">Male L</b-button>
+          <b-button class="mt-1" @click="updatePict(1)" variant="primary">Male M</b-button>
+          <b-button class="mt-1" @click="updatePict(1)" variant="primary">Male S</b-button>
+          <b-button class="mt-1" @click="updatePict(2)" variant="primary">Female L</b-button>
+          <b-button class="mt-1" @click="updatePict(3)" variant="primary">Female M</b-button>
+          <b-button class="mt-1" @click="updatePict(3)" variant="primary">Female S</b-button>
         </b-col>
         </b-row>
       </b-collapse>
@@ -25,8 +24,8 @@
 
 
     <b-row align-h="center">
-      <b-button v-b-toggle.accordion-1>Change Password</b-button>
-      <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
+      <b-button v-b-toggle.accordion-1 class="buttons" variant="primary">Change Password</b-button>
+      <b-collapse class="w-100" id="accordion-1" accordion="my-accordion" role="tabpanel">
         <label class="mt-3" for="OldPass">Old Password:</label>
         <b-form-input
           id="OldPass"
@@ -54,7 +53,7 @@
     </b-row>
 
     <b-row align-h="center" class="my-5">
-      <b-button v-b-toggle.accordion-2>Calibrate pain levels</b-button>
+      <b-button v-b-toggle.accordion-2 class="buttons" variant="primary">Calibrate pain levels</b-button>
       <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
         
         <b-row class="mt-3 ml-2 mr-2">How bad is the worst headache you ever had?</b-row>
@@ -87,8 +86,8 @@
     </b-row>
 
     <b-row align-h="center" class="my-5">
-      <router-link tag="b-button" class="buttons" to="/profile"
-        >Go back</router-link
+      <b-button  class="buttons" variant="primary" to="/profile"
+        >Go back</b-button
       >
     </b-row>
   </b-container>
@@ -123,7 +122,14 @@ export default {
 </script>
 
 <style>
+  #welcome {
+    font-size: 200%;
+    text-align: center;
+  }
   .picture{
     width: 200px;
   }
+  .buttons{
+        width: 50%;
+    }
 </style>

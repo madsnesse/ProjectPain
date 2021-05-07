@@ -2,21 +2,16 @@
   <b-container id="main">
     <b-row align-h="center" class="my-5"><h1 id="welcome">Profile!</h1></b-row>
     <b-row align-h="center" class="my-5"
-      ><router-link tag="b-button" class="buttons" to="/history"
-        >history</router-link
-      ></b-row
+      ><b-button class="buttons" variant="primary" to="/history">history</b-button>
+      </b-row
     >
     <b-row align-h="center" class="my-5"
-      ><router-link tag="b-button" class="buttons" to="/settings">
-        settings
-      </router-link></b-row
-    >
+      ><b-button class="buttons" variant="primary" to="/settings">settings</b-button>
+      </b-row>
 
     <b-row align-h="center" class="my-5"
-      ><router-link tag="b-button" class="buttons" to="/home">
-        back
-      </router-link></b-row
-    >
+      ><b-button class="buttons" variant="primary" to="/home">Go back</b-button>
+      </b-row>
   </b-container>
 </template> 
 
