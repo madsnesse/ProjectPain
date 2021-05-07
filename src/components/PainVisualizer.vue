@@ -133,7 +133,11 @@ export default {
 
           // Clear & render background
           p5.clear();
-          p5.image(bodyFigure, 22*rx, 10*ry, w*aspectImage, w);
+          let widthImageDraw = h*aspectImage;
+          let heightImageDraw = h;
+          let x = (w - widthImageDraw) / 2;
+
+          p5.image(bodyFigure, x, 1*ry, widthImageDraw, heightImageDraw);
 
           // draw each saved circle
           for (let circle of circles) {
