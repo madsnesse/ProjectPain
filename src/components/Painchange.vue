@@ -1,15 +1,22 @@
 <template>
     <b-container >
-        <b-row><b-container style="background-color:var(--secondary)">How would you describe the <i>cycle</i> of the pain</b-container></b-row>
-        <b-row class="border-bottom ">
+        <b-row><b-container style="background-color:var(--secondary)" class="px-3 py-2 text-center">How would you describe the <i>cycle</i> of the pain?</b-container></b-row>
+        <b-row >
             <b-col class="p-0" cols="4">
-                <b-button @click="toggleButton(1)" :variant="btns[1]?'success':'secondary'" squared>Continous</b-button>
+                <b-button @click="toggleButton(0)" variant='secondary' squared
+                :class="btns[0]?'border-light':'border-bottom'">Continous</b-button>
             </b-col>
             <b-col class="p-0" cols="4">
-                <b-button @click="toggleButton(2)" :variant="btns[2]?'success':'secondary'" squared>Rhytmic</b-button>
+                <b-button @click="toggleButton(1)" variant='secondary' squared :class="btns[1]?'border-light':'border-bottom'" > Rhytmic</b-button>
             </b-col>
             <b-col class="p-0" cols="4">
-                <b-button @click="toggleButton(3)" :variant="btns[3]?'success':'secondary'" squared>Brief</b-button>
+                <b-button 
+                    @click="toggleButton(2)" 
+                    variant='secondary' 
+                    squared
+                    :class="btns[2]?'border-light':'border-bottom'">
+                    Brief
+                </b-button>
             </b-col>
         </b-row>
         <b-row class="">
@@ -27,8 +34,11 @@
                     
                         <b-container class="w-100 text">Does the following <b>increase</b> your pain?</b-container>
 
-                        <b-icon :hidden = "!accordion[0]" icon="chevron-up" scale="1"></b-icon> 
-                        <b-icon :hidden = "accordion[0]" icon="chevron-down" scale="1"></b-icon>
+                        <b-iconstack>
+                            <b-icon stacked icon="circle" scale="1"></b-icon> 
+                            <b-icon stacked :hidden = "!accordion[0]" icon="dash" scale="1"></b-icon> 
+                            <b-icon stacked :hidden = "accordion[0]" icon="plus" scale="1"></b-icon>
+                        </b-iconstack>
             </b-button>
             <b-collapse id="increase" accordion="painchange">
                 <b-button 
@@ -54,10 +64,11 @@
                 >
                         <b-container class="w-100">Does the following <b>decrease</b> your pain?</b-container>
 
-                        <b-icon :hidden = "!accordion[1]" icon="chevron-up" scale="1"></b-icon> 
-                        <b-icon :hidden = "accordion[1]" icon="chevron-down" scale="1"></b-icon>
-                        
-                
+                        <b-iconstack>
+                            <b-icon stacked icon="circle" scale="1"></b-icon> 
+                            <b-icon stacked :hidden = "!accordion[1]" icon="dash" scale="1"></b-icon> 
+                            <b-icon stacked :hidden = "accordion[1]" icon="plus" scale="1"></b-icon>
+                        </b-iconstack>
             
             </b-button>
              <b-collapse id="decrease" accordion="painchange">

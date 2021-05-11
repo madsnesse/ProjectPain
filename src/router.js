@@ -20,7 +20,7 @@ const routes = [
   { path: '/painregistry', component: Painregistry },
   { path: '/profile', component: Profile },
   { path: '/paindrawer', component: Paindrawer },
-  { path: '/pain_visualizer', component: PainVisualizer },
+  { path: '/painvisualizer', component: PainVisualizer },
   { path: '/settings', component: Settings },
   { path: '/history', component: History }
 ]

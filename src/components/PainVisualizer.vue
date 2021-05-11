@@ -1,7 +1,11 @@
 <template>
   <div id="parent">
+    <b-button id="popover-3" variant="primary">Using slots</b-button>
+        <b-popover target="popover-3" triggers="click">
+          <Painregistry class="w-100"/>
+        </b-popover>
     <div id="canvas"></div>
-
+    
     <!-- RADIUS -->
     <div>
       <label for="radiusSlider">Radius: {{ radius }}</label>
@@ -32,13 +36,21 @@
 // thanks to https://medium.com/js-dojo/experiment-with-p5-js-on-vue-7ebc05030d33
 // for general setup of p5 + vue
 const p5_lib = require('p5');
-
+import Painregistry from './Painregistry.vue'
 export default {
     name: "PainVisualizer",
+    props:{
+      valuesFromForm:Object
+    },
+      
     data() {
       return {
-          radius: 25
+          radius: 25,
+          values: this.valuesFromForm
       }
+    },
+    components:{
+      Painregistry
     },
     created() {
       const pain_visualize = p5 => {
@@ -58,7 +70,7 @@ export default {
          * pain_types =  array of pain types for rendering, see 'circleFactory()' / 'addPainToCircle()' for more
         */
         var current_circle = {x:p5.mouseX, y:p5.mouseY, r:25, pain_types: [
-          {name:"temporal", sinus_arg: 0, speed: 0.01},
+          {name:"temporal", sinus_arg: 0, speed: 0.1},
           {name:"thermal"}
         ]};
         var circles = [];
@@ -88,6 +100,7 @@ export default {
         }
 
         p5.setup = function() {
+          console.log(this.values)
           // get width of parent div
           parent = document.getElementById("parent");
 
@@ -259,7 +272,7 @@ export default {
               break;
 
             case "temporal":
-              circle.pain_types.push({name:"temporal", sinus_arg: 0, speed: 0.01});
+              circle.pain_types.push({name:"temporal", sinus_arg: 0, speed: 0.1});
               break;
 
             case "sensory":

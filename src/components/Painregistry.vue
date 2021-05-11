@@ -2,8 +2,8 @@
     <b-container id = "main">
         <b-row><b-container class="m-5"><h1 id="welcome">Pain registry</h1></b-container></b-row>
         
-        <PainVisualizer :hidden="toggleVis"/>
-        <b-container :hidden="!toggleVis">
+        <!-- <PainVisualizer :hidden="toggleVis" :valuesFromForm="values" /> -->
+        <b-container>
             <b-row align-h="center" class="border-bottom">
                 <b-button squared v-b-toggle.paintype class="d-flex justify-content-center text-left" size="lg"  @click="toggleVisible(0)" variant='primary'>
                     <b-container class="w-100">Type of pain</b-container>
@@ -46,7 +46,6 @@
         </b-container>
         <b-row align-h="between">
             <b-col class="text-center my-5"><b-button variant='primary' class="w-100" to="/home">Back</b-button></b-col>
-            <b-col class="text-center my-5"><b-button variant='primary' class="w-100" @click="toggle()">Show</b-button></b-col>
             <b-col class="text-center my-5"><b-button variant='primary' @click="save" class="w-100" to="/home">Register</b-button></b-col>
         </b-row>
     </b-container>
@@ -58,7 +57,6 @@ import Slider from './Slider.vue'
 import Paintype from './Paintype.vue'
 import Painchange from './Painchange.vue'
 import saveToDB from '../main.js' 
-import PainVisualizer from './PainVisualizer.vue'
 export default {
     name: "Painregistry",
     data: function(){
@@ -68,7 +66,19 @@ export default {
             visIndex: 0,
             values: {
                 painstrength:0,
-                painType:[],
+                painType:{
+                temporal:0,
+                spatial:0,
+                thermal:0,
+                brightness:0,
+                dullness:0,
+                Button6:0,
+                Button7:0,
+                Button8:0,
+                Button9:0,
+                Button10:0,
+
+                },
                 painChange:{
                     change:0,
                     increase:[], 
@@ -80,8 +90,7 @@ export default {
     components:{
         Slider,
         Paintype,
-        Painchange,
-        PainVisualizer
+        Painchange
     },
     methods: {
         toggle: function() {
@@ -99,7 +108,7 @@ export default {
         },
 
         update: function(valueToChange,event) {
-            console.log(event);
+            console.log(this.values.painType);
             if (valueToChange == "painType"){
                 this.values.painType = event
             }
