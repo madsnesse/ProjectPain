@@ -1,5 +1,5 @@
 <template>
-    <b-container class="my-buttons">
+    <b-container class="my-buttons" style="background-color:var(--secondary)">
         <b-row align-h="center">
             <b-col class="" cols="4" xl="4">
                 

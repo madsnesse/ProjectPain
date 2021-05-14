@@ -1,5 +1,15 @@
 <template>
-    <b-container id = "main">
+    <b-container>
+        <b-breadcrumb>
+            <b-breadcrumb-item :to="'/home'">
+                <b-icon icon="house-fill" scale="1.25" shift-v="1.25" aria-hidden="true"></b-icon>
+                Home
+            </b-breadcrumb-item>
+            <b-breadcrumb-item active>
+                Pain Registry
+            </b-breadcrumb-item>
+        </b-breadcrumb>
+
         <b-row><b-container class="m-5"><h1 id="welcome">Pain registry</h1></b-container></b-row>
         
         <PainVisualizer v-on:newCircle= "newCircle($event)" :hidden="toggleVis" :values="forms" :entries="entries"  />
@@ -18,9 +28,11 @@
 
 
 <script>
-import saveToDB from '../main.js' 
 import PainVisualizer from './PainVisualizer.vue'
 import Form from './Form.vue'
+
+import '../main.js'
+import * as PoucheDB from '../database'
 export default {
     props: {
     },
@@ -33,6 +45,7 @@ export default {
             entries:0,
             currentEntry:0,
             formTemplate: {
+                _id: "",
                 painstrength:0,
                 painType:{
                 temporal:0,
@@ -65,9 +78,12 @@ export default {
         },
         
         save: function() {
+                this.values._id = (new Date().getTime()).toString();
                 console.log("saving to json");
-                console.log(this.values);
-                saveToDB(JSON.stringify(this.values));
+                PoucheDB.saveToDB(JSON.stringify(this.values));
+                //console.log("Data From  DB")
+                //PoucheDB.getAllDataFromDB();
+
         },
 
         newCircle: function(event) {

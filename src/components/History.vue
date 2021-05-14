@@ -1,20 +1,33 @@
 <template>
     <b-container>
-        <b-row align-h="center" class="mt-2"><h1 id="welcome">History!</h1></b-row>
-        <b-row align-h="center" class="mt-4"><img src="../assets/Placeholder.png" class="picture"/></b-row>
+        <b-breadcrumb>
+            <b-breadcrumb-item :to="'/home'">
+                <b-icon icon="house-fill" scale="1.25" shift-v="1.25" aria-hidden="true"></b-icon>
+                Home
+            </b-breadcrumb-item>
+            <b-breadcrumb-item :to="'/profile'">
+                Profile
+            </b-breadcrumb-item>
+            <b-breadcrumb-item active>
+                History
+            </b-breadcrumb-item>
+        </b-breadcrumb>
+
+        <b-row align-h="center" class="my-5"><h1 id="welcome">History!</h1></b-row>
+
         <b-row align-h="center" class="mt-2 mb-4">
-          <Slider 
-          :values='["Last week", "Yesterday", "Today", "Tomorrow", "Next week"]' 
-          :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef" 
-          @updateValue= "update(0,$event)" 
+          <Slider
+          :values='["Last week", "Yesterday", "Today", "Tomorrow", "Next week"]'
+          :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef"
+          @updateValue= "update(0,$event)"
           :labels="['Old','New']" />
         </b-row>
-        <b-row>
+        <b-row align-h="center">
             <b-col>
-                <router-link tag="b-button" class="buttons" to="/Profile">Go back</router-link>
+                <b-button class="buttons w-100" variant="primary" to="/Profile">Go back</b-button>
             </b-col>
             <b-col>
-                <router-link tag="b-button" class="buttons" to="/Profile">kcab oG</router-link>
+                <b-button class="buttons w-100" variant="primary" to="/Profile">kcab oG</b-button>
             </b-col>
         </b-row>
     </b-container>
@@ -36,3 +49,11 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+    #welcome {
+        font-size: 200%;
+        text-align: center;
+    }
+    
+</style>
