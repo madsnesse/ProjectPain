@@ -3,29 +3,29 @@
         <b-row align-h="center">
             <b-col class="" cols="4" xl="4">
                 
-                <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(0)" variant='info'>temporal</b-button></b-row>
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(0)" variant='info'>temporal</b-button></b-row>
             
-                <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(1)" variant='info'>spatial</b-button></b-row>
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(1)" variant='info'>spatial</b-button></b-row>
             
-                <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(2)" variant='info'>thermal</b-button></b-row>
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(2)" variant='info'>thermal</b-button></b-row>
             
-                <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(3)" variant='info'>brightness</b-button></b-row>
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(3)" variant='info'>brightness</b-button></b-row>
             
-                <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(4)" variant='info'>dullness</b-button></b-row>
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(4)" variant='info'>dullness</b-button></b-row>
                 
             </b-col>
 
             <b-col class="" cols="4" xl="4">
                 
-                <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(5)" variant='info'>TestButton</b-button></b-row>
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(5)" variant='info'>TestButton</b-button></b-row>
             
-                <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(6)" variant='info'>Rhytmic</b-button></b-row>
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(6)" variant='info'>Rhytmic</b-button></b-row>
             
-                <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(7)" variant='info'>Rhytmic</b-button></b-row>
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(7)" variant='info'>Rhytmic</b-button></b-row>
             
-                <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(8)" variant='info'>Rhytmic</b-button></b-row>
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(8)" variant='info'>Rhytmic</b-button></b-row>
             
-                <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(9)" variant='info'>Rhytmic</b-button></b-row>
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(9)" variant='info'>Rhytmic</b-button></b-row>
             
             
             </b-col>
@@ -62,7 +62,17 @@ export default {
             sliderMax: 5,
             sliderDef: 1,
             typeValues: {
-                vals:[0,0,0,0,0,0,0,0,0,0]
+                temporal:0,
+                spatial:0,
+                thermal:0,
+                brightness:0,
+                dullness:0,
+                Button6:0,
+                Button7:0,
+                Button8:0,
+                Button9:0,
+                Button10:0,
+
             }
         };
     },
@@ -78,7 +88,9 @@ export default {
             
         },
         update: function(i, event) {
-            this.$set(this.typeValues.vals,i,parseInt(event))
+            var id = this.btnNames[i] 
+            console.log(this.typeValues[id])
+            this.typeValues[id] =  parseInt(event)
             console.log(this.typeValues)
             this.$emit('update', this.typeValues)
         }

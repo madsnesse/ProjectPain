@@ -18,7 +18,8 @@ const routes = [
   { path: '/home', component: Home },
   { path: '/painregistry', component: Painregistry },
   { path: '/profile', component: Profile },
-  { path: '/pain_visualizer', component: PainVisualizer },
+  { path: '/paindrawer', component: Paindrawer },
+  { path: '/painvisualizer', component: PainVisualizer },
   { path: '/settings', component: Settings },
   { path: '/history', component: History }
 ]

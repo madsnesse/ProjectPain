@@ -15,11 +15,16 @@
     </b-container>
 </template>
 
-
 <script>
 export default {
-    name: "Home"
-}
+    name: "Home",
+    components: {
+    
+    }
+}   
+
+
+
 </script>
 
 <style scoped>
