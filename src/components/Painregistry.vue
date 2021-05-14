@@ -73,8 +73,8 @@
 import Slider from './Slider.vue'
 import Paintype from './Paintype.vue'
 import Painchange from './Painchange.vue'
-import saveToDB from '../main.js' 
-import PainVisualizer from './PainVisualizer.vue'
+import '../main.js'
+import * as PoucheDB from '../database'
 export default {
     name: "Painregistry",
     data: function(){
@@ -83,6 +83,7 @@ export default {
             toggleVis: false,
             visIndex: 0,
             values: {
+                _id: "",
                 painstrength:0,
                 painType:[],
                 painChange:{
@@ -109,13 +110,15 @@ export default {
                 this.visIndex = i        
         },
         save: function() {
+                this.values._id = (new Date().getTime()).toString();
                 console.log("saving to json");
-                console.log(this.values);
-                saveToDB(JSON.stringify(this.values));
+                PoucheDB.saveToDB(JSON.stringify(this.values));
+                //console.log("Data From  DB")
+                //PoucheDB.getAllDataFromDB();
+
         },
 
         update: function(valueToChange,event) {
-            console.log(event);
             if (valueToChange == "painType"){
                 this.values.painType = event
             }
@@ -126,6 +129,7 @@ export default {
                 this.values.painChange = event
             }
         }
+
     }
     
 }

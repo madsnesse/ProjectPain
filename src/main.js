@@ -7,9 +7,7 @@ import router from './router.js'
 import VueRouter from 'vue-router'
 import {BootstrapVue, VBTogglePlugin, IconsPlugin} from 'bootstrap-vue'
 
-export default function saveToDB(json){
-  console.log(json)
-}
+Vue.config.productionTip = false;
 
 
 Vue.config.productionTip = false
@@ -22,3 +20,5 @@ new Vue({
   router,
   render: h => h(App),
 }).$mount('#app')
+
+
