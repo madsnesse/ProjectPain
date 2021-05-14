@@ -13,59 +13,41 @@ PouchDB.plugin(PouchLiveFind);
 PouchDB.plugin(PouchDBAuthentication);
 PouchDB.plugin(require("pouchdb-security-helper"));
 
+//var dbName = "http://localhost:5984/";
+//var db = new PouchDB(dbName);
 const db = new PouchDB("http://admin:admin@localhost:5984/projectpain");
 const security = db.security();
 
 /***
- * returns the length of the database
+ * Thanks alot to pouchdb-community for login and security code
+ * https://github.com/pouchdb-community/pouchdb-authentication/blob/master/docs/api.md#dbsignupadminusername-password--options--callback
+ *
+ * Thank you to tyler-johnson for pouchdb-security-helper for admin creations on new databases
+ * https://github.com/tyler-johnson/pouchdb-security-helper
  *
  */
-export function lengthOfDatabase() {
-    console.log("inn i funksjonen");
-    let number = 0;
-    db.allDocs({
-        include_docs: true,
-        attachments: true,
-    }).then(function (result) {
-        console.log(result);
-        number = result.total_rows;
-        number ++;
-        console.log(" wow number " + number); // number blir en mer enn result.total_rows
-        return "2222";
+
+
+/***
+ * Saves to the database with .put which gives time in milliseconds as _id
+ * @param json - includes all pain information
+ */
+export function saveToDB(json) {
+    db.put(JSON.parse(json)).then(function (response) {
+        //handle response
+        console.log("SaveToDB Response")
+        console.log(response)
     }).catch(function (err) {
-        console.log("wops there was an error");
-        console.log(err);
+        console.error(err);
     });
-    console.log("Ut av funksjonen")
-    return number;
+    console.log(json);
+    db.info();
 }
 
 /***
- * creates a new database with server admin
- * @param dbName - database name
+ * checks if user has access to the database
+ * @param username - user
  */
-export function createDataBase(username, password){
-    let database = "http://admin:admin@localhost:5984/";
-    database = database + username.toString();
-    console.log('dbName: ' + username);
-    console.log(database);
-    let newDataBase = new PouchDB(database);
-    newDataBase.signUpAdmin(username, password, username);
-    let secure = newDataBase.security();
-    //secure.members.roles.add(username);
-    //secure.admins.roles.add(username);
-    secure.fetch().then(()=>{
-        console.log("Inside fetch");
-        secure.members.roles.add(username);
-        secure.admins.roles.add(username);
-        return secure.save();
-
-    }).catch(e =>{
-        console.error(e);
-    });
-    db.info();
-    logIn(username,password);
-}
 
 export function hasAccess(username){
     const user = { name: username, roles: [ "admin" ] };
@@ -78,9 +60,36 @@ export function hasAccess(username){
     });
 }
 
+// This point and below need to be checked and fixed, create user errors and login errors, and connecting to DB errors
+ /***
+ * creates a new database with server admin
+ * @param dbName - database name
+ */
+
+export function createDataBase(username, password){
+    let database = "http://admin:admin@localhost:5984/";
+    database = database + username.toString();
+    console.log('dbName: ' + username);
+    console.log(database);
+    let newDataBase = new PouchDB(database);
+    newDataBase.signUpAdmin(username, password, username)
+    let secure = newDataBase.security();
+    secure.fetch().then(()=>{
+        console.log("Inside fetch");
+        secure.members.roles.add(username);
+        secure.admins.roles.add(username);
+        return secure.save();
+    }).catch(e =>{
+        console.error(e);
+    });
+    db.info();
+    //dbName += username
+}
+
+
 /***
  * Logs user in with their correct database
- * Currently does not work
+ * Currently does "not?" work
  * @param username
  * @param password
  */
@@ -88,7 +97,7 @@ export function hasAccess(username){
 export function logIn(username,password) {
     console.log("Login LInj1")
     db.logIn(username, password).then(function (batman) {
-        console.log(batman)
+        console.log(batman);
         console.log("Logged in");
     }).catch(function (err) {
         console.log("logInError")
@@ -101,17 +110,20 @@ export function logIn(username,password) {
         } else if (!response.userCtx.name) {
             // nobody's logged in
         } else {
-            // response.userCtx.name is the current use
+            // response.userCtx.name is the current user
             console.log(response.userCtx.name + " is the user")
         }
     });
+    hasAccess(username);
+    console.log("this is the db: " + db)
+
 }
 
 /***
  * Gives all data from database
+ * To be implemented and tested
  */
 
-// needs to be improved
 export function getAllDataFromDB(){
     db.allDocs({
         include_docs: true,
@@ -119,6 +131,7 @@ export function getAllDataFromDB(){
     }).then( function (result) {
         //handle result, need to return
         console.log(result);
+        return result;
     }).catch(function (err){
         console.error(err);
         }
@@ -157,38 +170,17 @@ export function createUser(username,password) {
             } else if (err.name == 'forbidden'){
                 console.log(username + " is invalid, choose another")
             }else{
-                console.log("createUser error")
+                console.log("createUser error");
                 console.error(err)
             }
         }
         console.log(response);
     });
-    hasAccess(username);
-    console.log(db)
+    console.log(db);
+    logIn(username,password);
 }
-/*
-Try to use "this.$pouch.put" when using vue.use
 
-Otherwise use db.use
- */
 
-/***
- * Saves to the database with .post which gives random _id and _rev to document
- * @param json - includes all pain information
- */
-export function saveToDB(json) {
-    //var id = (new Date().getTime())
-    db.put(JSON.parse(json)).then(function (response) {
-        //handle respons
-        console.log("SaveToDB Response")
-        console.log(response)
-    }).catch(function (err) {
-        console.error(err);
-    });
-    console.log(json);
-    db.info();
-    //num++;
-}
 
 
 
