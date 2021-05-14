@@ -37,14 +37,13 @@ const p5_lib = require('p5');
 export default {
     name: "PainVisualizer",
     props:{
-      valuesFromForm:Object
+      values:Object,
+      entries: Number
     },
       
     data() {
       return {
-          radius: 25,
-          values: this.valuesFromForm,
-          numberOfButtons: 69
+          radius: 25
       }
     },
     components:{
@@ -57,6 +56,9 @@ export default {
       newCircle: function(x,y,r){
         this.$emit('newCircle',{x:x,y:y,r:r});
             
+      },
+      getCircleValues: function(i){
+        return this.values[i];
       }
     },
     mounted() {

@@ -2,8 +2,8 @@
     <b-container id = "main">
         <b-row><b-container class="m-5"><h1 id="welcome">Pain registry</h1></b-container></b-row>
         
-        <PainVisualizer v-on:newCircle= "newCircle($event)" :hidden="toggleVis" :valuesFromForm="forms[currentForm]"  />
-        <Form :hidden="!toggleVis" :values="forms[currentForm]" :key="currentForm" />
+        <PainVisualizer v-on:newCircle= "newCircle($event)" :hidden="toggleVis" :values="forms" :entries="entries"  />
+        <Form :hidden="!toggleVis" :values="forms[currentEntry]" :key="currentEntry" />
         
             
 
@@ -30,7 +30,8 @@ export default {
             toggleVis: false,
             visIndex: 0,
             forms: [],
-            currentForm:0,
+            entries:0,
+            currentEntry:0,
             formTemplate: {
                 painstrength:0,
                 painType:{
@@ -71,8 +72,9 @@ export default {
 
         newCircle: function(event) {
             console.log(event)
-            this.currentForm += 1
-            this.$set(this.forms, this.currentForm, JSON.parse(JSON.stringify(this.formTemplate)))
+            this.currentEntry += 1
+            this.entries += 1
+            this.$set(this.forms, this.currentEntry, JSON.parse(JSON.stringify(this.formTemplate)))
             console.log("new circle:  " + event.x + ", "+ event.y + ", "+ event.r)
         }
 
