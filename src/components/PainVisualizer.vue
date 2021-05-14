@@ -9,7 +9,7 @@
         </div>
 
         <!-- POP LAST PAIN CIRCLE -->
-        <b-button variant="info" id="undoLastDraw" class="w-100 mt-2">Undo Last Draw</b-button>
+        <b-button variant="info" id="finishPlacingCircle" class="w-100 mt-2">Finish Placement</b-button>
 
         <!-- RESET -->
         <b-button variant="primary" id="resetButton" class="w-100 mt-2">Reset</b-button>
@@ -22,7 +22,6 @@
         </b-button-group>
     </div>
 </template>
-
 
 <script>
 // thanks to https://medium.com/js-dojo/experiment-with-p5-js-on-vue-7ebc05030d33
@@ -53,6 +52,7 @@ export default {
              * x          =  value from 0 to 100 (% of width)
              * y          =  value from 0 to 100 (% of height)
              * r          =  value from 0 to 100 (% of width)
+             * anchored   =  if true, the x/y values should not be updated on mouse pos.
              * pain_types =  array of pain-type objects
              *               (see 'circleFactory()' / 'addPainToCircle()' for more)
             */
@@ -61,6 +61,7 @@ export default {
                 x:p5.mouseX,
                 y:p5.mouseY,
                 r:25,
+                anchored: false,
                 pain_types: [
                     {name:"temporal", sinus_arg: 0, speed: 0.01},
                     {name:"thermal"}
@@ -76,7 +77,7 @@ export default {
             // UI
             var parent;
             var radiusSlider;
-            var undoLastDrawButton;
+            var finishPlacingCircleButton;
             var resetButton;
             var temporalButton, thermalButton, sensoryButton;
 
@@ -110,8 +111,8 @@ export default {
                 // Get UI elements
                 radiusSlider = document.getElementById("radiusSlider");
 
-                undoLastDrawButton = document.getElementById("undoLastDraw");
-                undoLastDrawButton.onclick = function() {circles.pop();};
+                finishPlacingCircleButton = document.getElementById("finishPlacingCircle");
+                finishPlacingCircleButton.onclick = function() {finishPlacingCircle();};
 
                 temporalButton = document.getElementById("temporalButton");
                 temporalButton.onclick = function() {addPainToCircle(current_circle, "temporal")};
@@ -160,6 +161,18 @@ export default {
             ////////////////////////////////////////////////////
             //// CUSTOM FUNCTIONS (NON-p5) BELOW           ////
             //////////////////////////////////////////////////
+            /* Saves the circle if within bounds */
+            function finishPlacingCircle() {
+                let x_ = current_circle.x;
+                let y_ = current_circle.y;
+                if (0 <= x_ && x_ <= 100 && 0 <= y_ && y_ <= 100) {  // bounds check
+                    // Push circle to array
+                    circles.push(Object.assign({}, current_circle));
+
+                    current_circle = circleFactory("empty");    // reset
+                }
+            }
+
             /* Updates values before rendering every frame. */
             function updateValues() {
                 // width of parent div
@@ -175,9 +188,10 @@ export default {
                 w = canvas_rect.width, h = canvas_rect.height;
 
                 // Update current_circle
-                current_circle.x = 100*(p5.mouseX/w);
-                current_circle.y = 100*(p5.mouseY/h);
-
+                if (!current_circle.anchored) {
+                    current_circle.x = 100*(p5.mouseX/w);
+                    current_circle.y = 100*(p5.mouseY/h);
+                }
                 // Update radius after check
                 if (radiusSlider.value < 0 || radiusSlider > 100) {
                     console.error("Slider for radius should only have values between 0 to 100.");
@@ -266,22 +280,21 @@ export default {
             ////////////////////////////////////////////////////
             //// EVENTS BELOW                              ////
             //////////////////////////////////////////////////
+            /* Update pos. of circle if within bounds */
             p5.touchEnded = function() {
-                // Save circle if within bounds
                 let tx = 100*(p5.mouseX / w);  // rel. mouse pos., 0 to 100
                 let ty = 100*(p5.mouseY / h);
                 if (0 <= tx && tx <= 100 && 0 <= ty && ty <= 100) {  // bounds check
                     console.log("touch event @ ("+Math.round(p5.mouseX)+", "+Math.round(p5.mouseY)+")");
 
-                    // Push circle to array
+                    // update pos.
                     current_circle.x = tx;
                     current_circle.y = ty;
-                    circles.push(Object.assign({}, current_circle));
-
-                    current_circle = circleFactory("empty");  // reset
+                    current_circle.anchored = true;
                 }
             }
 
+            /* Update pos. of circle if within bounds */
             p5.mouseReleased = function() {
                 // Save circle if within bounds
                 let mx = 100*(p5.mouseX / w);  // rel. mouse pos., 0 to 100
@@ -289,12 +302,9 @@ export default {
                 if (0 <= mx && mx <= 100 && 0 <= my && my <= 100) {  // bounds check
                     console.log("mouse event @ ("+Math.round(p5.mouseX)+", "+Math.round(p5.mouseY)+")");
 
-                    // Push circle to array
                     current_circle.x = mx;
                     current_circle.y = my;
-                    circles.push(Object.assign({}, current_circle));
-
-                    current_circle = circleFactory("empty");    // reset
+                    current_circle.anchored = true;
                 }
             }
 
