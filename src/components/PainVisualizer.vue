@@ -1,9 +1,6 @@
 <template>
   <div id="parent">
-    <b-button id="popover-3" variant="primary">Using slots</b-button>
-        <b-popover target="popover-3" triggers="click">
-          <Painregistry class="w-100"/>
-        </b-popover>
+        
     <div id="canvas"></div>
     
     <!-- RADIUS -->
@@ -36,7 +33,6 @@
 // thanks to https://medium.com/js-dojo/experiment-with-p5-js-on-vue-7ebc05030d33
 // for general setup of p5 + vue
 const p5_lib = require('p5');
-import Painregistry from './Painregistry.vue'
 export default {
     name: "PainVisualizer",
     props:{
@@ -46,18 +42,23 @@ export default {
     data() {
       return {
           radius: 25,
-          values: this.valuesFromForm
+          values: this.valuesFromForm,
+          numberOfButtons: 69
       }
     },
     components:{
-      Painregistry
     },
-    created() {
+    methods: {
+      updateNumber: function(){
+        this.numberOfButtons +=1
+      }
+    },
+    mounted() {
       const pain_visualize = p5 => {
         // Constants
         const aspectImage = 437/853;
         const aspectCanvas = 5/7;
-
+        const Vue = Vue
         // p5 background & misc.
         var figure = "man-front-large";
         var bodyFigure;        // reference to body image
@@ -75,7 +76,6 @@ export default {
         ]};
         var circles = [];
         var radius;  // reusable variable
-
         // Size and positional variables
         let width_div;  // width of parent div
         let w, h;       // width and height of canvas DOM
@@ -93,6 +93,7 @@ export default {
         ////////////////////////////////////////////////////
         //// p5-FUNCTIONS BELOW                        ////
         //////////////////////////////////////////////////
+        
         p5.preload = function() {
           let img = require("@/assets/"+figure+".png")  // thanks to https://stackoverflow.com/a/65872755
           bodyFigure = p5.loadImage(img);  // todo resize image - too large atm
@@ -100,12 +101,12 @@ export default {
         }
 
         p5.setup = function() {
-          console.log(this.values)
           // get width of parent div
           parent = document.getElementById("parent");
 
           // Create canvas
           canvas = p5.createCanvas(parent.offsetWidth, parent.offsetWidth/aspectCanvas);
+        
           canvas.elt.style.border = "solid 1px black";
           canvas.elt.style.background = "#ffffff";
           canvas.parent("canvas");  // Attach to <div>
@@ -135,7 +136,7 @@ export default {
           resetButton.onclick = function(){circles = [];};  // Empty circles
 
           figureInput = document.getElementById("figureInput");
-
+          
 
           // p5-settings
           p5.blendMode(p5.MULTIPLY);
@@ -144,7 +145,6 @@ export default {
 
         p5.draw = function() {
           updateValues();
-
           // Clear & render background
           p5.clear();
           p5.image(bodyFigure, 19*rx, 10*ry, w*aspectImage, w);
@@ -255,7 +255,7 @@ export default {
         /* Creates a new circle based on the type of pain */
         function circleFactory(pain_type="thermal") {
           let c = {x:p5.mouseX, y:p5.mouseY, r:radiusSlider.value, pain_types: []};
-
+          
           if (pain_type === "empty") {
             return c;
           } else {
@@ -314,7 +314,7 @@ export default {
             current_circle.x = mx;
             current_circle.y = my;
             circles.push(Object.assign({}, current_circle));
-
+            this.updateNumber()
             current_circle = circleFactory("empty");  // reset
           }
         }
@@ -331,6 +331,7 @@ export default {
       // thanks to https://stackoverflow.com/a/61855707
       // for setting up p5 in an vue component
       new p5_lib(pain_visualize);
+      this.$emit('addForm',pain_visualize.numberOfButtons);
     }
 }
 </script>

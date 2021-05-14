@@ -13,6 +13,7 @@
     "core-js": "^3.6.5",
     "p5": "^1.2.0",
     "vue": "^2.6.12",
+    "vue-p5": "^0.8.4",
     "vue-router": "^3.5.1"
   },
   "devDependencies": {
