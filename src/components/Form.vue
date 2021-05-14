@@ -53,6 +53,34 @@ export default {
         Slider, 
         Painchange,
         Paintype
+    },props:{
+        values:Object
+    },
+    data: function(){
+        return{
+            
+            visible: [false, false, false]
+        }
+            
+    },
+    methods:{
+        toggleVisible: function (i) {
+                if(i != this.visIndex)this.$set(this.visible,this.visIndex,false)
+                this.$set(this.visible,i, !this.visible[i])
+                this.visIndex = i        
+        },
+        update: function(valueToChange,event) {
+            console.log(this.values.painType);
+            if (valueToChange == "painType"){
+                this.values.painType = event
+            }
+            else if(valueToChange == "painstrength"){
+                this.values.painstrength = event
+
+            }else if (valueToChange == "painChange"){
+                this.values.painChange = event
+            }
+        }
     }
 }
 </script>

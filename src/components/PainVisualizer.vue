@@ -26,6 +26,7 @@
     <label for="figureInput" id="figureInputLabel" class="w-100 mt-3">Value</label>
     <b-form-input id="figureInput" placeholder="Set figure"></b-form-input>
   </div>
+    
 </template>
 
 
@@ -51,9 +52,15 @@ export default {
     methods: {
       updateNumber: function(){
         this.numberOfButtons +=1
+        console.log("HEY!")
+      },
+      newCircle: function(x,y,r){
+        this.$emit('newCircle',{x:x,y:y,r:r});
+            
       }
     },
     mounted() {
+      let vm = this
       const pain_visualize = p5 => {
         // Constants
         const aspectImage = 437/853;
@@ -314,7 +321,11 @@ export default {
             current_circle.x = mx;
             current_circle.y = my;
             circles.push(Object.assign({}, current_circle));
-            this.updateNumber()
+            
+            
+            vm.newCircle(mx,my,current_circle.r)
+            
+            
             current_circle = circleFactory("empty");  // reset
           }
         }
@@ -331,7 +342,6 @@ export default {
       // thanks to https://stackoverflow.com/a/61855707
       // for setting up p5 in an vue component
       new p5_lib(pain_visualize);
-      this.$emit('addForm',pain_visualize.numberOfButtons);
     }
 }
 </script>

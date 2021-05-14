@@ -2,13 +2,15 @@
     <b-container id = "main">
         <b-row><b-container class="m-5"><h1 id="welcome">Pain registry</h1></b-container></b-row>
         
-        <PainVisualizer :hidden="toggleVis" :valuesFromForm="values" @newForm="addForm(i)" />
-        <Form :hidden="toggleVis" />
+        <PainVisualizer v-on:newCircle= "newCircle($event)" :hidden="toggleVis" :valuesFromForm="forms[currentForm]"  />
+        <Form :hidden="!toggleVis" :values="forms[currentForm]" :key="currentForm" />
         
             
 
         <b-row align-h="between">
             <b-col class="text-center my-5"><b-button variant='primary' class="w-100" to="/home">Back</b-button></b-col>
+            <b-col class="text-center my-5"><b-button variant='primary' @click="toggleVis = !toggleVis" class="w-100" >Show</b-button></b-col>
+            
             <b-col class="text-center my-5"><b-button variant='primary' @click="save" class="w-100" to="/home">Register</b-button></b-col>
         </b-row>
     </b-container>
@@ -17,17 +19,19 @@
 
 <script>
 import saveToDB from '../main.js' 
+import PainVisualizer from './PainVisualizer.vue'
+import Form from './Form.vue'
 export default {
     props: {
     },
     name: "Painregistry",
     data: function(){
         return {
-            visible: [false, false, false],
             toggleVis: false,
             visIndex: 0,
             forms: [],
-            values: {
+            currentForm:0,
+            formTemplate: {
                 painstrength:0,
                 painType:{
                 temporal:0,
@@ -51,36 +55,25 @@ export default {
         }
     },
     components:{
+        PainVisualizer,
+        Form
     },
     methods: {
         toggle: function() {
             this.toggleVis = !this.toggleVis
         },
-        toggleVisible: function (i) {
-                if(i != this.visIndex)this.$set(this.visible,this.visIndex,false)
-                this.$set(this.visible,i, !this.visible[i])
-                this.visIndex = i        
-        },
+        
         save: function() {
                 console.log("saving to json");
                 console.log(this.values);
                 saveToDB(JSON.stringify(this.values));
         },
 
-        update: function(valueToChange,event) {
-            console.log(this.values.painType);
-            if (valueToChange == "painType"){
-                this.values.painType = event
-            }
-            else if(valueToChange == "painstrength"){
-                this.values.painstrength = event
-
-            }else if (valueToChange == "painChange"){
-                this.values.painChange = event
-            }
-        },
-        addForm: function(i) {
-            console.log("buttons: " + i)
+        newCircle: function(event) {
+            console.log(event)
+            this.currentForm += 1
+            this.$set(this.forms, this.currentForm, JSON.parse(JSON.stringify(this.formTemplate)))
+            console.log("new circle:  " + event.x + ", "+ event.y + ", "+ event.r)
         }
 
     }
