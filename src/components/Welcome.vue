@@ -1,8 +1,15 @@
 <template>
     <b-container id = "main">
+        <b-breadcrumb>
+            <b-breadcrumb-item active>
+                <b-icon icon="bookmark-fill" scale="1.25" shift-v="1.25" aria-hidden="true"></b-icon>
+                Welcome
+            </b-breadcrumb-item>
+        </b-breadcrumb>
+
         <b-row align-h="center" class="my-5"><h1 id="welcome">Welcome!</h1></b-row>
-        <b-row align-h="center" class="my-5"><router-link tag="b-button" class="buttons" to="/login">Logg inn</router-link></b-row>
-        <b-row align-h="center" class="my-5"><router-link tag="b-button" class="buttons" to ="/register">Registrer deg</router-link></b-row>
+        <b-row align-h="center" class="my-5"><b-button class="buttons" variant="primary" to="/login">Logg inn</b-button></b-row>
+        <b-row align-h="center" class="my-5"><b-button class="buttons" variant="primary" to ="/register">Registrer deg</b-button></b-row>
         
     </b-container>
 </template> 

@@ -1,11 +1,19 @@
 <template>
     <b-container id = "main">
-        <b-row align-h="center" class="my-5"><h1 id="welcome">Welcome!</h1></b-row>
-        <b-row align-h="center" class="my-5"><router-link tag="b-button" class="buttons" to="/paindrawer">Registrer smerte</router-link></b-row>
-        <b-row align-h="center" class="my-5"><router-link tag="b-button" class="buttons" to ="/profile">Profil</router-link></b-row>
-        
+        <b-breadcrumb>
+            <b-breadcrumb-item active>
+                <b-icon icon="house-fill" scale="1.25" shift-v="1.25" aria-hidden="true"></b-icon>
+                Home
+            </b-breadcrumb-item>
+        </b-breadcrumb>
+
+
+        <b-row align-h="center" class="my-5"><h1 id="welcome">Home!</h1></b-row>
+        <b-row align-h="center" class="my-5"><b-button class="w-50" variant="primary" to="/painregistry">Registrer smerte</b-button></b-row>
+        <b-row align-h="center" class="my-5"><b-button class="w-50" variant="primary" to ="/profile">Profil</b-button></b-row>
+        <b-row align-h="center" class="my-5"><b-button class="w-50" variant="primary" to ="/welcome">Log out</b-button></b-row>
     </b-container>
-</template> 
+</template>
 
 
 <script>
@@ -18,8 +26,5 @@ export default {
     #welcome{
         font-size: 200%;
         text-align: center;
-    }
-    .buttons{
-        width: 50%;
     }
 </style>

@@ -1,7 +1,7 @@
 <template>
-    <b-container class="my-buttons">
+    <b-container class="my-buttons" style="background-color:var(--secondary)">
         <b-row align-h="center">
-            <b-col class="mx-1" cols="4" xl="2">
+            <b-col class="" cols="4" xl="4">
                 
                 <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(0)" variant='info'>temporal</b-button></b-row>
             
@@ -15,9 +15,9 @@
                 
             </b-col>
 
-            <b-col class="mx-1" cols="3" xl="2">
+            <b-col class="" cols="4" xl="4">
                 
-                <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(5)" variant='info'>Rhytmic</b-button></b-row>
+                <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(5)" variant='info'>TestButton</b-button></b-row>
             
                 <b-row><b-button class="mx-1 my-1 buttons" @click="toggleBtn(6)" variant='info'>Rhytmic</b-button></b-row>
             
@@ -48,7 +48,6 @@
 
 <script>
 import Slider from './Slider.vue'
-
 export default {
     components:{
         Slider
