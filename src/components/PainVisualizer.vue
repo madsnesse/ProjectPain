@@ -33,11 +33,12 @@ export default {
     name: "PainVisualizer",
     data() {
         return {
-                radius: 25
+            radius: 25
         }
     },
     created() {
         const pain_visualize = p5 => {
+
             // Constants
             const aspectImage = 1876/3646;
             const aspectSkincube = 4688/6526;
@@ -46,26 +47,31 @@ export default {
             // p5 background & misc.
             var figureImg;    // reference to body image
             var skincubeImg;  // reference to skincube image
-            var canvas;         // reference to the p5 canvas
+            var canvas;       // reference to the p5 canvas
 
-            /* Save each pain circle in an array of objects.
-              * x                    =  value from 0 to 100 (% of width)
-              * y                    =  value from 0 to 100 (% of height)
-              * r                    =  value from 0 to 100 (% of width)
-              * pain_types =  array of pain types for rendering, see 'circleFactory()' / 'addPainToCircle()' for more
+            /* Save each pain circle as an object.
+             * x          =  value from 0 to 100 (% of width)
+             * y          =  value from 0 to 100 (% of height)
+             * r          =  value from 0 to 100 (% of width)
+             * pain_types =  array of pain-type objects
+             *               (see 'circleFactory()' / 'addPainToCircle()' for more)
             */
-            var current_circle = {x:p5.mouseX, y:p5.mouseY, r:25, pain_types: [
-                {name:"temporal", sinus_arg: 0, speed: 0.01},
-                {name:"thermal"}
-            ]};
             var circles = [];
+            var current_circle = {
+                x:p5.mouseX,
+                y:p5.mouseY,
+                r:25,
+                pain_types: [
+                    {name:"temporal", sinus_arg: 0, speed: 0.01},
+                    {name:"thermal"}
+            ]};
             var radius;  // reusable variable
 
             // Size and positional variables
             let width_div;  // width of parent div
-            let w, h;               // width and height of canvas DOM
-            let rx;                 // 1/100 of width  ==usage==> 75*rx (75% of width)
-            let ry;                 // 1/100 of height ==usage==> 25*ry (25% of height)
+            let w, h;       // width and height of canvas DOM
+            let rx;         // 1/100 of width  ==usage==> 75*rx (75% of width)
+            let ry;         // 1/100 of height ==usage==> 25*ry (25% of height)
 
             // UI
             var parent;
@@ -272,7 +278,7 @@ export default {
                     current_circle.y = ty;
                     circles.push(Object.assign({}, current_circle));
 
-                    current_circle = circleFactory("empty");    // reset
+                    current_circle = circleFactory("empty");  // reset
                 }
             }
 
