@@ -150,7 +150,6 @@ export default {
     },
     methods: {
         selectMultInc: function(select) {
-            console.log(select)
             
             if(!this.increaseOptions[select-1].selected){
                 this.selected = this.selected.concat(select)
@@ -166,7 +165,6 @@ export default {
             //selecteded.$set(selecteded,select)
         },
         selectMultDec: function(select) {
-            console.log(select)
             
             if(!this.decreaseOptions[select-1].selected){
                 this.selected = this.selected.concat(select)

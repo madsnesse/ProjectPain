@@ -9,12 +9,12 @@
         </div>
 
         <!-- POP LAST PAIN CIRCLE -->
-        <b-button variant="info" id="finishPlacingCircle" class="w-100 mt-2">Finish Placement</b-button>
+        <b-button variant="info" id="finishPlacingCircle" @click="toggle" class="w-100 mt-2">Finish Placement</b-button>
 
-        <!-- RESET -->
+        RESET
         <b-button variant="primary" id="resetButton" class="w-100 mt-2">Reset</b-button>
-
-        <!-- SET PAIN -->
+<!-- 
+        SET PAIN -->
         <b-button-group class="w-100 mt-2">
             <b-button variant="success" id="temporalButton">Temporal</b-button>
             <b-button variant="success" id="thermalButton">Thermal</b-button>
@@ -30,8 +30,9 @@ const p5_lib = require('p5');
 export default {
     name: "PainVisualizer",
     props:{
-      values:Object,
-      entries: Number
+      values:Array,
+      entries: Number,
+      currentEntry:Number
     },
       
     data() {
@@ -39,6 +40,9 @@ export default {
             radius: 25
         }
     },methods: {
+      toggle: function(){
+        this.$emit('tog')
+      },
       updateNumber: function(){
         this.numberOfButtons +=1
         console.log("HEY!")
@@ -73,7 +77,7 @@ export default {
              * pain_types =  array of pain-type objects
              *               (see 'circleFactory()' / 'addPainToCircle()' for more)
             */
-            var circles = [];
+            // var circles = [];
             var current_circle = {
                 x:p5.mouseX,
                 y:p5.mouseY,
@@ -94,8 +98,8 @@ export default {
             // UI
             var parent;
             var radiusSlider;
-            var finishPlacingCircleButton;
-            var resetButton;
+            // var finishPlacingCircleButton;
+            //var resetButton;
             var temporalButton, thermalButton, sensoryButton;
 
             ////////////////////////////////////////////////////
@@ -128,8 +132,8 @@ export default {
                 // Get UI elements
                 radiusSlider = document.getElementById("radiusSlider");
 
-                finishPlacingCircleButton = document.getElementById("finishPlacingCircle");
-                finishPlacingCircleButton.onclick = function() {finishPlacingCircle();};
+                // finishPlacingCircleButton = document.getElementById("finishPlacingCircle");
+                // finishPlacingCircleButton.onclick = function() {finishPlacingCircle();};
 
                 temporalButton = document.getElementById("temporalButton");
                 temporalButton.onclick = function() {addPainToCircle(current_circle, "temporal")};
@@ -140,8 +144,8 @@ export default {
                 sensoryButton = document.getElementById("sensoryButton");
                 sensoryButton.onclick = function() {addPainToCircle(current_circle, "sensory")};
 
-                resetButton = document.getElementById("resetButton");
-                resetButton.onclick = function(){circles = [];};    // Empty circles
+                //resetButton = document.getElementById("resetButton");
+                //resetButton.onclick = function(){circles = [];};    // Empty circles
 
                 // p5-settings
                 p5.blendMode(p5.MULTIPLY);
@@ -165,30 +169,30 @@ export default {
                 p5.image(skincubeImg, 60*rx, 0, widthImageDraw, widthImageDraw / aspectSkincube);
 
                 // draw each saved circle
-                for (let circle of circles) {
-                    drawCircle(circle);
+                for (let i = 0; i < vm.values.length; i++){
+                    drawCircle(vm.getCircleValues(i))
                 }
 
                 // draw overlaying circle if within bounds
-                if (0 <= current_circle.x && current_circle.x <= 100 && 0 <= current_circle.y && current_circle.y <= 100) {
-                    drawCircle(current_circle);
-                }
+                // if (0 <= current_circle.x && current_circle.x <= 100 && 0 <= current_circle.y && current_circle.y <= 100) {
+                //     drawCircle(current_circle);
+                // }
             }
 
             ////////////////////////////////////////////////////
             //// CUSTOM FUNCTIONS (NON-p5) BELOW           ////
             //////////////////////////////////////////////////
             /* Saves the circle if within bounds */
-            function finishPlacingCircle() {
-                let x_ = current_circle.x;
-                let y_ = current_circle.y;
-                if (0 <= x_ && x_ <= 100 && 0 <= y_ && y_ <= 100) {  // bounds check
-                    // Push circle to array
-                    circles.push(Object.assign({}, current_circle));
+            // function finishPlacingCircle() {
+            //     let x_ = current_circle.x;
+            //     let y_ = current_circle.y;
+            //     // if (0 <= x_ && x_ <= 100 && 0 <= y_ && y_ <= 100) {  // bounds check
+            //     //     // Push circle to array
+            //     //     circles.push(Object.assign({}, current_circle));
 
-                    current_circle = circleFactory("empty");    // reset
-                }
-            }
+            //     //     current_circle = circleFactory("empty");    // reset
+            //     // }
+            // }
 
             /* Updates values before rendering every frame. */
             function updateValues() {
@@ -229,50 +233,67 @@ export default {
                 p5.stroke(0, 0, 0, 100);
                 p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
                 p5.noStroke();
+                if (circle != undefined){
+                  
 
-                for (let i = 0; i < circle.pain_types.length; i++) {    // render attached pain types of a circle
-                    switch (circle.pain_types[i].name) {    // pain name
-                        case "thermal":
-                            p5.fill(200, 0, 0, 150);
-                            p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
-                            break;
+                  if (circle.painType.thermal > 0){
+                      p5.fill(200, 0, 0, 150*circle.painType.thermal/5);
+                      p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
+                      
 
-                        case "temporal":
-                            circle.pain_types[i].sinus_arg += circle.pain_types[i].speed;
-                            circle.pain_types[i].sinus_arg %= Math.PI;
+                  }
+                  if (circle.painType.temporal > 0){
+                      circle.sinus_arg += circle.painType.temporal*0.01;
+                      circle.sinus_arg %= Math.PI;
 
-                            // Inner circle
-                            p5.noFill();
-                            p5.strokeWeight(2);
-                            radius = (circle.r*rx)*p5.sin(circle.pain_types[i].sinus_arg);
-                            p5.stroke(50, 50, 50, 50);
-                            p5.circle(circle.x*rx, circle.y*ry, radius);
-                            p5.noStroke();
-                            break;
+                      // Inner circle
+                      p5.noFill();
+                      p5.strokeWeight(2);
+                      radius = (circle.r*rx)*p5.sin(circle.sinus_arg);
+                      p5.stroke(50, 50, 50, 50);
+                      p5.circle(circle.x*rx, circle.y*ry, radius);
+                      p5.noStroke();
+                      
+                  }
+                  if (circle.painType.sensory > 0){
+                    // Outer circle
+                      p5.fill(0, 0, 255, 85);
+                      p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
+                      
 
-                        case "sensory":
-                            // Outer circle
-                            p5.fill(0, 0, 255, 85);
-                            p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
-                            break;
-
-                        default:
-                            console.error("Non-valid render type \"" + circle.name + "\"");
-                    }
+                  }
                 }
+                // for (let i = 0; i < circle.pain_types.length; i++) {    // render attached pain types of a circle
+                //     switch (circle.pain_types[i].name) {    // pain name
+                //         case "thermal":
+                            
+
+                //         case "temporal":
+                            
+
+                //         case "sensory":
+                //             // Outer circle
+                //             p5.fill(0, 0, 255, 85);
+                //             p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
+                //             break;
+
+                //         default:
+                //             console.error("Non-valid render type \"" + circle.name + "\"");
+                //     }
+                
             }
 
             /* Creates a new circle based on the type of pain */
-            function circleFactory(pain_type="thermal") {
-                let c = {x:p5.mouseX, y:p5.mouseY, r:radiusSlider.value, pain_types: []};
+            // function circleFactory(pain_type="thermal") {
+            //     let c = {x:p5.mouseX, y:p5.mouseY, r:radiusSlider.value, pain_types: []};
 
-                if (pain_type === "empty") {
-                    return c;
-                } else {
-                    addPainToCircle(c, pain_type);
-                    return c;
-                }
-            }
+            //     if (pain_type === "empty") {
+            //         return c;
+            //     } else {
+            //         addPainToCircle(c, pain_type);
+            //         return c;
+            //     }
+            // }
 
             /* Adds pain to a circle */
             function addPainToCircle(circle, pain_type) {

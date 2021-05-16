@@ -17,7 +17,7 @@
 
             <b-col class="" cols="4" xl="4">
                 
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(5)" variant='info'>TestButton</b-button></b-row>
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(5)" variant='info'>Sensory</b-button></b-row>
             
                 <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(6)" variant='info'>Rhytmic</b-button></b-row>
             
@@ -55,7 +55,7 @@ export default {
     data() {
         return {
             btns: [false, false, false, false, false, false, false, false, false, false],
-            btnNames: ['temporal','spatial','thermal','brightness','dullness','Button6','Button7','Button8','Button9','Button10'],
+            btnNames: ['temporal','spatial','thermal','brightness','dullness','sensory','Button7','Button8','Button9','Button10'],
             btnVal: "",
             indxOld: -1,
             sliderMin: 1,
@@ -67,7 +67,7 @@ export default {
                 thermal:0,
                 brightness:0,
                 dullness:0,
-                Button6:0,
+                sensory:0,
                 Button7:0,
                 Button8:0,
                 Button9:0,
