@@ -5,7 +5,7 @@
         <!-- RADIUS -->
         <div>
             <label for="radiusSlider">Radius: {{ radius }}</label>
-            <b-form-input id="radiusSlider" v-model="radius" type="range" min="1" max="100"></b-form-input>
+            <b-form-input id="radiusSlider" v-model="radius" type="range" min="1" max="30"></b-form-input>
             
         </div>
 
@@ -39,7 +39,7 @@ export default {
       
     data() {
         return {
-            radius: 25,
+            radius: 15,
             animationValues: []
         }
     },methods: {
@@ -113,11 +113,8 @@ export default {
 
             // UI
             var parent;
-            // var radiusSlider;
             var finishPlacingCircleButton;
-            //var resetButton;
-            var temporalButton, thermalButton, sensoryButton;
-
+           
             ////////////////////////////////////////////////////
             //// p5-FUNCTIONS BELOW                        ////
             //////////////////////////////////////////////////
@@ -146,22 +143,9 @@ export default {
                 ry = h/100;  // normalize to 0 to 100  scale
 
                 // Get UI elements
-                // radiusSlider = document.getElementById("radiusSlider");
-
+                
                 finishPlacingCircleButton = document.getElementById("finishPlacingCircle");
                 finishPlacingCircleButton.onclick = function() {finishPlacingCircle();};
-
-                temporalButton = document.getElementById("temporalButton");
-                temporalButton.onclick = function() {addPainToCircle(current_circle, "temporal")};
-
-                thermalButton = document.getElementById("thermalButton");
-                thermalButton.onclick = function() {addPainToCircle(current_circle, "thermal")};
-
-                sensoryButton = document.getElementById("sensoryButton");
-                sensoryButton.onclick = function() {addPainToCircle(current_circle, "sensory")};
-
-                //resetButton = document.getElementById("resetButton");
-                //resetButton.onclick = function(){circles = [];};    // Empty circles
 
                 // p5-settings
                 p5.blendMode(p5.MULTIPLY);
@@ -299,53 +283,13 @@ export default {
 
                   }
                 }
-                // for (let i = 0; i < circle.pain_types.length; i++) {    // render attached pain types of a circle
-                //     switch (circle.pain_types[i].name) {    // pain name
-                //         case "thermal":
-                            
-
-                //         case "temporal":
-                            
-
-                //         case "sensory":
-                //             // Outer circle
-                //             p5.fill(0, 0, 255, 85);
-                //             p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
-                //             break;
-
-                //         default:
-                //             console.error("Non-valid render type \"" + circle.name + "\"");
-                //     }
-                
             }
-
             /* Creates a new circle based on the type of pain */
             function circleFactory() {
                 let c = {x:p5.mouseX, y:p5.mouseY, r:vm.radius, anchored:false};
 
                 return c
             }
-
-            /* Adds pain to a circle */
-            function addPainToCircle(circle, pain_type) {
-                switch (pain_type) {
-                    case "thermal":
-                        circle.pain_types.push({name:"thermal"});
-                        break;
-
-                    case "temporal":
-                        circle.pain_types.push({name:"temporal", sinus_arg: 0, speed: 0.01});
-                        break;
-
-                    case "sensory":
-                        circle.pain_types.push({name:"sensory"});
-                        break;
-
-                    default:
-                        console.error("Non-valid pain type \"" + pain_type + "\"");
-                }
-            }
-
             ////////////////////////////////////////////////////
             //// EVENTS BELOW                              ////
             //////////////////////////////////////////////////
