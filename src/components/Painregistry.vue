@@ -12,8 +12,8 @@
 
         <b-row><b-container class="m-5"><h1 id="welcome">Pain registry</h1></b-container></b-row>
         
-        <PainVisualizer v-on:newCircle= "newCircle($event)" @tog="toggleVis=!toggleVis" :hidden="toggleVis" :values="forms.values" :currentEntry="currentEntry"  />
-        <Form :hidden="!toggleVis" :values="forms.values[currentEntry]" :key="currentEntry" />
+        <PainVisualizer v-on:newCircle= "newCircle($event)" @tog="toggleVis=!toggleVis" :hidden="toggleVis" :values="forms.values" :currentEntry="currentEntry" :entries="forms.values.length" />
+        <Form :hidden="!toggleVis" :values="getCurrentForm()" :key="currentEntry" />
         
             
 
@@ -62,7 +62,6 @@ export default {
                     Button10:0,
 
                 },
-                sinus_arg:0,
                 painChange:{
                     change:0,
                     increase:[], 
@@ -79,7 +78,9 @@ export default {
         toggle: function() {
             this.toggleVis = !this.toggleVis
         },
-        
+        getCurrentForm: function(){
+            return this.forms.values[this.currentEntry]
+        },
         save: function() {
                 this.forms._id = (new Date().getTime()).toString();
                 console.log("saving to json");
@@ -93,12 +94,12 @@ export default {
             console.log(event)
             this.currentEntry += 1
             this.entries += 1
-            this.$set(this.forms.values, this.currentEntry, JSON.parse(JSON.stringify(this.formTemplate)))
-            this.forms.values[this.currentEntry].x = event.x
-            this.forms.values[this.currentEntry].y = event.y
-            this.forms.values[this.currentEntry].r = event.r
-
-            console.log("new circle:  " + event.x + ", "+ event.y + ", "+ event.r)
+            let tempForm = JSON.parse(JSON.stringify(this.formTemplate))
+            tempForm.x = event.x
+            tempForm.y = event.y
+            tempForm.r = event.r
+            this.$set(this.forms.values, this.currentEntry, tempForm)
+            console.log(tempForm)
         }
 
     }
