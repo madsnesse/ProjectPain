@@ -189,6 +189,7 @@ export default {
                 if (0 <= x_ && x_ <= 100 && 0 <= y_ && y_ <= 100) {  // bounds check
                     // Push circle to array
                     //circles.push(Object.assign({}, current_circle));
+                    console.log(current_circle)
                     vm.pushCircle(current_circle)
                     vm.toggle();
                     current_circle = circleFactory("empty");    // reset
@@ -197,6 +198,17 @@ export default {
 
             /* Updates values before rendering every frame. */
             function updateValues() {
+                // Updated scaling variables
+                    
+                let canvas_rect = canvas.elt.getBoundingClientRect();
+                w = canvas_rect.width, h = canvas_rect.height;
+
+                try {
+                    width_div = document.getElementById("canvas").offsetWidth;
+                } catch (error) {
+                    console.log("[  P5  ] User exited -> destroying canvas.");
+                    p5.remove();
+                }
                 // width of parent div
                 current_circle.r = vm.radius;
 
@@ -207,17 +219,9 @@ export default {
                 if (vm.currentEntry > -1){
                     //let circle_values = vm.getCircleValues(vm.currentEntry);
                     
-                    try {
-                        width_div = document.getElementById("canvas").offsetWidth;
-                    } catch (error) {
-                        console.log("[  P5  ] User exited -> destroying canvas.");
-                        p5.remove();
-                    }
+                    
 
-                    // Updated scaling variables
-                    let canvas_rect = canvas.elt.getBoundingClientRect();
-                    w = canvas_rect.width, h = canvas_rect.height;
-
+                    
                     // Update current_circle
                     
                     // Update radius after check
@@ -277,11 +281,13 @@ export default {
                   }
                   if (circle.painType.sensory > 0){
                     // Outer circle
-                      p5.fill(0, 0, 255, 85);
+                      p5.fill(0, 0, 255*circle.painType.sensory/3, 85);
                       p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
                       
 
                   }
+                  p5.fill(0,0,0,0);
+                  p5.circle(circle.x*rx, circle.y*ry, circle.r*rx)
                 }
             }
             /* Creates a new circle based on the type of pain */

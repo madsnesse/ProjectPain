@@ -32,16 +32,16 @@
             
         </b-row>
             <b-row align-h="center">{{ btnVal }}</b-row>
-            <b-row align-h="center" v-show="btns[0]"><Slider :values='["flickering", "quivering", "pulsing", "throbbing", "beating", "pounding"]' :minimum="1" :maximum="5" :default="3" @updateValue= "update(0,$event)" :labels="['Weak','Strong']" /></b-row>
-            <b-row align-h="center" v-show="btns[1]"><Slider :values='["jumping", "flashing", "shooting"]' :minimum="1" :maximum="3" :default="2" @updateValue= "update(1,$event)" :labels="['Weak','Strong']" /></b-row>
-            <b-row align-h="center" v-show="btns[2]"><Slider :values='["hot", "boring", "scalding", "searing"]' :minimum="1" :maximum="4" :default="sliderDef" @updateValue= "update(2,$event)" :labels="['Weak','Strong']" /></b-row>
-            <b-row align-h="center" v-show="btns[3]"><Slider :values='["tingling", "itchy", "smarting", "stinging"]' :minimum="1" :maximum="4" :default="sliderDef" @updateValue= "update(3,$event)" :labels="['Weak','Strong']" /></b-row>
-            <b-row align-h="center" v-show="btns[4]"><Slider :values='["dull", "sore", "hurting","aching", "heavy"]' :minimum="1" :maximum="5" :default="sliderDef" @updateValue= "update(4,$event)" :labels="['Weak','Strong']" /></b-row>
-            <b-row align-h="center" v-show="btns[5]"><Slider :values='["cool","cold","freezing"]' :minimum="1" :maximum="3" :default="sliderDef" @updateValue= "update(5,$event)" :labels="['Weak','Strong']" /></b-row>
-            <b-row align-h="center" v-show="btns[6]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef" @updateValue= "update(6,$event)" :labels="['Weak','Strong']" /></b-row>
-            <b-row align-h="center" v-show="btns[7]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef" @updateValue= "update(7,$event)" :labels="['Weak','Strong']" /></b-row>
-            <b-row align-h="center" v-show="btns[8]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef" @updateValue= "update(8,$event)" :labels="['Weak','Strong']" /></b-row>
-            <b-row align-h="center" v-show="btns[9]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef" @updateValue= "update(9,$event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[0]"><Slider :values='["flickering", "quivering", "pulsing", "throbbing", "beating", "pounding"]' :minimum="1" :maximum="5" :default="0" @updateValue= "update(0,$event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[1]"><Slider :values='["jumping", "flashing", "shooting"]' :minimum="1" :maximum="3" :default="0" @updateValue= "update(1,$event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[2]"><Slider :values='["hot", "boring", "scalding", "searing"]' :minimum="1" :maximum="4" :default="0" @updateValue= "update(2,$event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[3]"><Slider :values='["tingling", "itchy", "smarting", "stinging"]' :minimum="1" :maximum="4" :default="0" @updateValue= "update(3,$event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[4]"><Slider :values='["dull", "sore", "hurting","aching", "heavy"]' :minimum="1" :maximum="5" :default="0" @updateValue= "update(4,$event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[5]"><Slider :values='["cool","cold","freezing"]' :minimum="1" :maximum="3" :default="0" @updateValue= "update(5,$event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[6]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="0" @updateValue= "update(6,$event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[7]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="0" @updateValue= "update(7,$event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[8]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="0" @updateValue= "update(8,$event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[9]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="0" @updateValue= "update(9,$event)" :labels="['Weak','Strong']" /></b-row>
     </b-container>
 </template>
 
