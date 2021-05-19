@@ -35,9 +35,8 @@
                         <b-container class="w-100 text">Does the following <b>increase</b> your pain?</b-container>
 
                         <b-iconstack>
-                            <b-icon stacked icon="circle" scale="1"></b-icon> 
-                            <b-icon stacked :hidden = "!accordion[0]" icon="dash" scale="1"></b-icon> 
-                            <b-icon stacked :hidden = "accordion[0]" icon="plus" scale="1"></b-icon>
+                            <b-icon stacked :hidden = "!accordion[0]" icon="chevron-up" scale="1"></b-icon> 
+                            <b-icon stacked :hidden = "accordion[0]" icon="chevron-down" scale="1"></b-icon>
                         </b-iconstack>
             </b-button>
             <b-collapse id="increase" accordion="painchange">
@@ -65,9 +64,8 @@
                         <b-container class="w-100">Does the following <b>decrease</b> your pain?</b-container>
 
                         <b-iconstack>
-                            <b-icon stacked icon="circle" scale="1"></b-icon> 
-                            <b-icon stacked :hidden = "!accordion[1]" icon="dash" scale="1"></b-icon> 
-                            <b-icon stacked :hidden = "accordion[1]" icon="plus" scale="1"></b-icon>
+                            <b-icon stacked :hidden = "!accordion[1]" icon="chevron-up" scale="1"></b-icon> 
+                            <b-icon stacked :hidden = "accordion[1]" icon="chevron-down" scale="1"></b-icon>
                         </b-iconstack>
             
             </b-button>
@@ -78,9 +76,14 @@
                     squared
                     @click="selectMultDec(option.value)"
                     :variant="option.selected ? 'success' : 'secondary'"
-                    class="border-bottom"
-                    >
-                    {{option.text}}
+                    class="border-bottom d-flex justify-content-center text-left"
+                    ><b-container class="w-100">{{option.text}}</b-container>
+
+                        <b-iconstack>
+                            <b-icon stacked :hidden = "!option.selected" icon="dash" scale="1"></b-icon> 
+                            <b-icon stacked :hidden = "option.selected" icon="plus" scale="1"></b-icon>
+                        </b-iconstack>
+                    
                 </b-button>
             </b-collapse>
         </b-row>
