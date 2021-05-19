@@ -12,8 +12,8 @@
 
         <b-row><b-container class="m-5"><h1 id="welcome">Pain registry</h1></b-container></b-row>
         
-        <PainVisualizer v-on:newCircle= "newCircle($event)" :hidden="toggleVis" :values="forms" :entries="entries"  />
-        <Form :hidden="!toggleVis" :values="forms[currentEntry]" :key="currentEntry" />
+        <PainVisualizer v-on:newCircle= "newCircle($event)" @tog="toggleVis=!toggleVis" :hidden="toggleVis" :values="forms.values" :currentEntry="currentEntry" :entries="forms.values.length" />
+        <Form :hidden="!toggleVis" :values="getCurrentForm()" :key="currentEntry" />
         
             
 
@@ -41,23 +41,25 @@ export default {
         return {
             toggleVis: false,
             visIndex: 0,
-            forms: [],
+            forms:{_id:"",values:[]},
             entries:0,
-            currentEntry:0,
+            currentEntry:-1,
             formTemplate: {
-                _id: "",
+                x:0,
+                y:0,
+                r:0,
                 painstrength:0,
                 painType:{
-                temporal:0,
-                spatial:0,
-                thermal:0,
-                brightness:0,
-                dullness:0,
-                Button6:0,
-                Button7:0,
-                Button8:0,
-                Button9:0,
-                Button10:0,
+                    temporal:0,
+                    spatial:0,
+                    thermal:0,
+                    brightness:0,
+                    dullness:0,
+                    Button6:0,
+                    Button7:0,
+                    Button8:0,
+                    Button9:0,
+                    Button10:0,
 
                 },
                 painChange:{
@@ -76,11 +78,13 @@ export default {
         toggle: function() {
             this.toggleVis = !this.toggleVis
         },
-        
+        getCurrentForm: function(){
+            return this.forms.values[this.currentEntry]
+        },
         save: function() {
-                this.values._id = (new Date().getTime()).toString();
+                this.forms._id = (new Date().getTime()).toString();
                 console.log("saving to json");
-                PoucheDB.saveToDB(JSON.stringify(this.values));
+                PoucheDB.saveToDB(JSON.stringify(this.forms));
                 //console.log("Data From  DB")
                 //PoucheDB.getAllDataFromDB();
 
@@ -90,8 +94,12 @@ export default {
             console.log(event)
             this.currentEntry += 1
             this.entries += 1
-            this.$set(this.forms, this.currentEntry, JSON.parse(JSON.stringify(this.formTemplate)))
-            console.log("new circle:  " + event.x + ", "+ event.y + ", "+ event.r)
+            let tempForm = JSON.parse(JSON.stringify(this.formTemplate))
+            tempForm.x = event.x
+            tempForm.y = event.y
+            tempForm.r = event.r
+            this.$set(this.forms.values, this.currentEntry, tempForm)
+            console.log(tempForm)
         }
 
     }

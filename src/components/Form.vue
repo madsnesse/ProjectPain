@@ -53,7 +53,8 @@ export default {
         Slider, 
         Painchange,
         Paintype
-    },props:{
+    },
+    props:{
         values:Object
     },
     data: function(){
@@ -70,7 +71,7 @@ export default {
                 this.visIndex = i        
         },
         update: function(valueToChange,event) {
-            console.log(this.values.painType);
+            console.log(this.values);
             if (valueToChange == "painType"){
                 this.values.painType = event
             }
