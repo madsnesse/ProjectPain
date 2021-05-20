@@ -14,7 +14,7 @@
 
         <!-- RESET
         <b-button variant="primary" id="resetButton" class="w-100 mt-2">Reset</b-button>
-
+        
         SET PAIN
         <b-button-group class="w-100 mt-2">
             <b-button variant="success" id="temporalButton">Temporal</b-button>

@@ -9,10 +9,11 @@
                 Pain Registry
             </b-breadcrumb-item>
         </b-breadcrumb>
-
-        <b-row><b-container class="m-1"><div id="welcome">Please select where it hurts</div></b-container></b-row>
         
-        <PainVisualizer v-on:newCircle= "newCircle($event)" @tog="toggleVis=!toggleVis" :hidden="toggleVis" :values="forms.values" :currentEntry="currentEntry" :entries="forms.values.length" />
+        <b-row><b-container class="m-1"><div id="welcome">Please select where it hurts</div></b-container></b-row>
+        <Skincube />
+        <!-- <PainVisualizer v-on:newCircle= "newCircle($event)" @tog="toggleVis=!toggleVis" :hidden="true" :values="forms.values" :currentEntry="currentEntry" :entries="forms.values.length" />
+         -->
         <Form :hidden="!toggleVis" :values="getCurrentForm()" :key="currentEntry" />
         
             
@@ -28,8 +29,9 @@
 
 
 <script>
-import PainVisualizer from './PainVisualizer.vue'
+//import PainVisualizer from './PainVisualizer.vue'
 import Form from './Form.vue'
+import Skincube from './Skincube.vue'
 
 import '../main.js'
 import * as PoucheDB from '../database'
@@ -71,8 +73,9 @@ export default {
         }
     },
     components:{
-        PainVisualizer,
-        Form
+        //PainVisualizer,
+        Form,
+        Skincube
     },
     methods: {
         toggle: function() {

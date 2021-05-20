@@ -26,6 +26,7 @@
     "request": "latest",
     "tough-cookie": "^4.0.0",
     "vue": "^2.6.12",
+    "vue-bootstrap-slider": "^2.1.8",
     "vue-p5": "^0.8.4",
     "vue-router": "^3.5.1"
   },
