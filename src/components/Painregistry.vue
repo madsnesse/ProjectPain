@@ -10,7 +10,7 @@
             </b-breadcrumb-item>
         </b-breadcrumb>
 
-        <b-row><b-container class="m-5"><h1 id="welcome">Pain registry</h1></b-container></b-row>
+        <b-row><b-container class="m-1"><div id="welcome">Please select where it hurts</div></b-container></b-row>
         
         <PainVisualizer v-on:newCircle= "newCircle($event)" @tog="toggleVis=!toggleVis" :hidden="toggleVis" :values="forms.values" :currentEntry="currentEntry" :entries="forms.values.length" />
         <Form :hidden="!toggleVis" :values="getCurrentForm()" :key="currentEntry" />
@@ -110,7 +110,7 @@ export default {
 
 <style scoped>
     #welcome{
-        font-size: 200%;
+        font-size: 150%;
         text-align: center;
     }
 </style>

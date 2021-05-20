@@ -1,7 +1,5 @@
 <template>
     <b-container id = "main">
-        <b-row align-h="center" class="my-5 text-info"><h1 id="welcome">Log in!</h1></b-row>
-        <b-row align-h="center" class="my-5"><b-input placeholder="username" class="inputs">username</b-input></b-row>
         <b-breadcrumb>
             <b-breadcrumb-item to="/welcome">
                 <b-icon icon="bookmark-fill" scale="1.25" shift-v="1.25" aria-hidden="true"></b-icon>
@@ -11,6 +9,7 @@
         </b-breadcrumb>
 
         <b-row align-h="center" class="my-5"><h1 id="welcome">Log in!</h1></b-row>
+        <b-row align-h="center" class="my-5"><b-input placeholder="username" class="inputs">username</b-input></b-row>
         <b-row align-h="center" class="my-5"><b-input placeholder="e-mail" class="inputs">e-mail</b-input></b-row>
         <b-row align-h="center" class="my-5"><b-input placeholder="passord" class="inputs" >Registrer deg</b-input></b-row>
         <b-row align-h="between">

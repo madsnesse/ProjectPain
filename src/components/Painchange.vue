@@ -45,10 +45,17 @@
                     :key="option.value"
                     squared
                     @click="selectMultInc(option.value)"
-                    :variant="option.selected ? 'outline-success' : 'secondary'"
-                    class="border-bottom"
+                    variant="secondary"
+                    class=""
                     >
-                    {{option.text}}
+                    <b-container class="d-flex justify-content-center text-left">
+                    <b-container class="">{{option.text}}</b-container>
+
+                        <b-iconstack>
+                            <b-icon stacked :hidden = "!option.selected" icon="dash" scale="1"></b-icon> 
+                            <b-icon stacked :hidden = "option.selected" icon="plus" scale="1"></b-icon>
+                        </b-iconstack>
+                    </b-container>
                 </b-button>
             </b-collapse>
             <b-button
@@ -75,15 +82,18 @@
                     :key="option.value"
                     squared
                     @click="selectMultDec(option.value)"
-                    :variant="option.selected ? 'success' : 'secondary'"
-                    class="border-bottom d-flex justify-content-center text-left"
-                    ><b-container class="w-100">{{option.text}}</b-container>
+                    variant="secondary"
+                    class="w-100"
+                    
+                    >
+                    <b-container class="d-flex justify-content-center text-left">
+                    <b-container class="">{{option.text}}</b-container>
 
                         <b-iconstack>
                             <b-icon stacked :hidden = "!option.selected" icon="dash" scale="1"></b-icon> 
                             <b-icon stacked :hidden = "option.selected" icon="plus" scale="1"></b-icon>
                         </b-iconstack>
-                    
+                    </b-container>
                 </b-button>
             </b-collapse>
         </b-row>
