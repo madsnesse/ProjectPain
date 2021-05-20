@@ -2,34 +2,34 @@
     <b-container class="my-buttons" style="background-color:var(--secondary)">
         <b-row align-h="center">
             <b-col class="" cols="4" xl="4">
-                
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(0)" variant='info'>temporal</b-button></b-row>
-            
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(1)" variant='info'>spatial</b-button></b-row>
-            
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(2)" variant='info'>thermal</b-button></b-row>
-            
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(3)" variant='info'>brightness</b-button></b-row>
-            
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(4)" variant='info'>dullness</b-button></b-row>
-                
+
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(0)" variant='secondary'>temporal</b-button></b-row>
+
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(1)" variant='secondary'>spatial</b-button></b-row>
+
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(2)" variant='secondary'>thermal</b-button></b-row>
+
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(3)" variant='secondary'>brightness</b-button></b-row>
+
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(4)" variant='secondary'>dullness</b-button></b-row>
+
             </b-col>
 
             <b-col class="" cols="4" xl="4">
-                
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(5)" variant='info'>Sensory</b-button></b-row>
-            
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(6)" variant='info'>Rhytmic</b-button></b-row>
-            
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(7)" variant='info'>Rhytmic</b-button></b-row>
-            
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(8)" variant='info'>Rhytmic</b-button></b-row>
-            
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(9)" variant='info'>Rhytmic</b-button></b-row>
-            
-            
+
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(5)" variant='secondary'>Sensory</b-button></b-row>
+
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(6)" variant='secondary'>Rhytmic</b-button></b-row>
+
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(7)" variant='secondary'>Rhytmic</b-button></b-row>
+
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(8)" variant='secondary'>Rhytmic</b-button></b-row>
+
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(9)" variant='secondary'>Rhytmic</b-button></b-row>
+
+
             </b-col>
-            
+
         </b-row>
             <b-row align-h="center">{{ btnVal }}</b-row>
             <b-row align-h="center" v-show="btns[0]"><Slider :values='["flickering", "quivering", "pulsing", "throbbing", "beating", "pounding"]' :minimum="1" :maximum="5" :default="0" @updateValue= "update(0,$event)" :labels="['Weak','Strong']" /></b-row>
@@ -85,10 +85,10 @@ export default {
             else this.btnVal = ""
             this.$set(this.btns, indx, !this.btns[indx])
             this.indxOld = indx
-            
+
         },
         update: function(i, event) {
-            var id = this.btnNames[i] 
+            var id = this.btnNames[i]
             console.log(this.typeValues[id])
             this.typeValues[id] =  parseInt(event)
             console.log(this.typeValues)

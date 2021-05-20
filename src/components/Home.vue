@@ -9,9 +9,9 @@
 
 
         <b-row align-h="center" class="my-5"><h1 id="welcome">Home!</h1></b-row>
-        <b-row align-h="center" class="my-5"><b-button class="w-50" variant="primary" to="/painregistry">Registrer smerte</b-button></b-row>
-        <b-row align-h="center" class="my-5"><b-button class="w-50" variant="primary" to ="/profile">Profil</b-button></b-row>
-        <b-row align-h="center" class="my-5"><b-button class="w-50" variant="primary" to ="/welcome">Log out</b-button></b-row>
+        <b-row align-h="center" class="my-5"><b-button class="w-50" variant="secondary" to="/painregistry">Registrer smerte</b-button></b-row>
+        <b-row align-h="center" class="my-5"><b-button class="w-50" variant="secondary" to ="/profile">Profil</b-button></b-row>
+        <b-row align-h="center" class="my-5"><b-button class="w-50" variant="secondary" to ="/welcome">Log out</b-button></b-row>
     </b-container>
 </template>
 
@@ -19,9 +19,9 @@
 export default {
     name: "Home",
     components: {
-    
+
     }
-}   
+}
 
 
 

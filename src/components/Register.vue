@@ -14,14 +14,14 @@
         <b-row align-h="center" class="my-5"><b-input placeholder="passord" class="inputs" id = "password"></b-input></b-row>
         <b-row align-h="center" class="my-5"><b-input placeholder="gjenta passord" class="inputs" id ="reppass"></b-input></b-row>
         <b-row align-h="between">
-            <b-col class="text-center my-5"><b-button class="buttons" variant="primary" to="/welcome">Back</b-button>
+            <b-col class="text-center my-5"><b-button class="buttons" variant="secondary" to="/welcome">Back</b-button>
             </b-col>
-            <b-col class="text-center my-5"><b-button class="buttons" variant="primary" tag="b-button" to="/home">Register</b-button>
+            <b-col class="text-center my-5"><b-button class="buttons" variant="secondary" tag="b-button" to="/home">Register</b-button>
             </b-col>
         </b-row>
-        
+
     </b-container>
-</template> 
+</template>
 
 
 <script>
@@ -40,7 +40,7 @@ export default {
             pouchDB.createUser(email,password);
         }
 
-    }   
+    }
 }
 </script>
 

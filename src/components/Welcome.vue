@@ -8,11 +8,11 @@
         </b-breadcrumb>
 
         <b-row align-h="center" class="my-5"><h1 id="welcome">Welcome!</h1></b-row>
-        <b-row align-h="center" class="my-5"><b-button class="buttons" variant="primary" to="/login">Logg inn</b-button></b-row>
-        <b-row align-h="center" class="my-5"><b-button class="buttons" variant="primary" to ="/register">Registrer deg</b-button></b-row>
-        
+        <b-row align-h="center" class="my-5"><b-button class="buttons" variant="secondary" to="/login">Logg inn</b-button></b-row>
+        <b-row align-h="center" class="my-5"><b-button class="buttons" variant="secondary" to ="/register">Registrer deg</b-button></b-row>
+
     </b-container>
-</template> 
+</template>
 
 
 <script>
