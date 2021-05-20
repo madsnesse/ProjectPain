@@ -1,36 +1,22 @@
 <template>
-    <b-container class="my-buttons" style="background-color:var(--secondary)">
-        <b-row align-h="center">
-            <b-col class="" cols="4" xl="4">
+    <b-container class="my-buttons">
+        <b-row align-h="center" >
+            <b-col v-for="col in columns" :key="col[0].name" >
+                <b-button 
+                    v-for="type in col"
+                    :key="type.index"
+                    size="sm"
+                    class="w-100 my-1 buttons"
+                    variant="primary"
+                    @click="toggleBtn(type.index)"
                 
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(0)" variant='info'>temporal</b-button></b-row>
-            
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(1)" variant='info'>spatial</b-button></b-row>
-            
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(2)" variant='info'>thermal</b-button></b-row>
-            
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(3)" variant='info'>brightness</b-button></b-row>
-            
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(4)" variant='info'>dullness</b-button></b-row>
-                
-            </b-col>
+                >
+                    {{type.name}}
 
-            <b-col class="" cols="4" xl="4">
-                
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(5)" variant='info'>Sensory</b-button></b-row>
-            
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(6)" variant='info'>Rhytmic</b-button></b-row>
-            
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(7)" variant='info'>Rhytmic</b-button></b-row>
-            
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(8)" variant='info'>Rhytmic</b-button></b-row>
-            
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(9)" variant='info'>Rhytmic</b-button></b-row>
-            
-            
+                </b-button>
             </b-col>
-            
         </b-row>
+<<<<<<< Updated upstream
             <b-row align-h="center">{{ btnVal }}</b-row>
             <b-row align-h="center" v-show="btns[0]"><Slider :values='["flickering", "quivering", "pulsing", "throbbing", "beating", "pounding"]' :minimum="1" :maximum="5" :default="3" @updateValue= "update(0,$event)" :labels="['Weak','Strong']" /></b-row>
             <b-row align-h="center" v-show="btns[1]"><Slider :values='["jumping", "flashing", "shooting"]' :minimum="1" :maximum="3" :default="2" @updateValue= "update(1,$event)" :labels="['Weak','Strong']" /></b-row>
@@ -42,6 +28,31 @@
             <b-row align-h="center" v-show="btns[7]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef" @updateValue= "update(7,$event)" :labels="['Weak','Strong']" /></b-row>
             <b-row align-h="center" v-show="btns[8]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef" @updateValue= "update(8,$event)" :labels="['Weak','Strong']" /></b-row>
             <b-row align-h="center" v-show="btns[9]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef" @updateValue= "update(9,$event)" :labels="['Weak','Strong']" /></b-row>
+=======
+        <b-row>
+            <Slider 
+            :hidden="currentActive == -1" 
+            :values="getLabels()"
+            :labels="[getLabels()[0],getLabels()[getLabels().length-1]]"
+            :minimum="1"
+            :maximum="getLabels().length-1"
+            :default="0"
+            @updateValue= "update(currentActive,$event)"
+            />
+        </b-row>
+        <b-row v-if="currentActive != -1">{{this.getLabel()}}</b-row>
+            <!-- <b-row align-h="center">{{ btnVal }}</b-row>
+            <b-row align-h="center" v-show="btns[0]"><Slider :values='["flickering", "quivering", "pulsing", "throbbing", "beating", "pounding"]' :minimum="1" :maximum="5" :default="0" @updateValue= "update(0,$event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[1]"><Slider :values='["jumping", "flashing", "shooting"]' :minimum="1" :maximum="3" :default="0" @updateValue= "update(1,$event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[2]"><Slider :values='["hot", "boring", "scalding", "searing"]' :minimum="1" :maximum="4" :default="0" @updateValue= "update(2,$event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[3]"><Slider :values='["tingling", "itchy", "smarting", "stinging"]' :minimum="1" :maximum="4" :default="0" @updateValue= "update(3,$event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[4]"><Slider :values='["dull", "sore", "hurting","aching", "heavy"]' :minimum="1" :maximum="5" :default="0" @updateValue= "update(4,$event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[5]"><Slider :values='["cool","cold","freezing"]' :minimum="1" :maximum="3" :default="0" @updateValue= "update(5,$event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[6]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="0" @updateValue= "update(6,$event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[7]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="0" @updateValue= "update(7,$event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[8]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="0" @updateValue= "update(8,$event)" :labels="['Weak','Strong']" /></b-row>
+            <b-row align-h="center" v-show="btns[9]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="0" @updateValue= "update(9,$event)" :labels="['Weak','Strong']" /></b-row>  -->
+>>>>>>> Stashed changes
     </b-container>
 </template>
 
@@ -55,8 +66,21 @@ export default {
     data() {
         return {
             btns: [false, false, false, false, false, false, false, false, false, false],
-            btnNames: ['temporal','spatial','thermal','brightness','dullness','sensory','Button7','Button8','Button9','Button10'],
+            btnNames:2, 
             btnVal: "",
+            currentActive:-1,
+            paintypes: [
+                {index:0, name:'temporal',enabled:false, value:0, labels: ["flickering", "quivering", "pulsing", "throbbing", "beating", "pounding"]},
+                {index:1, name:'spatial',enabled:false, value:0, labels: ["jumping", "flashing", "shooting"]},
+                {index:2, name:'thermal',enabled:false, value:0, labels: ["hot", "boring", "scalding", "searing"]},
+                {index:3, name:'brightness',enabled:false, value:0, labels: ["tingling", "itchy", "smarting", "stinging"]},
+                {index:4, name:'dullness',enabled:false, value:0, labels: ["dull", "sore", "hurting","aching", "heavy"]},
+                {index:5, name:'sensory',enabled:false, value:0, labels: ["cool","cold","freezing"]},
+                {index:6, name:'Button7',enabled:false, value:0, labels: ["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]},
+                {index:7, name:'Button8',enabled:false, value:0, labels: ["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]},
+                {index:8, name:'Button9',enabled:false, value:0, labels: ["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]},
+                {index:9, name:'Button10',enabled:false, value:0, labels: ["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]}
+            ],
             indxOld: -1,
             sliderMin: 1,
             sliderMax: 5,
@@ -78,21 +102,51 @@ export default {
     },
     methods: {
         toggleBtn: function(indx) {
-            this.btnVal = this.btnNames[indx]
-            if (indx != this.indxOld) {
-                this.$set(this.btns, this.indxOld, false)
-            }
-            else this.btnVal = ""
-            this.$set(this.btns, indx, !this.btns[indx])
-            this.indxOld = indx
             
+            indx = parseInt(indx)
+            this.currentActive = -1
+            for (let i = 0; i < this.paintypes.length; i++){
+                if (i == indx){
+                    this.paintypes[indx].enabled = !this.paintypes[indx].enabled
+                    if (this.paintypes[indx].enabled){
+                        this.currentActive = indx
+                    }
+                }
+                else{
+                    this.paintypes[i].enabled = false;
+        
+                }
+            }
         },
+        getLabels: function() {
+            return this.currentActive != -1 ? this.paintypes[this.currentActive].labels: []
+        },
+        getLabel: function() {
+            return this.currentActive != -1 ? this.paintypes[this.currentActive].labels[this.paintypes[this.currentActive].value]: [] 
+        }
+        ,
         update: function(i, event) {
             var id = this.btnNames[i] 
             console.log(this.typeValues[id])
             this.typeValues[id] =  parseInt(event)
             console.log(this.typeValues)
             this.$emit('update', this.typeValues)
+        }
+    },
+    computed: {
+        columns: function(){
+            var col1 = []
+            var col2 = []
+            for (var col = 0; col < this.paintypes.length; col++){
+                if (col < this.paintypes.length/2){
+                    col1.push(this.paintypes[col])
+                }
+                else{
+                    col2.push(this.paintypes[col])
+                }
+
+            }
+            return [col1,col2]
         }
     }
 }
