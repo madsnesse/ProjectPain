@@ -80,12 +80,11 @@ export default {
 
             // Constants
             const aspectImage = 1876/3646;
-            const aspectSkincube = 4688/6526;
             const aspectCanvas = 5/7;
 
             // p5 background & misc.
             var figureImg;    // reference to body image
-            var skincubeImg;  // reference to skincube image
+                              // TOOD: resize when loading new image
             var canvas;       // reference to the p5 canvas
 
             /* Save each pain circle as an object.
@@ -120,13 +119,13 @@ export default {
             //////////////////////////////////////////////////
             p5.preload = function() {
                 let bodyImgRef = require("@/assets/woman-large-front.png");  // thanks to https://stackoverflow.com/a/65872755
-                let skincubeImgRef = require("@/assets/skin-cube.png");
-
                 figureImg = p5.loadImage(bodyImgRef);
-                skincubeImg = p5.loadImage(skincubeImgRef);
             }
 
             p5.setup = function() {
+                // resize img
+                figureImg.resize(400, 0);
+
                 // get width of parent div
                 parent = document.getElementById("parent");
 
@@ -163,10 +162,6 @@ export default {
                 let heightImageDraw = h;
                 let x = (w - widthImageDraw) / 2;
                 p5.image(figureImg, x, 1*ry, widthImageDraw, heightImageDraw);
-
-                // skincube
-                widthImageDraw = 40*ry*aspectSkincube;
-                p5.image(skincubeImg, 60*rx, 0, widthImageDraw, widthImageDraw / aspectSkincube);
 
                 // draw each saved circle
                 for (let i = 0; i < vm.entries; i++){
@@ -217,13 +212,6 @@ export default {
                         current_circle.y = 100*(p5.mouseY/h);
                 }
                 if (vm.currentEntry > -1){
-                    //let circle_values = vm.getCircleValues(vm.currentEntry);
-
-
-
-
-                    // Update current_circle
-
                     // Update radius after check
                     if (vm.radius < 0 || vm.radius > 100) {
                         console.error("Slider for radius should only have values between 0 to 100.");
