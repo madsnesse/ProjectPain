@@ -30,14 +30,33 @@
                     <b-icon :hidden = "visible[2]" icon="chevron-down" scale="1"></b-icon>
                 </b-button></b-row>
             <b-collapse id = "painstrength" accordion="accordion-group">
-            <Slider 
-                :values = '["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' 
-                :minimum="1" 
-                :maximum="5"
-                :default="3"
-                v-on:updateValue= "update('painstrength',$event)"
-                :labels="['Weak','Strong']" 
-            />
+                <b-row>Which word describes the pain right now?</b-row>
+                <Slider 
+                    :values = '["mild", "discomforting", "distressing", "horrible", "excruciating"]' 
+                    :minimum="1" 
+                    :maximum="5"
+                    :default="0"
+                    v-on:updateValue= "update('painstrength',$event)"
+                    :labels="['Weak','Strong']" 
+                />
+                <b-row>Which word describes the pain at its worst?</b-row>
+                <Slider 
+                    :values = '["mild", "discomforting", "distressing", "horrible", "excruciating"]' 
+                    :minimum="1" 
+                    :maximum="5"
+                    :default="0"
+                    v-on:updateValue= "update('painstrength',$event)"
+                    :labels="['Weak','Strong']" 
+                />
+                <b-row>Which word describes the pain at its least?</b-row>
+                <Slider 
+                    :values = '["mild", "discomforting", "distressing", "horrible", "excruciating"]' 
+                    :minimum="1" 
+                    :maximum="5"
+                    :default="0"
+                    v-on:updateValue= "update('painstrength',$event)"
+                    :labels="['Weak','Strong']" 
+                />
             </b-collapse>
         </b-container>
 </template>
