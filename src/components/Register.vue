@@ -36,12 +36,14 @@ export default {
         }
     },
     methods: {
-        register: function(i){
+        register: async function(i){
             console.log(i);
             
             
             console.log(this.username + " " + this.email + " " + this.password + " " + this.reppass);
-            pouchDB.createUser(this.email,this.password);
+            await pouchDB.createUser(this.email,this.password);
+            await pouchDB.logIn(this.email, this.password);
+            await pouchDB.hasAccess(this.email);
         }
 
     }
