@@ -1,0 +1,18 @@
+@import "./node_modules/bootstrap/scss/bootstrap";
+
+// Override / set color variables
+$theme-colors: (
+  "primary": #88A7DF,
+  "secondary": #9D8CE1,
+  "accent": #7DDBD1,
+
+  "background": #BCE0FD
+);
+
+.breadcrumb-item a {
+  color: var(--background);
+}
+
+.breadcrumb {
+  background-color: var(--foreground) !important;
+}
