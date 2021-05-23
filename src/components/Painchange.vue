@@ -10,9 +10,9 @@
                 <b-button @click="toggleButton(1)" variant='secondary' squared :class="btns[1]?'border-light':'border-bottom'" > Rhytmic</b-button>
             </b-col>
             <b-col class="p-0" cols="4">
-                <b-button 
-                    @click="toggleButton(2)" 
-                    variant='secondary' 
+                <b-button
+                    @click="toggleButton(2)"
+                    variant='secondary'
                     squared
                     :class="btns[2]?'border-light':'border-bottom'">
                     Brief
@@ -20,28 +20,28 @@
             </b-col>
         </b-row>
         <b-row class="">
-            
-            <b-button 
-                squared 
+
+            <b-button
+                squared
                 size="md"
-                v-b-toggle.increase 
+                v-b-toggle.increase
                 variant='secondary'
                 @click="toggleAccord(0)"
                 id="topOfInc"
                 class="d-flex justify-content-center align-items-right text-left"
                 :class="accordion[0]?'border-light':'border-bottom'">
-                    
-                    
+
+
                         <b-container class="w-100 text">Does the following <b>increase</b> your pain?</b-container>
 
                         <b-iconstack>
-                            <b-icon stacked :hidden = "!accordion[0]" icon="chevron-up" scale="1"></b-icon> 
+                            <b-icon stacked :hidden = "!accordion[0]" icon="chevron-up" scale="1"></b-icon>
                             <b-icon stacked :hidden = "accordion[0]" icon="chevron-down" scale="1"></b-icon>
                         </b-iconstack>
             </b-button>
             <b-collapse id="increase" accordion="painchange">
-                <b-button 
-                    v-for="option in increaseOptions" 
+                <b-button
+                    v-for="option in increaseOptions"
                     :key="option.value"
                     squared
                     @click="selectMultInc(option.value)"
@@ -59,10 +59,10 @@
                 </b-button>
             </b-collapse>
             <b-button
-                squared 
+                squared
                 size="md"
-                v-b-toggle.decrease 
-                variant='secondary' 
+                v-b-toggle.decrease
+                variant='secondary'
                 @click="toggleAccord(1)"
                 id="topOfDec"
                 class="d-flex justify-content-center text-left"
@@ -71,14 +71,14 @@
                         <b-container class="w-100">Does the following <b>decrease</b> your pain?</b-container>
 
                         <b-iconstack>
-                            <b-icon stacked :hidden = "!accordion[1]" icon="chevron-up" scale="1"></b-icon> 
+                            <b-icon stacked :hidden = "!accordion[1]" icon="chevron-up" scale="1"></b-icon>
                             <b-icon stacked :hidden = "accordion[1]" icon="chevron-down" scale="1"></b-icon>
                         </b-iconstack>
-            
+
             </b-button>
              <b-collapse id="decrease" accordion="painchange">
-                <b-button 
-                    v-for="option in decreaseOptions" 
+                <b-button
+                    v-for="option in decreaseOptions"
                     :key="option.value"
                     squared
                     @click="selectMultDec(option.value)"
@@ -90,7 +90,7 @@
                     <b-container class="">{{option.text}}</b-container>
 
                         <b-iconstack>
-                            <b-icon stacked :hidden = "!option.selected" icon="dash" scale="1"></b-icon> 
+                            <b-icon stacked :hidden = "!option.selected" icon="dash" scale="1"></b-icon>
                             <b-icon stacked :hidden = "option.selected" icon="plus" scale="1"></b-icon>
                         </b-iconstack>
                     </b-container>
@@ -163,32 +163,32 @@ export default {
     },
     methods: {
         selectMultInc: function(select) {
-            
+
             if(!this.increaseOptions[select-1].selected){
                 this.selected = this.selected.concat(select)
             }else{
                 this.selected = this.selected.filter(function(value){
                     return value != select;
                 });
-            }   
+            }
             this.$set(this.increaseOptions[select-1],'selected', !this.increaseOptions[select-1].selected)
-            this.update()         
+            this.update()
 
-            
+
             //selecteded.$set(selecteded,select)
         },
         selectMultDec: function(select) {
-            
+
             if(!this.decreaseOptions[select-1].selected){
                 this.selected = this.selected.concat(select)
             }else{
                 this.selected = this.selected.filter(function(value){
                     return value != select;
                 });
-            }           
+            }
             this.$set(this.decreaseOptions[select-1],'selected', !this.decreaseOptions[select-1].selected)
-            this.update() 
-            
+            this.update()
+
             //selecteded.$set(selecteded,select)
         },
         update: function(){

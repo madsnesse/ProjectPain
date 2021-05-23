@@ -24,10 +24,10 @@
         </b-row>
         <b-row align-h="center">
             <b-col>
-                <b-button class="buttons w-100" variant="primary" to="/Profile">Go back</b-button>
+                <b-button class="buttons w-100" variant="secondary" to="/Profile">Go back</b-button>
             </b-col>
             <b-col>
-                <b-button class="buttons w-100" variant="primary" to="/Profile">kcab oG</b-button>
+                <b-button class="buttons w-100" variant="secondary" to="/Profile">kcab oG</b-button>
             </b-col>
         </b-row>
     </b-container>
@@ -55,5 +55,5 @@ export default {
         font-size: 200%;
         text-align: center;
     }
-    
+
 </style>

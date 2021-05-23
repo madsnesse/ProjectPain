@@ -13,9 +13,10 @@ PouchDB.plugin(PouchLiveFind);
 PouchDB.plugin(PouchDBAuthentication);
 PouchDB.plugin(require("pouchdb-security-helper"));
 
-//var dbName = "http://localhost:5984/";
-//var db = new PouchDB(dbName);
-const db = new PouchDB("http://admin:admin@localhost:5984/projectpain");
+var dbName = "http://localhost:5984/";
+var db;
+db = new PouchDB(dbName);
+//const db = new PouchDB("http://admin:admin@localhost:5984/projectpain");
 const security = db.security();
 
 /***
@@ -32,7 +33,7 @@ const security = db.security();
  * Saves to the database with .put which gives time in milliseconds as _id
  * @param json - includes all pain information
  */
-export function saveToDB(json) {
+export async function saveToDB(json) {
     db.put(JSON.parse(json)).then(function (response) {
         //handle response
         console.log("SaveToDB Response")
@@ -49,7 +50,7 @@ export function saveToDB(json) {
  * @param username - user
  */
 
-export function hasAccess(username){
+export async function hasAccess(username){
     const user = { name: username, roles: [ "admin" ] };
     security.fetch().then(() => {
         if (!security.userHasAccess(user)) {
@@ -66,13 +67,14 @@ export function hasAccess(username){
  * @param dbName - database name
  */
 
-export function createDataBase(username, password){
+export async function createDataBase(username, password){
+    console.log("CreateDatabase accessed")
     let database = "http://admin:admin@localhost:5984/";
     database = database + username.toString();
     console.log('dbName: ' + username);
     console.log(database);
     let newDataBase = new PouchDB(database);
-    newDataBase.signUpAdmin(username, password, username)
+    newDataBase.signUpAdmin(username, password, username);
     let secure = newDataBase.security();
     secure.fetch().then(()=>{
         console.log("Inside fetch");
@@ -83,8 +85,10 @@ export function createDataBase(username, password){
         console.error(e);
     });
     db.info();
-    //dbName += username
-}
+    console.log(db);
+    console.log("CreateDatabase exited");
+
+ }
 
 
 /***
@@ -94,17 +98,18 @@ export function createDataBase(username, password){
  * @param password
  */
 
-export function logIn(username,password) {
-    console.log("Login LInj1")
-    db.logIn(username, password).then(function (batman) {
+export async function logIn(username,password) {
+    console.log("Login LInj1");
+    await db.logIn(username, password).then(function (batman) {
         console.log(batman);
         console.log("Logged in");
     }).catch(function (err) {
-        console.log("logInError")
+        console.log("logInError");
         console.error(err);
     });
-    console.log("Login linje2")
-    db.getSession(function (err, response) {
+    console.log("Login linje2");
+    await db.getSession(function (err, response) {
+        console.log(response);
         if (err) {
             // network error
         } else if (!response.userCtx.name) {
@@ -114,8 +119,9 @@ export function logIn(username,password) {
             console.log(response.userCtx.name + " is the user")
         }
     });
-    hasAccess(username);
-    console.log("this is the db: " + db)
+    await(db = new PouchDB("http://localhost:5984/" + username));
+
+    console.log("this is the db: " + db.name);
 
 }
 
@@ -124,7 +130,7 @@ export function logIn(username,password) {
  * To be implemented and tested
  */
 
-export function getAllDataFromDB(){
+export async function getAllDataFromDB(){
     db.allDocs({
         include_docs: true,
         attachments: true
@@ -145,7 +151,7 @@ export function getAllDataFromDB(){
  * @param json - document that will be removed
  */
 
-export function removeFromDB(json){
+export async function removeFromDB(json){
     db.get(json).then( function (doc) {
         db.remove(doc);
     }).then( function (result) {
@@ -159,11 +165,12 @@ export function removeFromDB(json){
 /***
  * creates a new user and gives that user a database
  * @param username - gives new user username
- * @param password -
+ * @param password - password duuh
  */
-export function createUser(username,password) {
-    createDataBase(username, password, username);
-    db.signUp(username,password, function (err, response){
+export async function createUser(username,password) {
+    await createDataBase(username, password, username);
+    console.log("Create user accessed")
+    await db.signUp(username,password, function (err, response){
         if (err){
             if (err.name == 'conflict'){
                 console.log(username + " already exists, choose another")
@@ -177,11 +184,24 @@ export function createUser(username,password) {
         console.log(response);
     });
     console.log(db);
-    logIn(username,password);
+    console.log("Create user exited")
 }
+export async function logOut() {
+    console.log("Logging out");
+    await db.logOut();
+    await db.logIn("admin", "admin");
+    await db.getSession(function (err, response) {
+        console.log(response);
+        if (err) {
+            // network error
+        } else if (!response.userCtx.name) {
+            // nobody's logged in
+        } else {
+            // response.userCtx.name is the current user
+            console.log(response.userCtx.name + " is the user")
+        }
+    });
 
+    await (db = new PouchDB("http://localhost:5984/"));
 
-
-
-
-
+}

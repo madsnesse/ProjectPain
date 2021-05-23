@@ -6,11 +6,11 @@
         <div>
             <label for="radiusSlider">Radius: {{ radius }}</label>
             <b-form-input id="radiusSlider" v-model="radius" type="range" min="1" max="30"></b-form-input>
-            
+
         </div>
 
         <!-- POP LAST PAIN CIRCLE -->
-        <b-button variant="primary" id="finishPlacingCircle" class="w-100 mt-2">Finish Placement</b-button>
+        <b-button variant="secondary" id="finishPlacingCircle" class="w-100 mt-2">Finish Placement</b-button>
 
         <!-- RESET
         <b-button variant="primary" id="resetButton" class="w-100 mt-2">Reset</b-button>
@@ -36,7 +36,7 @@ export default {
       currentEntry:Number
     }
     ,
-      
+
     data() {
         return {
             radius: 15,
@@ -46,14 +46,14 @@ export default {
       toggle: function(){
         this.$emit('tog')
       },
-      
+
       updateNumber: function(){
         this.numberOfButtons +=1
         console.log("HEY!")
       },
       newCircle: function(x,y,r){
         this.$emit('newCircle',{x:x,y:y,r:r});
-            
+
       },
       pushCircle: function(circle){
           this.newCircle(circle.x,circle.y,circle.r)
@@ -62,7 +62,7 @@ export default {
         return this.values[i];
       },
       getAnimationValue: function(i){
-          
+
           return this.animationValues[i];
       }
     },
@@ -80,12 +80,11 @@ export default {
 
             // Constants
             const aspectImage = 1876/3646;
-            const aspectSkincube = 4688/6526;
             const aspectCanvas = 5/7;
 
             // p5 background & misc.
             var figureImg;    // reference to body image
-            var skincubeImg;  // reference to skincube image
+                              // TOOD: resize when loading new image
             var canvas;       // reference to the p5 canvas
 
             /* Save each pain circle as an object.
@@ -97,7 +96,7 @@ export default {
              *               (see 'circleFactory()' / 'addPainToCircle()' for more)
             */
             // var circles = [];
-            
+
             var radius;  // reusable variable
             var current_circle = {
                 x:p5.mouseX,
@@ -114,19 +113,19 @@ export default {
             // UI
             var parent;
             var finishPlacingCircleButton;
-           
+
             ////////////////////////////////////////////////////
             //// p5-FUNCTIONS BELOW                        ////
             //////////////////////////////////////////////////
             p5.preload = function() {
                 let bodyImgRef = require("@/assets/woman-large-front.png");  // thanks to https://stackoverflow.com/a/65872755
-                let skincubeImgRef = require("@/assets/skin-cube.png");
-                
                 figureImg = p5.loadImage(bodyImgRef);
-                skincubeImg = p5.loadImage(skincubeImgRef);
             }
 
             p5.setup = function() {
+                // resize img
+                figureImg.resize(400, 0);
+
                 // get width of parent div
                 parent = document.getElementById("parent");
 
@@ -143,7 +142,7 @@ export default {
                 ry = h/100;  // normalize to 0 to 100  scale
 
                 // Get UI elements
-                
+
                 finishPlacingCircleButton = document.getElementById("finishPlacingCircle");
                 finishPlacingCircleButton.onclick = function() {finishPlacingCircle();};
 
@@ -163,10 +162,6 @@ export default {
                 let heightImageDraw = h;
                 let x = (w - widthImageDraw) / 2;
                 p5.image(figureImg, x, 1*ry, widthImageDraw, heightImageDraw);
-
-                // skincube
-                widthImageDraw = 40*ry*aspectSkincube;
-                p5.image(skincubeImg, 60*rx, 0, widthImageDraw, widthImageDraw / aspectSkincube);
 
                 // draw each saved circle
                 for (let i = 0; i < vm.entries; i++){
@@ -189,6 +184,7 @@ export default {
                 if (0 <= x_ && x_ <= 100 && 0 <= y_ && y_ <= 100) {  // bounds check
                     // Push circle to array
                     //circles.push(Object.assign({}, current_circle));
+                    console.log(current_circle)
                     vm.pushCircle(current_circle)
                     vm.toggle();
                     current_circle = circleFactory("empty");    // reset
@@ -197,6 +193,17 @@ export default {
 
             /* Updates values before rendering every frame. */
             function updateValues() {
+                // Updated scaling variables
+
+                let canvas_rect = canvas.elt.getBoundingClientRect();
+                w = canvas_rect.width, h = canvas_rect.height;
+
+                try {
+                    width_div = document.getElementById("canvas").offsetWidth;
+                } catch (error) {
+                    console.log("[  P5  ] User exited -> destroying canvas.");
+                    p5.remove();
+                }
                 // width of parent div
                 current_circle.r = vm.radius;
 
@@ -205,21 +212,6 @@ export default {
                         current_circle.y = 100*(p5.mouseY/h);
                 }
                 if (vm.currentEntry > -1){
-                    //let circle_values = vm.getCircleValues(vm.currentEntry);
-                    
-                    try {
-                        width_div = document.getElementById("canvas").offsetWidth;
-                    } catch (error) {
-                        console.log("[  P5  ] User exited -> destroying canvas.");
-                        p5.remove();
-                    }
-
-                    // Updated scaling variables
-                    let canvas_rect = canvas.elt.getBoundingClientRect();
-                    w = canvas_rect.width, h = canvas_rect.height;
-
-                    // Update current_circle
-                    
                     // Update radius after check
                     if (vm.radius < 0 || vm.radius > 100) {
                         console.error("Slider for radius should only have values between 0 to 100.");
@@ -252,14 +244,14 @@ export default {
                 }
                 let animation = vm.getAnimationValue(i)
                 // Draw border
-                
+
                 if (circle != undefined){
-                  
+
 
                   if (circle.painType.thermal > 0){
                       p5.fill(200, 0, 0, 150*circle.painType.thermal/5);
                       p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
-                      
+
 
                   }
                   if (circle.painType.temporal > 0){
@@ -273,15 +265,17 @@ export default {
                       p5.stroke(50, 50, 50, 50);
                       p5.circle(circle.x*rx, circle.y*ry, radius);
                       p5.noStroke();
-                      
+
                   }
                   if (circle.painType.sensory > 0){
                     // Outer circle
-                      p5.fill(0, 0, 255, 85);
+                      p5.fill(0, 0, 255*circle.painType.sensory/3, 85);
                       p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
-                      
+
 
                   }
+                  p5.fill(0,0,0,0);
+                  p5.circle(circle.x*rx, circle.y*ry, circle.r*rx)
                 }
             }
             /* Creates a new circle based on the type of pain */
@@ -318,7 +312,7 @@ export default {
                     current_circle.x = mx;
                     current_circle.y = my;
                     current_circle.anchored = true;
-                    
+
                 }
             }
 
