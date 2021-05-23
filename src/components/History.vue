@@ -14,7 +14,7 @@
         </b-breadcrumb>
 
         <b-row align-h="center" class="my-5"><h1 id="welcome">History!</h1></b-row>
-
+        <PainVisualizer :values = "valuesfromdb"/>
         <b-row align-h="center" class="mt-2 mb-4">
           <Slider
           :values='["Last week", "Yesterday", "Today", "Tomorrow", "Next week"]'
@@ -35,6 +35,7 @@
 
 <script>
 import Slider from './Slider.vue'
+import * as pouchDB from "../database.js"
 export default {
   components:{
         Slider
@@ -42,11 +43,13 @@ export default {
   name: "Settings",
   data() {
     return {
-      sliderMin: 1,
-      sliderMax: 5,
-      sliderDef:1
+        valuesfromdb: []
     };
   },
+  created() {
+      let vals = pouchDB.getAllDataFromDB()
+      console.log(vals)
+  }
 };
 </script>
 
