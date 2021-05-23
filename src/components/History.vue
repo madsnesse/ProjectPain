@@ -14,7 +14,7 @@
         </b-breadcrumb>
 
         <b-row align-h="center" class="my-5"><h1 id="welcome">History!</h1></b-row>
-        <PainVisualizer v-if = "valuesfromdb != undefined" :values = "valuesfromdb[currentEntry]"/>
+        <PainVisualizer :values = "valuesfromdb[currentEntry]"/>
         <b-row align-h="center" class="mt-2 mb-4">
           <b-form-input type="range" :min="0" :max="valuesfromdb.length" v-model="currentEntry"></b-form-input>
         </b-row>

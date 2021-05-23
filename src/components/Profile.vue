@@ -12,7 +12,7 @@
 
     <b-row align-h="center" class="my-5"><h1 id="welcome">Profile!</h1></b-row>
     <b-row align-h="center" class="my-5">
-      <History :valuesfromdb="valuesfromdb" />
+      <History v-if="valuesfromdb != undefined" :valuesfromdb="valuesfromdb" />
       </b-row
     >
     <b-row align-h="center" class="my-5"
