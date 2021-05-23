@@ -14,13 +14,9 @@
         </b-breadcrumb>
 
         <b-row align-h="center" class="my-5"><h1 id="welcome">History!</h1></b-row>
-        <PainVisualizer :values = "valuesfromdb"/>
+        <PainVisualizer :values = "valuesfromdb[currentEntry]"/>
         <b-row align-h="center" class="mt-2 mb-4">
-          <Slider
-          :values='["Last week", "Yesterday", "Today", "Tomorrow", "Next week"]'
-          :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef"
-          @updateValue= "update(0,$event)"
-          :labels="['Old','New']" />
+          <b-form-input type="range" :min="0" :max="length" v-model="currentEntry"></b-form-input>
         </b-row>
         <b-row align-h="center">
             <b-col>
@@ -34,21 +30,26 @@
 </template>
 
 <script>
-import Slider from './Slider.vue'
 import * as pouchDB from "../database.js"
+import PainVisualizer from './PainVisualizer.vue'
 export default {
   components:{
-        Slider
+      PainVisualizer
     },
   name: "Settings",
   data() {
     return {
-        valuesfromdb: []
+        valuesfromdb: [],
+        currentEntry: -1,
+        length: 0
     };
   },
   created() {
       let vals = pouchDB.getAllDataFromDB()
+      this.valuesfromdb = vals.rows
+      this.length = this.valuesfromdb.length
       console.log(vals)
+    
   }
 };
 </script>
