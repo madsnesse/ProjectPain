@@ -12,7 +12,7 @@
 
     <b-row align-h="center" class="my-5"><h1 id="welcome">Profile!</h1></b-row>
     <b-row align-h="center" class="my-5">
-      <History :valuesfromdb="valuesfromdb" />
+      <History :valuesfromdb="valuesfromdb" :length="length"/>
       </b-row
     >
     <b-row align-h="center" class="my-5"
@@ -40,10 +40,10 @@ export default {
       length:0
     }
   },
-  computed() {
-      let vals = pouchDB.getAllDataFromDB()
-      this.valuesfromdb = vals.rows
-      this.length = this.valuesfromdb.length
+  created: function() {
+      let vals = pouchDB.getAllDataFromDB();
+      this.valuesfromdb = vals.rows;
+      this.length = vals.total_rows;
       console.log(vals)
   }
 }

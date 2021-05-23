@@ -16,7 +16,7 @@
         <b-row align-h="center" class="my-5"><h1 id="welcome">History!</h1></b-row>
         <PainVisualizer v-if = "valuesfromdb != undefined" :values = "valuesfromdb[currentEntry]"/>
         <b-row align-h="center" class="mt-2 mb-4">
-          <b-form-input type="range" :min="0" :max="valuesfromdb.length" v-model="currentEntry"></b-form-input>
+          <b-form-input type="range" :min="0" :max="length" v-model="currentEntry"></b-form-input>
         </b-row>
         <b-row align-h="center">
             <b-col>
@@ -35,7 +35,8 @@ export default {
     
     name: "History",
     props: {
-        valuesfromdb: Array
+        valuesfromdb: Array,
+        length: Number
     },
     data(){
         return{

@@ -20,7 +20,7 @@
 
 
 <script>
-    import * as pouchDB from "../database.js"
+    //import * as pouchDB from "../database.js"
 export default {
     name: "Login",
     data(){
@@ -32,8 +32,8 @@ export default {
     methods: {
         logIn: function (i) {
             console.log(i);
-            pouchDB.logIn(this.email,this.password);
-            pouchDB.hasAccess(this.email);
+            //pouchDB.logIn(this.email,this.password);
+            //pouchDB.hasAccess(this.email);
         }
     }
 
