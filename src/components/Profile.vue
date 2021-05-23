@@ -11,8 +11,8 @@
    </b-breadcrumb>
 
     <b-row align-h="center" class="my-5"><h1 id="welcome">Profile!</h1></b-row>
-    <b-row align-h="center" class="my-5"
-      ><b-button class="buttons" variant="secondary" to="/history">history</b-button>
+    <b-row align-h="center" class="my-5">
+      <History :valuesfromdb="valuesfromdb" />
       </b-row
     >
     <b-row align-h="center" class="my-5"
@@ -27,9 +27,26 @@
 
 
 <script>
+import * as pouchDB from "../database.js"
+import History from './History.vue'
 export default {
   name: "Home",
-};
+  components: {
+      History
+  },
+  data(){
+    return {
+      valuesfromdb:[],
+      length:0
+    }
+  },
+  computed() {
+      let vals = pouchDB.getAllDataFromDB()
+      this.valuesfromdb = vals.rows
+      this.length = this.valuesfromdb.length
+      console.log(vals)
+  }
+}
 </script>
 
 <style scoped>

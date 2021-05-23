@@ -16,7 +16,7 @@
         <b-row align-h="center" class="my-5"><h1 id="welcome">History!</h1></b-row>
         <PainVisualizer :values = "valuesfromdb[currentEntry]"/>
         <b-row align-h="center" class="mt-2 mb-4">
-          <b-form-input type="range" :min="0" :max="length" v-model="currentEntry"></b-form-input>
+          <b-form-input type="range" :min="0" :max="valuesfromdb.length" v-model="currentEntry"></b-form-input>
         </b-row>
         <b-row align-h="center">
             <b-col>
@@ -30,28 +30,22 @@
 </template>
 
 <script>
-import * as pouchDB from "../database.js"
 import PainVisualizer from './PainVisualizer.vue'
 export default {
-  components:{
-      PainVisualizer
-    },
-  name: "Settings",
-  data() {
-    return {
-        valuesfromdb: [],
-        currentEntry: -1,
-        length: 0
-    };
-  },
-  created() {
-      let vals = pouchDB.getAllDataFromDB()
-      this.valuesfromdb = vals.rows
-      this.length = this.valuesfromdb.length
-      console.log(vals)
     
-  }
-};
+    name: "History",
+    props: {
+        valuesfromdb: Array
+    },
+    data(){
+        return{
+            currentEntry:0
+        }
+    },
+    components:{
+        PainVisualizer
+    }
+    }
 </script>
 
 <style scoped>

@@ -13,10 +13,10 @@ PouchDB.plugin(PouchLiveFind);
 PouchDB.plugin(PouchDBAuthentication);
 PouchDB.plugin(require("pouchdb-security-helper"));
 
-var dbName = "http://localhost:5984/";
-var db;
-db = new PouchDB(dbName);
-//const db = new PouchDB("http://admin:admin@localhost:5984/projectpain");
+//var dbName = "http://localhost:5984/";
+//var db;
+//db = new PouchDB(dbName);
+var db = new PouchDB("http://admin:admin@localhost:5984/projectpain");
 const security = db.security();
 
 /***
