@@ -13,8 +13,7 @@
     <b-row align-h="center" class="my-5"><h1 id="welcome">Profile!</h1></b-row>
     <b-row align-h="center" class="my-5">
       <History :valuesfromdb="valuesfromdb" :length="length"/>
-      </b-row
-    >
+      </b-row>
     <b-row align-h="center" class="my-5"
       ><b-button class="buttons" variant="secondary" to="/settings">settings</b-button>
       </b-row>
