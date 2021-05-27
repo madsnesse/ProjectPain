@@ -14,7 +14,7 @@
         </b-breadcrumb>
 
         <b-row align-h="center" class="my-5"><h1 id="welcome">History!</h1></b-row>
-        <PainVisualizer :values = "valuesfromdb[currentEntry]"/>
+        <PainVisualizer v-if="valuesfromdb.length>0" :values = "getCurrentValue()"/>
         <b-row align-h="center" class="mt-2 mb-4">
           <b-form-input type="range" :min="0" :max="length" v-model="currentEntry"></b-form-input>
         </b-row>
@@ -37,6 +37,11 @@ export default {
     props: {
         valuesfromdb: Array,
         length: Number
+    },
+    methods: {
+        getCurrentValue() {
+            return this.valuesfromdb;
+        }
     },
     data(){
         return{

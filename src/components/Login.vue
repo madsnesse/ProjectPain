@@ -8,8 +8,8 @@
             <b-breadcrumb-item active>Login</b-breadcrumb-item>
         </b-breadcrumb>
         <b-row align-h="center" class="my-5"><h1 id="welcome">Log in!</h1></b-row>
-        <b-row align-h="center" class="my-5"><b-input placeholder="e-mail" class="inputs">e-mail</b-input></b-row>
-        <b-row align-h="center" class="my-5"><b-input placeholder="passord" class="inputs" >Registrer deg</b-input></b-row>
+        <b-row align-h="center" class="my-5"><b-input v-model="email" placeholder="e-mail" class="inputs">e-mail</b-input></b-row>
+        <b-row align-h="center" class="my-5"><b-input v-model="password" placeholder="passord" class="inputs" >Registrer deg</b-input></b-row>
         <b-row align-h="between">
             <b-col class="text-center my-5"><b-button class="buttons" variant="secondary" to="/welcome">Back</b-button></b-col>
             <b-col class="text-center my-5"><b-button class="buttons" variant="secondary" @click="logIn()" to="/home">Login</b-button></b-col>
@@ -20,7 +20,7 @@
 
 
 <script>
-    //import * as pouchDB from "../database.js"
+    import * as pouchDB from "../database.js"
 export default {
     name: "Login",
     data(){
@@ -30,10 +30,9 @@ export default {
         }
     },
     methods: {
-        logIn: function (i) {
-            console.log(i);
-            //pouchDB.logIn(this.email,this.password);
-            //pouchDB.hasAccess(this.email);
+        logIn: function () {
+            pouchDB.logIn(this.email,this.password);
+            pouchDB.hasAccess(this.email);
         }
     }
 

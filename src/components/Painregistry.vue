@@ -12,7 +12,7 @@
 
         <b-row><b-container class="m-1"><div id="welcome">Please select where it hurts</div></b-container></b-row>
         
-        <PainVisualizer v-on:newCircle= "newCircle($event)" @tog="toggleVis=!toggleVis" :hidden="toggleVis" :values="forms.values" :currentEntry="currentEntry" :entries="forms.values.length" />
+        <PainVisualizer v-on:newCircle= "newCircle($event)" @tog="toggleVis=!toggleVis" :hidden="toggleVis" :values="getFormsValues()" :currentEntry="currentEntry" :entries="forms.values.length" />
         <Form :hidden="!toggleVis" :values="getCurrentForm()" :key="currentEntry" />
 
         <b-row align-h="between">
@@ -78,9 +78,12 @@ export default {
         getCurrentForm: function(){
             return this.forms.values[this.currentEntry]
         },
+        getFormsValues() {
+            return this.forms.values;
+        },
         save: function() {
                 this.forms._id = (new Date().getTime()).toString();
-                console.log("saving to json");
+                console.log("saving to json")
                 PoucheDB.saveToDB(JSON.stringify(this.forms));
                 //console.log("Data From  DB")
                 //PoucheDB.getAllDataFromDB();

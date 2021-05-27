@@ -13,10 +13,10 @@ PouchDB.plugin(PouchLiveFind);
 PouchDB.plugin(PouchDBAuthentication);
 PouchDB.plugin(require("pouchdb-security-helper"));
 
-//var dbName = "http://localhost:5984/";
-//var db;
-//db = new PouchDB(dbName);
-var db = new PouchDB("http://admin:admin@localhost:5984/projectpain");
+var dbName = "http://localhost:5984/";
+var db;
+db = new PouchDB(dbName);
+//var db = new PouchDB("http://admin:admin@localhost:5984/projectpain");
 const security = db.security();
 
 /***
@@ -131,18 +131,29 @@ export async function logIn(username,password) {
  */
 
 export async function getAllDataFromDB(){
-    db.allDocs({
+    const results = await db.allDocs({
+        include_docs: true,
+        attachments: true
+    });
+
+    return results;
+}
+/*
+export async function getAllDataFromDB(){
+    return db.allDocs({
         include_docs: true,
         attachments: true
     }).then( function (result) {
         //handle result, need to return
         console.log(result);
-        return result;
+        return result.toString();
     }).catch(function (err){
-        console.error(err);
+            console.error(err);
         }
     )
 }
+
+ */
 
 /***
  * "deletes" object from database

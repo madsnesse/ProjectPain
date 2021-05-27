@@ -29,18 +29,26 @@
 import * as pouchDB from "../database.js"
 import History from './History.vue'
 export default {
-  name: "Home",
+  name: "Profile",
   components: {
       History
   },
   data(){
     return {
       valuesfromdb:[],
-      length:0
+      length:0,
+        vals:{
+
+        }
     }
   },
-  created: function() {
-      let vals = pouchDB.getAllDataFromDB();
+    methods:{
+      getFromdb: pouchDB.getAllDataFromDB
+    },
+  async mounted() {
+      let vals = await pouchDB.getAllDataFromDB();
+      console.log("vals is: " + vals);
+      this.vals = vals;
       this.valuesfromdb = vals.rows;
       this.length = vals.total_rows;
       console.log(vals)
