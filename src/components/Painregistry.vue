@@ -1,5 +1,5 @@
 <template>
-    <b-container>
+    <b-container id="main">
         <b-breadcrumb>
             <b-breadcrumb-item :to="'/home'">
                 <b-icon icon="house-fill" scale="1.25" shift-v="1.25" aria-hidden="true"></b-icon>

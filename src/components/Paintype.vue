@@ -1,4 +1,5 @@
 <template>
+  <b-container id="main">
     <b-container class="my-buttons" style="background-color:var(--secondary)">
         <b-row align-h="center">
             <b-col class="" cols="4" xl="4">
@@ -42,7 +43,7 @@
             <b-row align-h="center" v-show="btns[7]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="0" @updateValue= "update(7,$event)" :labels="['Weak','Strong']" /></b-row>
             <b-row align-h="center" v-show="btns[8]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="0" @updateValue= "update(8,$event)" :labels="['Weak','Strong']" /></b-row>
             <b-row align-h="center" v-show="btns[9]"><Slider :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]' :minimum="sliderMin" :maximum="sliderMax" :default="0" @updateValue= "update(9,$event)" :labels="['Weak','Strong']" /></b-row>
-    </b-container>
+    </b-container></b-container>
 </template>
 
 

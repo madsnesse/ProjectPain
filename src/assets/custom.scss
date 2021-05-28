@@ -1,30 +1,30 @@
 @import "./node_modules/bootstrap/scss/bootstrap";
 
-$enable-gradients: true !important;
-
 // Override / set color variables
 $theme-colors: (
-  "primary": #F0F8FF,     //#88A7DF
-  "secondary": #7193B0,   //#9D8CE1, 7193B0
-  "accent": #FCD5D4,      //#7DDBD1
-  "background": #FFFFFF,  //#BCE0FD
+  "primary": #FFFFFF,     // light blue - used for patient bodies, bg coloring (alternative: #F0F8FF)
+  "secondary": #7193B0,   // darker blue - used for buttons, text color #7193B0
+
+  "accent": #FCD5D4,      // light salmon pink
+  "background": #FFFFFF,  // white
 );
 
-$headings-color: var(--secondary);
-$body-color: var(--secondary);
 
-$gradient: linear-gradient(180deg, rgba($white, .15), rgba($white, 0)); //todo
-$background-image: var(--bs-gradient); //todo
+// add background gradient
+//$enable-gradients: true;
 
+#main {
+  background-image: linear-gradient(180deg, rgba(#FCD5D4, .6), rgba(#BBDFFC, .7));
+  color: var(--secondary); //change body text color
+}
 
+//breadcrumb color adjustments
 .breadcrumb-item a {
   color: var(--secondary);   //var(--background);
 }
-
-.breadcrumb-item {
-  color: var(--secondary);   //var(--background);
+.breadcrumb-item.active {
+  color: var(--secondary) !important;
 }
-
 
 .breadcrumb {
   background-color: var(--foreground) !important;

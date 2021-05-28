@@ -12,6 +12,7 @@
         <b-row align-h="center" class="my-5"><b-button class="buttons" variant="secondary" to ="/register">Registrer deg</b-button></b-row>
 
     </b-container>
+
 </template>
 
 

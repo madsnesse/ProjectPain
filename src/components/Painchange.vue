@@ -1,5 +1,5 @@
 <template>
-    <b-container >
+  <b-container>
         <b-row><b-container style="background-color:var(--secondary)" class="px-3 py-2 text-center">How would you describe the <i>cycle</i> of the pain?</b-container></b-row>
         <b-row >
             <b-col class="p-0" cols="4">
@@ -87,7 +87,7 @@
                 </b-button>
             </b-collapse>
         </b-row>
-    </b-container>
+  </b-container>
 </template>
 
 
