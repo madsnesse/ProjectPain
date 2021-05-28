@@ -13,8 +13,11 @@ $theme-colors: (
 // add background gradient
 //$enable-gradients: true;
 
+#mainColumn {
+  background-image: linear-gradient(180deg, rgba(#FCD5D4, .7), rgba(#BBDFFC, .7));
+}
+
 #main {
-  background-image: linear-gradient(180deg, rgba(#FCD5D4, .6), rgba(#BBDFFC, .7));
   color: var(--secondary); //change body text color
 }
 
