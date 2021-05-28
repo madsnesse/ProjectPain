@@ -10,7 +10,7 @@
         </div>
 
         <!-- POP LAST PAIN CIRCLE -->
-        <b-button variant="secondary" id="finishPlacingCircle" class="w-100 mt-2">Finish Placement</b-button>
+        <b-button variant="outline-secondary" id="finishPlacingCircle" class="w-100 mt-2">Finish Placement</b-button>
 
         <!-- RESET
         <b-button variant="primary" id="resetButton" class="w-100 mt-2">Reset</b-button>

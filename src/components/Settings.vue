@@ -18,7 +18,7 @@
       ><h1 id="welcome">Settings</h1></b-row
     >
     <b-row align-h="center" class="mt-5 mb-5">
-      <b-button v-b-toggle.accordion-3 class="buttons" variant="secondary">Change Body</b-button>
+      <b-button v-b-toggle.accordion-3 class="buttons" variant="outline-secondary">Change Avatar</b-button>
       <b-collapse class="w-100" id="accordion-3" accordion="my-accordion" role="tabpanel">
         <b-row>
         <b-card class="mt-2 ml-2" cols="7">
@@ -38,7 +38,7 @@
 
 
     <b-row align-h="center">
-      <b-button v-b-toggle.accordion-1 class="buttons" variant="secondary">Change Password</b-button>
+      <b-button v-b-toggle.accordion-1 class="buttons" variant="outline-secondary">Change Password</b-button>
       <b-collapse class="w-100" id="accordion-1" accordion="my-accordion" role="tabpanel">
         <label class="mt-3" for="OldPass">Old Password:</label>
         <b-form-input
@@ -67,7 +67,7 @@
     </b-row>
 
     <b-row align-h="center" class="my-5">
-      <b-button v-b-toggle.accordion-2 class="buttons" variant="secondary">Calibrate pain levels</b-button>
+      <b-button v-b-toggle.accordion-2 class="buttons" variant="outline-secondary">Calibrate Pain Levels</b-button>
       <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
 
         <b-row class="mt-3 ml-2 mr-2">How bad is the worst headache you ever had?</b-row>
@@ -101,7 +101,7 @@
 
     <b-row align-h="center" class="my-5">
       <b-button  class="buttons" variant="secondary" to="/profile"
-        >Go back</b-button
+        >Return to Profile</b-button
       >
     </b-row>
   </b-container>

@@ -1,34 +1,21 @@
 <template>
   <b-container id="main">
-    <b-container class="my-buttons" style="background-color:var(--secondary)">
+    <b-container class="registry-container">
         <b-row align-h="center">
             <b-col class="" cols="4" xl="4">
-
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(0)" variant='secondary'>temporal</b-button></b-row>
-
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(1)" variant='secondary'>spatial</b-button></b-row>
-
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(2)" variant='secondary'>thermal</b-button></b-row>
-
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(3)" variant='secondary'>brightness</b-button></b-row>
-
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(4)" variant='secondary'>dullness</b-button></b-row>
-
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(0)" variant='outline-secondary'>temporal</b-button></b-row>
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(1)" variant='outline-secondary'>spatial</b-button></b-row>
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(2)" variant='outline-secondary'>thermal</b-button></b-row>
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(3)" variant='outline-secondary'>brightness</b-button></b-row>
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(4)" variant='outline-secondary'>dullness</b-button></b-row>
             </b-col>
 
             <b-col class="" cols="4" xl="4">
-
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(5)" variant='secondary'>Sensory</b-button></b-row>
-
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(6)" variant='secondary'>Rhytmic</b-button></b-row>
-
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(7)" variant='secondary'>Rhytmic</b-button></b-row>
-
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(8)" variant='secondary'>Rhytmic</b-button></b-row>
-
-                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(9)" variant='secondary'>Rhytmic</b-button></b-row>
-
-
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(5)" variant='outline-secondary'>Sensory</b-button></b-row>
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(6)" variant='outline-secondary'>Rhytmic</b-button></b-row>
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(7)" variant='outline-secondary'>Rhytmic</b-button></b-row>
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(8)" variant='outline-secondary'>Rhytmic</b-button></b-row>
+                <b-row><b-button class="mx-1 my-1 buttons" size ="sm" @click="toggleBtn(9)" variant='outline-secondary'>Rhytmic</b-button></b-row>
             </b-col>
 
         </b-row>
