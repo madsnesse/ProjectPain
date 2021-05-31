@@ -17,14 +17,43 @@
     <b-row align-h="center" class="my-5"
       ><h1 id="welcome">Settings</h1></b-row
     >
-    <b-row align-h="center" class="mt-5 mb-5">
+    <b-row align-h="center" class="my-5">
       <b-button v-b-toggle.accordion-3 class="buttons" variant="outline-secondary">Change Avatar</b-button>
       <b-collapse class="w-100" id="accordion-3" accordion="my-accordion" role="tabpanel">
-        <b-row>
-        <b-card class="mt-2 ml-2" cols="7">
+        
+        <!-- Only visible on x-small and small -->
+        <!-- class="d-block d-md-none" -->
+        <b-row class="d-flex d-md-none">
+          <b-col cols=1></b-col>
+          <b-col cols=9>
+            <b-card class="mt-2 ml-3">
+              <img :src="require(`@/assets/${pictures[currentPict]}`)" class="picture"/>
+            </b-card>
+          </b-col>
+          <b-col cols=2></b-col>
+        </b-row>
+
+        <b-row class="d-flex d-md-none">
+          <b-col cols=1></b-col>
+          <b-col cols=5>
+            <b-button class="mt-1" @click="updatePict(0)" variant="secondary">Male L</b-button>
+            <b-button class="mt-1" @click="updatePict(1)" variant="secondary">Male M</b-button>
+            <b-button class="mt-1" @click="updatePict(2)" variant="secondary">Male S</b-button>
+          </b-col>
+          <b-col cols=5>
+            <b-button class="mt-1" @click="updatePict(3)" variant="secondary">Female L</b-button>
+            <b-button class="mt-1" @click="updatePict(4)" variant="secondary">Female M</b-button>
+            <b-button class="mt-1" @click="updatePict(5)" variant="secondary">Female S</b-button>
+          </b-col>
+          <b-col cols=1></b-col>
+        </b-row>
+
+        <!-- Only visible on medium and up -->
+        <b-row class="d-none d-md-flex">
+        <b-card class="mt-2 ml-5" cols="7">
           <img :src="require(`@/assets/${pictures[currentPict]}`)" class="picture"/>
         </b-card>
-        <b-col class="my-2" cols="5">
+        <b-col class="my-3 ml-5" cols="5">
           <b-button class="mt-1" @click="updatePict(0)" variant="secondary">Male L</b-button>
           <b-button class="mt-1" @click="updatePict(1)" variant="secondary">Male M</b-button>
           <b-button class="mt-1" @click="updatePict(2)" variant="secondary">Male S</b-button>
@@ -35,7 +64,7 @@
         </b-row>
       </b-collapse>
     </b-row>
-
+    
 
     <b-row align-h="center">
       <b-button v-b-toggle.accordion-1 class="buttons" variant="outline-secondary">Change Password</b-button>
