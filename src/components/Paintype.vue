@@ -1,5 +1,5 @@
 <template>
-    <b-container class="my-buttons">
+    <b-container class="registry-container">
         <b-row align-h="center" >
             <b-col v-for="col in columns" :key="col[0].name" >
                 <b-button 
@@ -7,7 +7,7 @@
                     :key="type.index"
                     size="sm"
                     class="w-100 my-1 buttons"
-                    variant="primary"
+                    variant="outline-secondary"
                     @click="toggleBtn(type.index)"
                 >
                     {{type.name}}

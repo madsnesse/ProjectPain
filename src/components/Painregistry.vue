@@ -20,14 +20,15 @@
 <!--            <b-col class="text-center my-5"><b-button variant='secondary' class="w-100" to="/home">Home</b-button></b-col>-->
             <b-col class="text-center my-5"><b-button variant='outline-secondary' @click="toggleVis = !toggleVis" class="w-100" >Describe Pain</b-button></b-col>
             <b-col class="text-center my-5"><b-button variant='secondary' @click="save" class="w-100" to="/home">Register Pain</b-button></b-col>
+        </b-row>
     </b-container>
 </template>
     
 
 <script>
-//import PainVisualizer from './PainVisualizer.vue'
+import PainVisualizer from './PainVisualizer.vue'
 import Form from './Form.vue'
-import Skincube from './Skincube.vue'
+// import Skincube from './Skincube.vue'
 
 import '../main.js'
 import * as PoucheDB from '../database'
@@ -69,9 +70,9 @@ export default {
         }
     },
     components:{
-        //PainVisualizer,
-        Form,
-        Skincube
+        PainVisualizer,
+        Form
+        // Skincube
     },
     methods: {
         toggle: function() {
