@@ -102,7 +102,7 @@
         <b-row class="mt-3 ml-2 mr-2">How bad is the worst headache you ever had?</b-row>
         <b-row align-h="center">
           <Slider
-          :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]'
+          :values='["Mild", "Discomforting", "Distressing", "Horrible", "Excruciating"]'
           :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef"
           @updateValue= "update(0,$event)"
           :labels="['Weak','Strong']" />
@@ -111,7 +111,7 @@
         <b-row class="mt-2 ml-2 mr-2">How bad is the worst headache you ever had</b-row>
         <b-row align-h="center">
           <Slider
-          :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]'
+          :values='["Mild", "Discomforting", "Distressing", "Horrible", "Excruciating"]'
           :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef"
           @updateValue= "update(0,$event)"
           :labels="['Weak','Strong']" />
@@ -120,7 +120,7 @@
         <b-row class="mt-2 ml-2 mr-2">How bad is the worst stomach ache you ever had</b-row>
         <b-row align-h="center">
           <Slider
-          :values='["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]'
+          :values='["Mild", "Discomforting", "Distressing", "Horrible", "Excruciating"]'
           :minimum="sliderMin" :maximum="sliderMax" :default="sliderDef"
           @updateValue= "update(0,$event)"
           :labels="['Weak','Strong']" />
