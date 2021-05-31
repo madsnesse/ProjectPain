@@ -49,10 +49,10 @@ export default {
                 {index:3, name:'brightness',enabled:false, value:0, labels: ["tingling", "itchy", "smarting", "stinging"]},
                 {index:4, name:'dullness',enabled:false, value:0, labels: ["dull", "sore", "hurting","aching", "heavy"]},
                 {index:5, name:'sensory',enabled:false, value:0, labels: ["cool","cold","freezing"]},
-                {index:6, name:'Button7',enabled:false, value:0, labels: ["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]},
-                {index:7, name:'Button8',enabled:false, value:0, labels: ["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]},
-                {index:8, name:'Button9',enabled:false, value:0, labels: ["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]},
-                {index:9, name:'Button10',enabled:false, value:0, labels: ["Light tickle", "Kinda annoying", "this isnt good", "Ouch squared", "help"]}
+                {index:6, name:'Tension',enabled:false, value:0, labels: ["Tiring", "Exhausting"]},
+                {index:7, name:'Autonomic',enabled:false, value:0, labels: ["Sickening", "Suffocating"]},
+                {index:8, name:'Punishment',enabled:false, value:0, labels: ["Punishing", "Gruelling", "Cruel", "Vicious", "Killing"]},
+                {index:9, name:'Fear',enabled:false, value:0, labels: ["Fearful", "Frightful", "Terrifying"]}
             ],
             indxOld: -1,
             label:"",
