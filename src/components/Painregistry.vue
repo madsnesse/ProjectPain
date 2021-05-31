@@ -10,20 +10,19 @@
             </b-breadcrumb-item>
         </b-breadcrumb>
         
-        <b-row><b-container class="m-1"><div id="welcome">Please select where it hurts</div></b-container></b-row>
-        <Skincube />
-        <!-- <PainVisualizer v-on:newCircle= "newCircle($event)" @tog="toggleVis=!toggleVis" :hidden="true" :values="forms.values" :currentEntry="currentEntry" :entries="forms.values.length" />
-         -->
+        <b-row><b-container class="m-5"><h1 id="welcome">Pain Registry</h1></b-container></b-row>
+
+        <PainVisualizer v-on:newCircle= "newCircle($event)" @tog="toggleVis=!toggleVis" :hidden="toggleVis" :values="forms.values" :currentEntry="currentEntry" :entries="forms.values.length" />
+
         <Form :hidden="!toggleVis" :values="getCurrentForm()" :key="currentEntry" />
 
         <b-row align-h="between">
-            <b-col class="text-center my-5"><b-button variant='secondary' class="w-100" to="/home">Back</b-button></b-col>
-            <b-col class="text-center my-5"><b-button variant='secondary' @click="toggleVis = !toggleVis" class="w-100" >Show</b-button></b-col>
-            <b-col class="text-center my-5"><b-button variant='secondary' @click="save" class="w-100" to="/home">Register</b-button></b-col>
-        </b-row>
+<!--            <b-col class="text-center my-5"><b-button variant='secondary' class="w-100" to="/home">Home</b-button></b-col>-->
+            <b-col class="text-center my-5"><b-button variant='outline-secondary' @click="toggleVis = !toggleVis" class="w-100" >Describe Pain</b-button></b-col>
+            <b-col class="text-center my-5"><b-button variant='secondary' @click="save" class="w-100" to="/home">Register Pain</b-button></b-col>
     </b-container>
 </template>
-
+    
 
 <script>
 //import PainVisualizer from './PainVisualizer.vue'

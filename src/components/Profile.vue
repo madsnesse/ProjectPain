@@ -12,15 +12,15 @@
 
     <b-row align-h="center" class="my-5"><h1 id="welcome">Profile!</h1></b-row>
     <b-row align-h="center" class="my-5"
-      ><b-button class="buttons" variant="secondary" to="/history">history</b-button>
+      ><b-button class="buttons" variant="outline-secondary" to="/history">Pain History</b-button>
       </b-row
     >
     <b-row align-h="center" class="my-5"
-      ><b-button class="buttons" variant="secondary" to="/settings">settings</b-button>
+      ><b-button class="buttons" variant="outline-secondary" to="/settings">Settings</b-button>
       </b-row>
 
     <b-row align-h="center" class="my-5"
-      ><b-button class="buttons" variant="secondary" to="/home">Go back</b-button>
+      ><b-button class="buttons" variant="secondary" to="/home">Return to Home</b-button>
       </b-row>
   </b-container>
 </template>

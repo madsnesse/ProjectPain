@@ -2,17 +2,58 @@
 
 // Override / set color variables
 $theme-colors: (
-  "primary": #88A7DF,
-  "secondary": #9D8CE1,
-  "accent": #7DDBD1,
+  "primary": #FFFFFF,     // light blue - used for patient bodies, bg coloring (alternative: #F0F8FF)
+  "secondary": #7193B0,   // darker blue - used for buttons, text color #7193B0
 
-  "background": #BCE0FD
+  "accent": #FCD5D4,      // darker salmon pink; 1st stop of gradient
+
+  "custom-light-blue": #BBDFFC,  //  light blue - 2nd stop of gradient
+  "background": #FFFFFF,  // white
 );
 
+
+// add background gradient
+//$enable-gradients: true;
+
+#mainColumn {
+  background-image: linear-gradient(180deg, rgba(#FCD5D4, .9), rgba(#BBDFFC, .7));
+}
+
+#main {
+  color: var(--secondary); //change body text color
+}
+
+.input-group > .custom-range { //change background color behind sliders
+  background-color: transparent !important;
+}
+
+.registry-container {
+  background-color: transparent; //not sure about this
+}
+
+
+//.btn-secondary { //change overall styling of buttons for cleaner look (?)
+//  color: #557a99 !important;
+//  background-color: transparent !important;
+//  border-color: var(--secondary) !important;
+//}
+//
+//.btn-secondary a { //change overall styling of buttons for cleaner look (?)
+//  color: #FFFFFF !important;
+//  background-color: var(--secondary) !important;
+//  border-color: var(--secondary) !important;
+//}
+
+//breadcrumb color adjustments
 .breadcrumb-item a {
-  color: var(--background);
+  color: var(--secondary);   //var(--background);
+}
+.breadcrumb-item.active {
+  color: var(--secondary) !important;
 }
 
 .breadcrumb {
   background-color: var(--foreground) !important;
 }
+
+

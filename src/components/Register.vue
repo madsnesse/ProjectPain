@@ -13,7 +13,7 @@
         <b-row align-h="center" class="my-5"><b-input placeholder="passord" class="inputs" id = "password" v-model="password"></b-input></b-row>
         <b-row align-h="center" class="my-5"><b-input placeholder="gjenta passord" class="inputs" id ="reppass" v-model="reppass"></b-input></b-row>
         <b-row align-h="between">
-            <b-col class="text-center my-5"><b-button class="buttons" variant="secondary" to="/welcome">Back</b-button>
+            <b-col class="text-center my-5"><b-button class="buttons" variant="outline-secondary" to="/welcome">Go Back</b-button>
             </b-col>
             <b-col class="text-center my-5"><b-button class="buttons" variant="secondary" tag="b-button" @click="register()" to="/home">Register</b-button>
             </b-col>
@@ -38,8 +38,8 @@ export default {
     methods: {
         register: async function(i){
             console.log(i);
-            
-            
+
+
             console.log(this.username + " " + this.email + " " + this.password + " " + this.reppass);
             await pouchDB.createUser(this.email,this.password);
             await pouchDB.logIn(this.email, this.password);

@@ -1,31 +1,27 @@
 <template>
-    <b-container >
-        <b-row><b-container style="background-color:var(--secondary)" class="px-3 py-2 text-center">How would you describe the <i>cycle</i> of the pain?</b-container></b-row>
+  <b-container>
+        <b-row><b-container class="px-3 py-2 text-center registry-container">How would you describe the <i>cycle</i> of your pain?</b-container></b-row>
         <b-row >
             <b-col class="p-0" cols="4">
-                <b-button @click="toggleButton(0)" variant='secondary' squared
-                :class="btns[0]?'border-light':'border-bottom'">Continous</b-button>
+                <b-button @click="toggleButton(0)" variant='outline-secondary' squared :class="btns[0]?'border-light':'border-bottom'">Continous</b-button>
             </b-col>
             <b-col class="p-0" cols="4">
-                <b-button @click="toggleButton(1)" variant='secondary' squared :class="btns[1]?'border-light':'border-bottom'" > Rhytmic</b-button>
+                <b-button @click="toggleButton(1)" variant='outline-secondary' squared :class="btns[1]?'border-light':'border-bottom'" > Rhythmic</b-button>
             </b-col>
             <b-col class="p-0" cols="4">
-                <b-button
-                    @click="toggleButton(2)"
-                    variant='secondary'
-                    squared
-                    :class="btns[2]?'border-light':'border-bottom'">
-                    Brief
-                </b-button>
+                <b-button @click="toggleButton(2)" variant='outline-secondary' squared :class="btns[2]?'border-light':'border-bottom'">Brief</b-button>
             </b-col>
         </b-row>
+    <b-row>
+      <br>
+    </b-row>
         <b-row class="">
 
             <b-button
                 squared
                 size="md"
                 v-b-toggle.increase
-                variant='secondary'
+                variant='outline-secondary'
                 @click="toggleAccord(0)"
                 id="topOfInc"
                 class="d-flex justify-content-center align-items-right text-left"
@@ -97,7 +93,7 @@
                 </b-button>
             </b-collapse>
         </b-row>
-    </b-container>
+  </b-container>
 </template>
 
 

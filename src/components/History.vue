@@ -1,5 +1,5 @@
 <template>
-    <b-container>
+    <b-container id="main">
         <b-breadcrumb>
             <b-breadcrumb-item :to="'/home'">
                 <b-icon icon="house-fill" scale="1.25" shift-v="1.25" aria-hidden="true"></b-icon>
@@ -24,11 +24,11 @@
         </b-row>
         <b-row align-h="center">
             <b-col>
-                <b-button class="buttons w-100" variant="secondary" to="/Profile">Go back</b-button>
+                <b-button class="buttons w-100" variant="outline-secondary" to="/Profile">Return to Profile</b-button>
             </b-col>
-            <b-col>
-                <b-button class="buttons w-100" variant="secondary" to="/Profile">kcab oG</b-button>
-            </b-col>
+<!--            <b-col>-->
+<!--                <b-button class="buttons w-100" variant="outline-secondary" to="/Profile">kcab oG</b-button>-->
+<!--            </b-col>-->
         </b-row>
     </b-container>
 </template>
