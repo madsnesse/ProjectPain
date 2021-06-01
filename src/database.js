@@ -135,7 +135,7 @@ export async function getAllDataFromDB(){
         include_docs: true,
         attachments: true
     });
-
+    console.log(results);
     return results;
 }
 /*
