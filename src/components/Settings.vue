@@ -85,12 +85,12 @@
           placeholder="New Password"
         ></b-form-input>
 
-        <label class="mt-3" for="NewPassAgain">New Password again:</label>
+        <label class="mt-3" for="NewPassAgain">Repeat New Password:</label>
         <b-form-input
           id="NewPassAgain"
           type="password"
           v-model="NewPassTwo"
-          placeholder="New Password again"
+          placeholder="Repeat New Password"
         ></b-form-input>
       </b-collapse>
     </b-row>
