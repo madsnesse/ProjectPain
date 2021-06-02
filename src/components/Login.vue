@@ -7,7 +7,7 @@
             </b-breadcrumb-item>
             <b-breadcrumb-item active>Login</b-breadcrumb-item>
         </b-breadcrumb>
-        <b-row align-h="center" class="my-5"><h1 id="welcome">Log in!</h1></b-row>
+        <b-row align-h="center" class="my-5"><h1 id="welcome">Log in</h1></b-row>
         <b-row align-h="center" class="my-5"><b-input placeholder="e-mail" class="inputs" id= "email" v-model="email">e-mail</b-input></b-row>
         <b-row align-h="center" class="my-5"><b-input placeholder="passord" class="inputs" id="passord" v-model="password">Register</b-input></b-row>
         <b-row align-h="between">

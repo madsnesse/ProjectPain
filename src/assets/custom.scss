@@ -16,7 +16,9 @@ $theme-colors: (
 //$enable-gradients: true;
 
 #mainColumn {
-  background-image: linear-gradient(180deg, rgba(#FCD5D4, .9), rgba(#BBDFFC, .7));
+  background-image: linear-gradient(180deg, var(--custom-light-blue), var(--accent));
+  
+  //background-image: linear-gradient(180deg, rgba(#FCD5D4, .9), rgba(#BBDFFC, .7));
 }
 
 #main {

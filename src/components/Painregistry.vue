@@ -12,13 +12,13 @@
         
         <b-row><b-container class="m-5"><h1 id="welcome">Pain Registry</h1></b-container></b-row>
 
-        <PainVisualizer v-on:newCircle= "newCircle($event)" @tog="toggleVis=!toggleVis" :hidden="toggleVis" :values="forms.values" :currentEntry="currentEntry" :entries="forms.values.length" />
-
-        <Form :hidden="!toggleVis" :values="getCurrentForm()" :key="currentEntry" />
+        <PainVisualizer v-on:newCircle="newCircle($event)" @tog="toggle" :hidden="visualizerVis" :values="forms.values" :currentEntry="currentEntry" :entries="forms.values.length" />
+        <Skincube v-if="!skincubeVis" @updateDepth="updateDepth($event)" />
+        <Form :hidden="formVis" :values="getCurrentForm()" :key="currentEntry" />
 
         <b-row align-h="between">
 <!--            <b-col class="text-center my-5"><b-button variant='secondary' class="w-100" to="/home">Home</b-button></b-col>-->
-            <b-col class="text-center my-5"><b-button variant='outline-secondary' @click="toggleVis = !toggleVis" class="w-100" >Describe Pain</b-button></b-col>
+            <b-col class="text-center my-5"><b-button variant='outline-secondary' @click="toggle" class="w-100" >Describe Pain</b-button></b-col>
             <b-col class="text-center my-5"><b-button variant='secondary' @click="save" class="w-100" to="/home">Register Pain</b-button></b-col>
         </b-row>
     </b-container>
@@ -28,17 +28,20 @@
 <script>
 import PainVisualizer from './PainVisualizer.vue'
 import Form from './Form.vue'
-// import Skincube from './Skincube.vue'
+import Skincube from './Skincube.vue'
 
 import '../main.js'
 import * as PoucheDB from '../database'
+
 export default {
     props: {
     },
     name: "Painregistry",
     data: function(){
         return {
-            toggleVis: false,
+            formVis: true,
+            skincubeVis: true,
+            visualizerVis: false,
             visIndex: 0,
             forms:{_id:"",values:[]},
             entries:0,
@@ -47,6 +50,7 @@ export default {
                 x:0,
                 y:0,
                 r:0,
+                depth:0,
                 painstrength:0,
                 painType:{
                     temporal:0,
@@ -71,13 +75,25 @@ export default {
     },
     components:{
         PainVisualizer,
-        Form
-        // Skincube
+        Form,
+        Skincube
     },
     methods: {
         toggle: function() {
-            this.toggleVis = !this.toggleVis
-        },
+            //if in the visualizer step:
+            if (!this.visualizerVis){
+                this.visualizerVis = true
+                this.skincubeVis = false
+            }
+            else if (!this.skincubeVis){
+                this.formVis = false
+                this.skincubeVis = true
+            }else{
+                this.visualizerVis = false
+                this.skincubeVis = true
+                this.formVis = true
+            }
+        },  
         getCurrentForm: function(){
             return this.forms.values[this.currentEntry]
         },
@@ -89,7 +105,10 @@ export default {
                 //PoucheDB.getAllDataFromDB();
 
         },
-
+        updateDepth: function(event) {
+            //this.forms.values[this.currentEntry].depth = parseInt(event)
+            console.log(event)
+        },
         newCircle: function(event) {
             console.log(event)
             this.currentEntry += 1

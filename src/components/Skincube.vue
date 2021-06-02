@@ -2,7 +2,7 @@
     <b-container id="parent">
             <b-row align-h="center"><h5 id="label"></h5></b-row>
             
-            <div id="canvas">
+            <div id="skincanvas">
 
             </div>
             
@@ -12,12 +12,16 @@
 const p5_lib = require('p5')
 export default {
     name:"Skincube",
+    props: {
+        visible: Boolean
+    },
     mounted(){
+        let vm = this;
         const skincuber = p5 => {
             const aspectSkincube = 643/1280;
             
             var skincubeImg;
-            var canvas;
+            var skinCanvas;
             //var parent;
             var w,h
             let skinLayer = [[8,165,322,346],[322,346,638,165]]
@@ -30,15 +34,16 @@ export default {
             var aspWidth, aspHeight
             p5.preload = function() {
                 let skincubeImgRef = require("@/assets/skin-cube-no-labels.png");
+                console.log(skincubeImgRef)
                 skincubeImg = p5.loadImage(skincubeImgRef)
-                
+                p5.image(skincubeImg, 0,0,)
             }
             p5.setup = function() {
-                let canv = document.getElementById("canvas")
-                canvas = p5.createCanvas(canv.offsetWidth, canv.offsetWidth / aspectSkincube)
-                canvas.parent("canvas")
+                let canv = document.getElementById("skincanvas")
+                skinCanvas = p5.createCanvas(canv.offsetWidth, canv.offsetWidth / aspectSkincube)
+                skinCanvas.parent("skincanvas")
                
-                let canvas_rect = canvas.elt.getBoundingClientRect();
+                let canvas_rect = skinCanvas.elt.getBoundingClientRect();
                 w = canvas_rect.width, h = canvas_rect.height;
                 aspWidth = w/643
                 aspHeight = h/1280
@@ -55,24 +60,24 @@ export default {
                 mx = p5.mouseX/aspWidth;  
                 my = p5.mouseY/aspHeight;
                 if(checkifBelow(skinLayer, [mx,my])){
-                    document.getElementById("label").innerHTML = "selected: skin layer"
+                    vm.$emit('updateDepth', 1)
                 }else if(checkifBelow(deepSkinLayer, [mx,my])){
-                    document.getElementById("label").innerHTML ="selected: deep skin layer" 
+                    vm.$emit('updateDepth', 2)
                 }else if(checkifBelow(fatLayer, [mx,my])){
-                    document.getElementById("label").innerHTML ="selected: fat layer" 
+                    vm.$emit('updateDepth', 3 )
                 }else if(checkifBelow(muscleLayer, [mx,my])){
                     
                     if (checkifInCircle(boneCircle, [mx,my])){
-                        document.getElementById("label").innerHTML ="selected: bone"
+                        vm.$emit('updateDepth', 4)
                     }
                     else{
-                        document.getElementById("label").innerHTML ="selected: muscles"
+                        vm.$emit('updateDepth', 5)
                     }
                 }
                 else if (checkifInCircle(organCircle, [mx,my])){
-                    document.getElementById("label").innerHTML ="selected: organs"
+                    vm.$emit('updateDepth', 6)
                 }else{
-                    document.getElementById("label").innerHTML ="selected: other"
+                    vm.$emit('updateDepth', 7)
                 }
             }
 
