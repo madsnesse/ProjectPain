@@ -124,7 +124,7 @@ export default {
 
             p5.setup = function() {
                 // resize img
-                figureImg.resize(400, 0);
+                figureImg.resize(600, 0);
 
                 // get width of parent div
                 parent = document.getElementById("parent");
@@ -161,7 +161,7 @@ export default {
                 let widthImageDraw = h*aspectImage;
                 let heightImageDraw = h;
                 let x = (w - widthImageDraw) / 2;
-                p5.image(figureImg, x, 1*ry, widthImageDraw, heightImageDraw);
+                p5.image(figureImg, x, 0, widthImageDraw, heightImageDraw);
 
                 // draw each saved circle
                 for (let i = 0; i < vm.entries; i++){
