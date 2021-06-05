@@ -9,18 +9,7 @@
 
         </div>
 
-        <!-- POP LAST PAIN CIRCLE -->
         <b-button variant="outline-secondary" id="finishPlacingCircle" class="w-100 mt-2">Finish Placement</b-button>
-
-        <!-- RESET
-        <b-button variant="primary" id="resetButton" class="w-100 mt-2">Reset</b-button>
-        
-        SET PAIN
-        <b-button-group class="w-100 mt-2">
-            <b-button variant="success" id="temporalButton">Temporal</b-button>
-            <b-button variant="success" id="thermalButton">Thermal</b-button>
-            <b-button variant="success" id="sensoryButton">Sensory</b-button>
-        </b-button-group> -->
     </div>
 </template>
 
@@ -34,9 +23,7 @@ export default {
       values:Array,
       entries: Number,
       currentEntry:Number
-    }
-    ,
-
+    },
     data() {
         return {
             radius: 15,
@@ -46,14 +33,11 @@ export default {
       toggle: function(){
         this.$emit('tog')
       },
-
       updateNumber: function(){
         this.numberOfButtons +=1
-        console.log("HEY!")
       },
       newCircle: function(x,y,r){
         this.$emit('newCircle',{x:x,y:y,r:r});
-
       },
       pushCircle: function(circle){
           this.newCircle(circle.x,circle.y,circle.r)
@@ -62,7 +46,6 @@ export default {
         return this.values[i];
       },
       getAnimationValue: function(i){
-
           return this.animationValues[i];
       }
     },
@@ -87,16 +70,7 @@ export default {
                               // TOOD: resize when loading new image
             var canvas;       // reference to the p5 canvas
 
-            /* Save each pain circle as an object.
-             * x          =  value from 0 to 100 (% of width)
-             * y          =  value from 0 to 100 (% of height)
-             * r          =  value from 0 to 100 (% of width)
-             * anchored   =  if true, the x/y values should not be updated on mouse pos.
-             * pain_types =  array of pain-type objects
-             *               (see 'circleFactory()' / 'addPainToCircle()' for more)
-            */
-            // var circles = [];
-
+            // pain circle
             var radius;  // reusable variable
             var current_circle = {
                 x:p5.mouseX,
@@ -104,6 +78,7 @@ export default {
                 r:vm.radius,
                 anchored: false
             };
+            
             // Size and positional variables
             let width_div;  // width of parent div
             let w, h;       // width and height of canvas DOM
@@ -142,7 +117,6 @@ export default {
                 ry = h/100;  // normalize to 0 to 100  scale
 
                 // Get UI elements
-
                 finishPlacingCircleButton = document.getElementById("finishPlacingCircle");
                 finishPlacingCircleButton.onclick = function() {finishPlacingCircle();};
 
@@ -183,7 +157,6 @@ export default {
                 let y_ = current_circle.y;
                 if (0 <= x_ && x_ <= 100 && 0 <= y_ && y_ <= 100) {  // bounds check
                     // Push circle to array
-                    //circles.push(Object.assign({}, current_circle));
                     console.log(current_circle)
                     vm.pushCircle(current_circle)
                     vm.toggle();
@@ -194,7 +167,6 @@ export default {
             /* Updates values before rendering every frame. */
             function updateValues() {
                 // Updated scaling variables
-
                 let canvas_rect = canvas.elt.getBoundingClientRect();
                 w = canvas_rect.width, h = canvas_rect.height;
 
@@ -204,6 +176,7 @@ export default {
                     console.log("[  P5  ] User exited -> destroying canvas.");
                     p5.remove();
                 }
+
                 // width of parent div
                 current_circle.r = vm.radius;
 
@@ -216,7 +189,7 @@ export default {
                     if (vm.radius < 0 || vm.radius > 100) {
                         console.error("Slider for radius should only have values between 0 to 100.");
                     } else {
-                            current_circle.r = vm.radius;
+                        current_circle.r = vm.radius;
                     }
 
                     // Update relative variables
@@ -246,7 +219,6 @@ export default {
                 // Draw border
 
                 if (circle != undefined){
-
 
                   if (circle.painType.thermal > 0){
                       p5.fill(200, 0, 0, 150*circle.painType.thermal/5);
@@ -281,9 +253,9 @@ export default {
             /* Creates a new circle based on the type of pain */
             function circleFactory() {
                 let c = {x:p5.mouseX, y:p5.mouseY, r:vm.radius, anchored:false};
-
-                return c
+                return c;
             }
+
             ////////////////////////////////////////////////////
             //// EVENTS BELOW                              ////
             //////////////////////////////////////////////////
