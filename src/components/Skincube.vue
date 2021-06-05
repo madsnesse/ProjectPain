@@ -30,13 +30,11 @@ export default {
             let muscleLayer = [[22,545,322,842],[322,842,621,540]]
             let boneCircle = [145, 545, 69]
             let organCircle = [380,1222, 369]
-            boneCircle
             var aspWidth, aspHeight
+            var width,height
             p5.preload = function() {
-                let skincubeImgRef = require("@/assets/skin-cube-no-labels.png");
-                console.log(skincubeImgRef)
+                let skincubeImgRef = require("@/assets/skin-cube.png");
                 skincubeImg = p5.loadImage(skincubeImgRef)
-                p5.image(skincubeImg, 0,0,)
             }
             p5.setup = function() {
                 let canv = document.getElementById("skincanvas")
@@ -47,9 +45,8 @@ export default {
                 w = canvas_rect.width, h = canvas_rect.height;
                 aspWidth = w/643
                 aspHeight = h/1280
-                console.log("asp:" + aspWidth + ", " + aspHeight)
-                let width = w
-                let height = w/aspectSkincube
+                width = w
+                height = w/aspectSkincube
                 
                 p5.image(skincubeImg, 0,0, width, height)
                 
@@ -86,7 +83,6 @@ export default {
                 let x1 = f[0], x2 = f[2]
                 let y1 = f[1], y2 = f[3]
                 let f_x = ((y2-y1)/(x2-x1)) * (point[0]-x1) +y1
-                console.log( point[1] - f_x )
                 
                 let g = func[1]
                 x1 = g[0], x2 = g[2]

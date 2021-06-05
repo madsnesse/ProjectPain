@@ -12,9 +12,9 @@
         
         <b-row><b-container class="m-5"><h1 id="welcome">Pain Registry</h1></b-container></b-row>
 
-        <PainVisualizer v-on:newCircle="newCircle($event)" @tog="toggle" :hidden="visualizerVis" :values="forms.values" :currentEntry="currentEntry" :entries="forms.values.length" />
+        <PainVisualizer v-on:newCircle="newCircle($event)" @tog="toggle" v-if="!visualizerVis" :values="forms.values" :currentEntry="currentEntry" :entries="forms.values.length" />
         <Skincube v-if="!skincubeVis" @updateDepth="updateDepth($event)" />
-        <Form :hidden="formVis" :values="getCurrentForm()" :key="currentEntry" />
+        <Form v-if="!formVis" :values="getCurrentForm()" :key="currentEntry" />
 
         <b-row align-h="between">
 <!--            <b-col class="text-center my-5"><b-button variant='secondary' class="w-100" to="/home">Home</b-button></b-col>-->

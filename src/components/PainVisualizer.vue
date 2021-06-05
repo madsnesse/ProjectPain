@@ -120,6 +120,7 @@ export default {
             p5.preload = function() {
                 let bodyImgRef = require("@/assets/woman-large-front.png");  // thanks to https://stackoverflow.com/a/65872755
                 figureImg = p5.loadImage(bodyImgRef);
+                
             }
 
             p5.setup = function() {
@@ -172,6 +173,7 @@ export default {
                 if (0 <= current_circle.x && current_circle.x <= 100 && 0 <= current_circle.y && current_circle.y <= 100) {
                     drawCurrentCircle(current_circle);
                 }
+                
             }
 
             ////////////////////////////////////////////////////
@@ -225,7 +227,7 @@ export default {
                 }
             }
             function drawCurrentCircle(circle){
-                p5.noFill();
+                p5.noFill()
                 p5.strokeWeight(1);
                 p5.stroke(0, 0, 0, 100);
                 p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
@@ -243,19 +245,16 @@ export default {
                     }
                 }
                 let animation = vm.getAnimationValue(i)
-                // Draw border
+                
 
-                if (circle != undefined){
-
-
-                  if (circle.painType.thermal > 0){
-                      p5.fill(200, 0, 0, 150*circle.painType.thermal/5);
+                  if (circle.painType.Thermal > 0){
+                      p5.fill(200, 0,0, 150*circle.painType.Thermal/5);
                       p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
-
+                      console.log(circle)
 
                   }
-                  if (circle.painType.temporal > 0){
-                      animation.sinus_arg += circle.painType.temporal*0.01;
+                  if (circle.painType.Temporal > 0){
+                      animation.sinus_arg += circle.painType.Temporal*0.01;
                       animation.sinus_arg %= Math.PI;
 
                       // Inner circle
@@ -267,16 +266,16 @@ export default {
                       p5.noStroke();
 
                   }
-                  if (circle.painType.sensory > 0){
+                  if (circle.painType.Sensory > 0){
                     // Outer circle
-                      p5.fill(0, 0, 255*circle.painType.sensory/3, 85);
+                      p5.fill(0,0, 255*circle.painType.Sensory/3, 85);
                       p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
 
 
                   }
-                  p5.fill(0,0,0,0);
+                  //p5.fill(0,0,0,0);
                   p5.circle(circle.x*rx, circle.y*ry, circle.r*rx)
-                }
+                
             }
             /* Creates a new circle based on the type of pain */
             function circleFactory() {

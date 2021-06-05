@@ -60,16 +60,16 @@ export default {
             sliderMax: 5,
             sliderDef: 1,
             typeValues: {
-                temporal:0,
-                spatial:0,
-                thermal:0,
-                brightness:0,
-                dullness:0,
-                sensory:0,
-                Button7:0,
-                Button8:0,
-                Button9:0,
-                Button10:0,
+                Temporal:0,
+                Spatial:0,
+                Thermal:0,
+                Brightness:0,
+                Dullness:0,
+                Sensory:0,
+                Tension:0,
+                Autonomic:0,
+                Punishment:0,
+                Fear:0,
 
             }
         };
