@@ -66,7 +66,8 @@ export default {
                     Autonomic:0,
                     Punishment:0,
                     Fear:0,
-
+                    Constrictive_Pressure:0,
+                    Punctate_Pressure:0,
                 },
                 painChange:{
                     change:0,

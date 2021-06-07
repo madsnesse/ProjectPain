@@ -52,7 +52,9 @@ export default {
                 {index:6, name:'Tension',enabled:false, value:0, labels: ["Tiring", "Exhausting"]},
                 {index:7, name:'Autonomic',enabled:false, value:0, labels: ["Sickening", "Suffocating"]},
                 {index:8, name:'Punishment',enabled:false, value:0, labels: ["Punishing", "Gruelling", "Cruel", "Vicious", "Killing"]},
-                {index:9, name:'Fear',enabled:false, value:0, labels: ["Fearful", "Frightful", "Terrifying"]}
+                {index:9, name:'Fear',enabled:false, value:0, labels: ["Fearful", "Frightful", "Terrifying"]},
+                {index:10, name:'Constrictive',enabled:false, value:0, labels: ["Pinching", "Pressing", "Gnawing", "Cramping", "Crushing"]},
+                {index:11, name:'Punctate',enabled:false, value:0, labels: ["Pricking", "Boring", "Drilling", "Stabbing", "Lancinating"]},
             ],
             indxOld: -1,
             label:"",
@@ -70,7 +72,8 @@ export default {
                 Autonomic:0,
                 Punishment:0,
                 Fear:0,
-
+                Constrictive:0,
+                Punctate:0,
             }
         };
     },
