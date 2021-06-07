@@ -36,12 +36,12 @@ const security = db.security();
 export async function saveToDB(json) {
     db.put(JSON.parse(json)).then(function (response) {
         //handle response
-        console.log("SaveToDB Response")
+        //console.log("SaveToDB Response")
         console.log(response)
     }).catch(function (err) {
         console.error(err);
     });
-    console.log(json);
+    //console.log(json);
     db.info();
 }
 
@@ -57,7 +57,7 @@ export async function hasAccess(username){
             throw new Error("User does not have access.");
         }
     }).catch(e => {
-        console.log(e);
+        console.error(e);
     });
 }
 
@@ -68,11 +68,8 @@ export async function hasAccess(username){
  */
 
 export async function createDataBase(username, password){
-    console.log("CreateDatabase accessed")
     let database = "http://admin:admin@localhost:5984/";
     database = database + username.toString();
-    console.log('dbName: ' + username);
-    console.log(database);
     let newDataBase = new PouchDB(database);
     newDataBase.signUpAdmin(username, password, username);
     let secure = newDataBase.security();
@@ -86,7 +83,7 @@ export async function createDataBase(username, password){
     });
     db.info();
     console.log(db);
-    console.log("CreateDatabase exited");
+    //console.log("CreateDatabase exited");
 
  }
 
@@ -99,7 +96,6 @@ export async function createDataBase(username, password){
  */
 
 export async function logIn(username,password) {
-    console.log("Login LInj1");
     await db.logIn(username, password).then(function (batman) {
         console.log(batman);
         console.log("Logged in");
@@ -107,21 +103,18 @@ export async function logIn(username,password) {
         console.log("logInError");
         console.error(err);
     });
-    console.log("Login linje2");
     await db.getSession(function (err, response) {
         console.log(response);
         if (err) {
             // network error
         } else if (!response.userCtx.name) {
             // nobody's logged in
-        } else {
-            // response.userCtx.name is the current user
-            console.log(response.userCtx.name + " is the user")
+            console.log("Nobody logged in")
         }
     });
     await(db = new PouchDB("http://localhost:5984/" + username));
 
-    console.log("this is the db: " + db.name);
+    //console.log("this is the db: " + db.name);
 
 }
 
@@ -135,7 +128,7 @@ export async function getAllDataFromDB(){
         include_docs: true,
         attachments: true
     });
-    console.log(results);
+
     return results;
 }
 
@@ -191,9 +184,7 @@ export async function logOut() {
             // network error
         } else if (!response.userCtx.name) {
             // nobody's logged in
-        } else {
-            // response.userCtx.name is the current user
-            console.log(response.userCtx.name + " is the user")
+            console.log("Nobody logged in")
         }
     });
 
