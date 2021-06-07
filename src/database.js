@@ -157,7 +157,7 @@ export async function removeFromDB(json){
  */
 export async function createUser(username,password) {
     await createDataBase(username, password, username);
-    console.log("Create user accessed")
+    //console.log("Create user accessed")
     await db.signUp(username,password, function (err, response){
         if (err){
             if (err.name == 'conflict'){
@@ -172,7 +172,7 @@ export async function createUser(username,password) {
         console.log(response);
     });
     console.log(db);
-    console.log("Create user exited")
+    //console.log("Create user exited")
 }
 export async function logOut() {
     console.log("Logging out");
