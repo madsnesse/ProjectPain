@@ -177,15 +177,13 @@ export default {
             /* Renders a circle based on type of pain. */
             function drawCircle(i) {
                 let circle = vm.getCircleValues(i)
-                console.log(circle);
-               
+
                 let animation = vm.getAnimationValue(i)
                 
 
                   if (circle.painType.Thermal > 0){
                       p5.fill(200, 0,0, 150*circle.painType.Thermal/5);
                       p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
-                      console.log(circle)
 
                   }
                   if (circle.painType.Temporal > 0){

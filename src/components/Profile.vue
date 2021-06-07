@@ -12,9 +12,11 @@
 
     <b-row align-h="center" class="my-5"><h1 id="welcome">Profile!</h1></b-row>
     <b-row align-h="center" class="my-5"
-      ><b-button class="buttons" variant="outline-secondary" to="/history">Pain History</b-button>
-      </b-row
-    >
+      > <b-button class="buttons" variant="outline-secondary" @click="historyVis = !historyVis">Pain History</b-button>
+
+    </b-row>
+
+          <History  :hidden="historyVis" :valuesfromdb="valuesfromdb"/>
     <b-row align-h="center" class="my-5"
       ><b-button class="buttons" variant="outline-secondary" to="/settings">Settings</b-button>
       </b-row>
@@ -27,9 +29,34 @@
 
 
 <script>
+
+    import * as pouchDB from "../database.js"
+    import History  from "./History.vue";
 export default {
-  name: "Home",
-};
+    name: "Profile",
+    components: {
+        History
+    },
+    data(){
+        return {
+            valuesfromdb:[],
+            length:0,
+            historyVis:true,
+            vals:{
+            }
+        }
+    },
+    methods:{
+        getFromdb: pouchDB.getAllDataFromDB
+    },
+    async mounted() {
+        let vals = await pouchDB.getAllDataFromDB();
+        console.log("vals is: " + vals);
+        this.vals = vals;
+        this.valuesfromdb = vals.rows;
+        this.length = vals.total_rows;
+        console.log(vals)
+    }}
 </script>
 
 <style scoped>

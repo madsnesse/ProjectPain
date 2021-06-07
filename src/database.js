@@ -131,17 +131,12 @@ export async function logIn(username,password) {
  */
 
 export async function getAllDataFromDB(){
-    db.allDocs({
+    const results = await db.allDocs({
         include_docs: true,
         attachments: true
-    }).then( function (result) {
-        //handle result, need to return
-        console.log(result);
-        return result;
-    }).catch(function (err){
-        console.error(err);
-        }
-    )
+    });
+    console.log(results);
+    return results;
 }
 
 /***
