@@ -19,7 +19,7 @@
 
         <b-row align-h="between">
 <!--            <b-col class="text-center my-5"><b-button variant='secondary' class="w-100" to="/home">Home</b-button></b-col>-->
-            <b-col class="text-center my-5"><b-button variant='outline-secondary' @click="toggle(); updateSubtitle()" class="w-100" >Describe Pain</b-button></b-col>
+            <b-col class="text-center my-5"><b-button variant='outline-secondary' @click="toggle()" class="w-100" >Describe Pain</b-button></b-col>
             <b-col class="text-center my-5"><b-button variant='secondary' @click="save" class="w-100" to="/home">Register Pain</b-button></b-col>
         </b-row>
     </b-container>
@@ -87,15 +87,20 @@ export default {
             if (!this.visualizerVis){
                 this.visualizerVis = true
                 this.skincubeVis = false
+                this.currentSubtitle = 1;
             }
             else if (!this.skincubeVis){
                 this.formVis = false
                 this.skincubeVis = true
+                this.currentSubtitle = 2;
             }else{
                 this.visualizerVis = false
                 this.skincubeVis = true
                 this.formVis = true
+                this.currentSubtitle = 0;
             }
+            console.log(this.currentSubtitle)
+
         },  
         getCurrentForm: function(){
             return this.forms.values[this.currentEntry]
@@ -111,10 +116,6 @@ export default {
         updateDepth: function(event) {
             //this.forms.values[this.currentEntry].depth = parseInt(event)
             console.log(event)
-        },
-        updateSubtitle: function() {
-            this.currentSubtitle = (this.currentSubtitle + 1) % 3;
-
         },
         newCircle: function(event) {
             console.log(event)
