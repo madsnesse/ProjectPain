@@ -240,7 +240,15 @@ export default {
                     p5.fill(0,0, 255*circle.painType.Sensory/3, 85);
                     p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
                 }
-                p5.circle(circle.x*rx, circle.y*ry, circle.r*rx)
+                if (circle.painType.Fear > 0) {
+                    p5.stroke(0);
+                    p5.fill(0);
+                    p5.ellipse(circle.x*rx, circle.y*ry-0.15*circle.r*rx, circle.r*rx*(0.12), circle.r*rx*(0.5));
+                    p5.ellipse(circle.x*rx, circle.y*ry+0.3*circle.r*rx, circle.r*rx*(0.12), circle.r*rx*(0.12));
+                }
+                p5.noFill();
+                p5.stroke(0);
+                p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
             }
             /* Creates a new circle based on the type of pain */
             function circleFactory() {
