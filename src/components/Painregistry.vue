@@ -56,16 +56,16 @@ export default {
                 depth:0,
                 painstrength:0,
                 painType:{
-                    temporal:0,
-                    spatial:0,
-                    thermal:0,
-                    brightness:0,
-                    dullness:0,
-                    Button6:0,
-                    Button7:0,
-                    Button8:0,
-                    Button9:0,
-                    Button10:0,
+                    Temporal:0,
+                    Spatial:0,
+                    Thermal:0,
+                    Brightness:0,
+                    Dullness:0,
+                    Sensory:0,
+                    Tension:0,
+                    Autonomic:0,
+                    Punishment:0,
+                    Fear:0,
 
                 },
                 painChange:{
@@ -114,7 +114,7 @@ export default {
 
         },
         updateDepth: function(event) {
-            //this.forms.values[this.currentEntry].depth = parseInt(event)
+            this.forms.values[this.currentEntry].depth = parseInt(event)
             console.log(event)
         },
         newCircle: function(event) {
