@@ -11,16 +11,6 @@
 
         <!-- POP LAST PAIN CIRCLE -->
         <b-button variant="outline-secondary" id="finishPlacingCircle" class="w-100 mt-2">Finish Placement</b-button>
-
-        <!-- RESET
-        <b-button variant="primary" id="resetButton" class="w-100 mt-2">Reset</b-button>
-        
-        SET PAIN
-        <b-button-group class="w-100 mt-2">
-            <b-button variant="success" id="temporalButton">Temporal</b-button>
-            <b-button variant="success" id="thermalButton">Thermal</b-button>
-            <b-button variant="success" id="sensoryButton">Sensory</b-button>
-        </b-button-group> -->
     </div>
 </template>
 
@@ -49,7 +39,6 @@ export default {
 
       updateNumber: function(){
         this.numberOfButtons +=1
-        console.log("HEY!")
       },
       newCircle: function(x,y,r){
         this.$emit('newCircle',{x:x,y:y,r:r});
@@ -125,7 +114,7 @@ export default {
 
             p5.setup = function() {
                 // resize img
-                figureImg.resize(400, 0);
+                figureImg.resize(600, 0);
 
                 // get width of parent div
                 parent = document.getElementById("parent");
@@ -143,7 +132,6 @@ export default {
                 ry = h/100;  // normalize to 0 to 100  scale
 
                 // Get UI elements
-
                 finishPlacingCircleButton = document.getElementById("finishPlacingCircle");
                 finishPlacingCircleButton.onclick = function() {finishPlacingCircle();};
 
@@ -162,7 +150,7 @@ export default {
                 let widthImageDraw = h*aspectImage;
                 let heightImageDraw = h;
                 let x = (w - widthImageDraw) / 2;
-                p5.image(figureImg, x, 1*ry, widthImageDraw, heightImageDraw);
+                p5.image(figureImg, x, 0, widthImageDraw, heightImageDraw);
 
                 // draw each saved circle
                 for (let i = 0; i < vm.entries; i++){
@@ -173,7 +161,6 @@ export default {
                 if (0 <= current_circle.x && current_circle.x <= 100 && 0 <= current_circle.y && current_circle.y <= 100) {
                     drawCurrentCircle(current_circle);
                 }
-                
             }
 
             ////////////////////////////////////////////////////
@@ -196,7 +183,6 @@ export default {
             /* Updates values before rendering every frame. */
             function updateValues() {
                 // Updated scaling variables
-
                 let canvas_rect = canvas.elt.getBoundingClientRect();
                 w = canvas_rect.width, h = canvas_rect.height;
 
@@ -208,7 +194,6 @@ export default {
                 }
                 // width of parent div
                 current_circle.r = vm.radius;
-
                 if (!current_circle.anchored) {
                         current_circle.x = 100*(p5.mouseX/w);
                         current_circle.y = 100*(p5.mouseY/h);
@@ -245,37 +230,32 @@ export default {
                     }
                 }
                 let animation = vm.getAnimationValue(i)
-                
 
-                  if (circle.painType.Thermal > 0){
-                      p5.fill(200, 0,0, 150*circle.painType.Thermal/5);
-                      p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
-                      console.log(circle)
+                if (circle.painType.Thermal > 0){
+                  p5.fill(200, 0,0, 150*circle.painType.Thermal/5);
+                  p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
+                  console.log(circle)
 
-                  }
-                  if (circle.painType.Temporal > 0){
-                      animation.sinus_arg += circle.painType.Temporal*0.01;
-                      animation.sinus_arg %= Math.PI;
+                }
+                if (circle.painType.Temporal > 0){
+                  animation.sinus_arg += circle.painType.Temporal*0.01;
+                  animation.sinus_arg %= Math.PI;
 
-                      // Inner circle
-                      p5.noFill();
-                      p5.strokeWeight(2);
-                      radius = (circle.r*rx)*p5.sin(animation.sinus_arg);
-                      p5.stroke(50, 50, 50, 50);
-                      p5.circle(circle.x*rx, circle.y*ry, radius);
-                      p5.noStroke();
+                  // Inner circle
+                  p5.noFill();
+                  p5.strokeWeight(2);
+                  radius = (circle.r*rx)*p5.sin(animation.sinus_arg);
+                  p5.stroke(50, 50, 50, 50);
+                  p5.circle(circle.x*rx, circle.y*ry, radius);
+                  p5.noStroke();
 
-                  }
-                  if (circle.painType.Sensory > 0){
-                    // Outer circle
-                      p5.fill(0,0, 255*circle.painType.Sensory/3, 85);
-                      p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
-
-
-                  }
-                  //p5.fill(0,0,0,0);
-                  p5.circle(circle.x*rx, circle.y*ry, circle.r*rx)
-                
+                }
+                if (circle.painType.Sensory > 0){
+                // Outer circle
+                  p5.fill(0,0, 255*circle.painType.Sensory/3, 85);
+                  p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
+                }
+                p5.circle(circle.x*rx, circle.y*ry, circle.r*rx)
             }
             /* Creates a new circle based on the type of pain */
             function circleFactory() {
