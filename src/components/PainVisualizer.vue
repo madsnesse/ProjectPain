@@ -24,15 +24,14 @@ export default {
       values:Array,
       entries: Number,
       currentEntry:Number
-    }
-    ,
-
+    },
     data() {
         return {
             radius: 15,
             animationValues: []
         }
-    },methods: {
+    },
+    methods: {
       toggle: function(){
         this.$emit('tog')
       },
@@ -42,7 +41,6 @@ export default {
       },
       newCircle: function(x,y,r){
         this.$emit('newCircle',{x:x,y:y,r:r});
-
       },
       pushCircle: function(circle){
           this.newCircle(circle.x,circle.y,circle.r)
@@ -51,7 +49,6 @@ export default {
         return this.values[i];
       },
       getAnimationValue: function(i){
-
           return this.animationValues[i];
       }
     },
@@ -75,17 +72,8 @@ export default {
             var figureImg;    // reference to body image
                               // TOOD: resize when loading new image
             var canvas;       // reference to the p5 canvas
-
-            /* Save each pain circle as an object.
-             * x          =  value from 0 to 100 (% of width)
-             * y          =  value from 0 to 100 (% of height)
-             * r          =  value from 0 to 100 (% of width)
-             * anchored   =  if true, the x/y values should not be updated on mouse pos.
-             * pain_types =  array of pain-type objects
-             *               (see 'circleFactory()' / 'addPainToCircle()' for more)
-            */
-            // var circles = [];
-
+            
+            // circle
             var radius;  // reusable variable
             var current_circle = {
                 x:p5.mouseX,
@@ -93,6 +81,7 @@ export default {
                 r:vm.radius,
                 anchored: false
             };
+            
             // Size and positional variables
             let width_div;  // width of parent div
             let w, h;       // width and height of canvas DOM
@@ -109,7 +98,6 @@ export default {
             p5.preload = function() {
                 let bodyImgRef = require("@/assets/woman-large-front.png");  // thanks to https://stackoverflow.com/a/65872755
                 figureImg = p5.loadImage(bodyImgRef);
-                
             }
 
             p5.setup = function() {
@@ -172,7 +160,6 @@ export default {
                 let y_ = current_circle.y;
                 if (0 <= x_ && x_ <= 100 && 0 <= y_ && y_ <= 100) {  // bounds check
                     // Push circle to array
-                    //circles.push(Object.assign({}, current_circle));
                     console.log(current_circle)
                     vm.pushCircle(current_circle)
                     vm.toggle();
@@ -232,28 +219,26 @@ export default {
                 let animation = vm.getAnimationValue(i)
 
                 if (circle.painType.Thermal > 0){
-                  p5.fill(200, 0,0, 150*circle.painType.Thermal/5);
-                  p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
-                  console.log(circle)
-
+                    p5.fill(200, 0,0, 150*circle.painType.Thermal/5);
+                    p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
+                    console.log(circle)
                 }
                 if (circle.painType.Temporal > 0){
-                  animation.sinus_arg += circle.painType.Temporal*0.01;
-                  animation.sinus_arg %= Math.PI;
+                    animation.sinus_arg += circle.painType.Temporal*0.01;
+                    animation.sinus_arg %= Math.PI;
 
-                  // Inner circle
-                  p5.noFill();
-                  p5.strokeWeight(2);
-                  radius = (circle.r*rx)*p5.sin(animation.sinus_arg);
-                  p5.stroke(50, 50, 50, 50);
-                  p5.circle(circle.x*rx, circle.y*ry, radius);
-                  p5.noStroke();
-
+                    // Inner circle
+                    p5.noFill();
+                    p5.strokeWeight(2);
+                    radius = (circle.r*rx)*p5.sin(animation.sinus_arg);
+                    p5.stroke(50, 50, 50, 50);
+                    p5.circle(circle.x*rx, circle.y*ry, radius);
+                    p5.noStroke();
                 }
                 if (circle.painType.Sensory > 0){
-                // Outer circle
-                  p5.fill(0,0, 255*circle.painType.Sensory/3, 85);
-                  p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
+                    // Outer circle
+                    p5.fill(0,0, 255*circle.painType.Sensory/3, 85);
+                    p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
                 }
                 p5.circle(circle.x*rx, circle.y*ry, circle.r*rx)
             }
