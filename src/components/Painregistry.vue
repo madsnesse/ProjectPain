@@ -10,7 +10,8 @@
             </b-breadcrumb-item>
         </b-breadcrumb>
         
-        <b-row><b-container class="m-5"><h1 id="welcome">Pain Registry</h1></b-container></b-row>
+        <b-row><b-container class="mt-5"><h1 id="welcome">Pain Registry</h1></b-container></b-row>
+        <b-row><b-container class="mt-5 mb-1"><h1 id="subtitle">{{this.subtitles[this.currentSubtitle]}}</h1></b-container></b-row>
 
         <PainVisualizer v-on:newCircle="newCircle($event)" @tog="toggle" v-if="!visualizerVis" :values="forms.values" :currentEntry="currentEntry" :entries="forms.values.length" />
         <Skincube v-if="!skincubeVis" @updateDepth="updateDepth($event)" />
@@ -18,7 +19,7 @@
 
         <b-row align-h="between">
 <!--            <b-col class="text-center my-5"><b-button variant='secondary' class="w-100" to="/home">Home</b-button></b-col>-->
-            <b-col class="text-center my-5"><b-button variant='outline-secondary' @click="toggle" class="w-100" >Describe Pain</b-button></b-col>
+            <b-col class="text-center my-5"><b-button variant='outline-secondary' @click="toggle(); updateSubtitle()" class="w-100" >Describe Pain</b-button></b-col>
             <b-col class="text-center my-5"><b-button variant='secondary' @click="save" class="w-100" to="/home">Register Pain</b-button></b-col>
         </b-row>
     </b-container>
@@ -39,6 +40,8 @@ export default {
     name: "Painregistry",
     data: function(){
         return {
+            subtitles: ["Press where you feel pain", "Choose how deep you feel pain", ""],
+            currentSubtitle: 0,
             formVis: true,
             skincubeVis: true,
             visualizerVis: false,
@@ -109,6 +112,10 @@ export default {
             //this.forms.values[this.currentEntry].depth = parseInt(event)
             console.log(event)
         },
+        updateSubtitle: function() {
+            this.currentSubtitle = (this.currentSubtitle + 1) % 3;
+
+        },
         newCircle: function(event) {
             console.log(event)
             this.currentEntry += 1
@@ -130,6 +137,10 @@ export default {
 <style scoped>
     #welcome{
         font-size: 150%;
+        text-align: center;
+    }
+    #subtitle{
+        font-size: 110%;
         text-align: center;
     }
 </style>
