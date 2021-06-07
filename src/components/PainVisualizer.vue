@@ -10,7 +10,11 @@
         </div>
 
         <!-- POP LAST PAIN CIRCLE -->
-        <b-button variant="outline-secondary" id="finishPlacingCircle" class="w-100 mt-2">Finish Placement</b-button>
+        <b-row>
+            <b-col><b-button variant="outline-secondary" class="w-100" to="/home">Back</b-button></b-col>
+            <b-col><b-button variant="secondary" id="finishPlacingCircle" class="w-100">Next</b-button></b-col>
+        </b-row>
+        
     </div>
 </template>
 
