@@ -21,7 +21,7 @@
             <b-col><b-button v-if="!skincubeVis" variant="secondary" @click="toggle()">Next</b-button></b-col>
         </b-row>
         <b-row>
-            <b-col><b-button v-if="!formVis" variant="secondary" @click="toggle()">See Result</b-button></b-col>
+            <b-col><b-button v-if="!formVis" variant="secondary" @click="toggle()" class="mt-5" >See Result</b-button></b-col>
         </b-row>
          <b-row align-h="between">
 <!--            <b-col class="text-center my-5"><b-button variant='secondary' class="w-100" to="/home">Home</b-button></b-col>-->
