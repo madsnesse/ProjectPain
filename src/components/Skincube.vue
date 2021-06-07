@@ -24,6 +24,7 @@ export default {
             var skinCanvas;
             //var parent;
             var w,h
+            let label = document.getElementById("label")
             let skinLayer = [[8,165,322,346],[322,346,638,165]]
             let deepSkinLayer = [[10,258,322,476],[322,476,635,265]]
             let fatLayer = [[12,328,322,561],[322,561,632,323]]
@@ -57,23 +58,36 @@ export default {
                 mx = p5.mouseX/aspWidth;  
                 my = p5.mouseY/aspHeight;
                 if(checkifBelow(skinLayer, [mx,my])){
+                    label.innerHTML = "selected layer: skin"
                     vm.$emit('updateDepth', 1)
                 }else if(checkifBelow(deepSkinLayer, [mx,my])){
+                    
+                    label.innerHTML = "selected layer: deep skin"
                     vm.$emit('updateDepth', 2)
                 }else if(checkifBelow(fatLayer, [mx,my])){
+                    
+                    label.innerHTML = "selected layer: fat"
                     vm.$emit('updateDepth', 3 )
                 }else if(checkifBelow(muscleLayer, [mx,my])){
                     
                     if (checkifInCircle(boneCircle, [mx,my])){
+                        
+                        label.innerHTML = "selected layer: bone"
                         vm.$emit('updateDepth', 4)
                     }
                     else{
+                        
+                        label.innerHTML = "selected layer: muscle"
                         vm.$emit('updateDepth', 5)
                     }
                 }
                 else if (checkifInCircle(organCircle, [mx,my])){
+                    
+                    label.innerHTML = "selected layer: organ"
                     vm.$emit('updateDepth', 6)
                 }else{
+                    
+                    label.innerHTML = "selected layer: organ"
                     vm.$emit('updateDepth', 7)
                 }
             }

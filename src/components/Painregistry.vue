@@ -17,11 +17,17 @@
         <Skincube v-if="!skincubeVis" @updateDepth="updateDepth($event)" />
         <Form v-if="!formVis" :values="getCurrentForm()" :key="currentEntry" />
 
-        <b-row align-h="between">
-<!--            <b-col class="text-center my-5"><b-button variant='secondary' class="w-100" to="/home">Home</b-button></b-col>-->
-            <b-col class="text-center my-5"><b-button variant='outline-secondary' @click="toggle()" class="w-100" >Describe Pain</b-button></b-col>
-            <b-col class="text-center my-5"><b-button variant='secondary' @click="save" class="w-100" to="/home">Register Pain</b-button></b-col>
+        <b-row>
+            <b-col><b-button v-if="!skincubeVis" variant="secondary" @click="toggle()">Next</b-button></b-col>
         </b-row>
+        <b-row>
+            <b-col><b-button v-if="!formVis" variant="secondary" @click="toggle()" class="mt-5" >See Result</b-button></b-col>
+        </b-row>
+         <b-row align-h="between">
+<!--            <b-col class="text-center my-5"><b-button variant='secondary' class="w-100" to="/home">Home</b-button></b-col>-->
+            <!-- <b-col class="text-center my-5"><b-button variant='outline-secondary'  class="w-100" >Describe Pain</b-button></b-col> -->
+            <b-col class="text-center my-5"><b-button v-if="currentEntry !=-1" variant='secondary' @click="save" class="w-100" to="/home">Register Pain</b-button></b-col>
+        </b-row> 
     </b-container>
 </template>
     
@@ -40,7 +46,7 @@ export default {
     name: "Painregistry",
     data: function(){
         return {
-            subtitles: ["Press where you feel pain", "Choose how deep you feel pain", ""],
+            subtitles: ["Select location of pain", "Choose depth of pain", ""],
             currentSubtitle: 0,
             formVis: true,
             skincubeVis: true,
