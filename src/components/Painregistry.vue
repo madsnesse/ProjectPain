@@ -10,8 +10,8 @@
             </b-breadcrumb-item>
         </b-breadcrumb>
         
-        <b-row><b-container class="mt-5"><h1 id="welcome">Pain Registry</h1></b-container></b-row>
-        <b-row><b-container class="mt-5 mb-1"><h1 id="subtitle">{{this.subtitles[this.currentSubtitle]}}</h1></b-container></b-row>
+        <b-row><b-container class=""><h1 id="welcome">Pain Registry</h1></b-container></b-row>
+        <b-row><b-container class="mb-1"><h1 id="subtitle">{{this.subtitles[this.currentSubtitle]}}</h1></b-container></b-row>
 
         <PainVisualizer v-on:newCircle="newCircle($event)" @tog="toggle" v-if="!visualizerVis" :values="forms.values" :currentEntry="currentEntry" :entries="forms.values.length" />
         <Skincube v-if="!skincubeVis" @updateDepth="updateDepth($event)" />
