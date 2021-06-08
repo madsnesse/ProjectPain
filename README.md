@@ -3,7 +3,9 @@
 ## About
 This project aims to simplify the process of registering pain.
 
-![Demo of the application´s visualization page](public/demo.mov)
+<video width="320">
+    <source src="public/demo.mov"></source>
+</video>
 ## Project setup
 ```
 npm install
