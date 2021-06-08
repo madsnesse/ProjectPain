@@ -45,7 +45,7 @@ export default {
             const aspectCanvas = 5/7;
 
             // p5 background & misc.
-            var figureImg;    // reference to body image
+            var figureImg, spiralImg;    // reference to body image
                               // TOOD: resize when loading new image
             var canvas;       // reference to the p5 canvas
 
@@ -71,6 +71,9 @@ export default {
             p5.preload = function() {
                 let bodyImgRef = require("@/assets/woman-large-front.png");  // thanks to https://stackoverflow.com/a/65872755
                 figureImg = p5.loadImage(bodyImgRef);
+                
+                let spiralImgRef = require("@/assets/spiral.png");
+                spiralImg = p5.loadImage(spiralImgRef);
             }
 
             p5.setup = function() {
@@ -153,30 +156,58 @@ export default {
                 let circle = vm.getCircleValues(i)
                 let animation = vm.getAnimationValue(i)
 
-                  if (circle.painType.Thermal > 0){
-                      p5.fill(200, 0,0, 150*circle.painType.Thermal/5);
-                      p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
+                if (circle.painType.Thermal > 0){
+                    p5.fill(200, 0,0, 150*circle.painType.Thermal/5);
+                    p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
+                    
+                }
+                if (circle.painType.Temporal > 0){
+                    animation.sinus_arg += circle.painType.Temporal*0.01;
+                    animation.sinus_arg %= Math.PI;
 
-                  }
-                  if (circle.painType.Temporal > 0){
-                      animation.sinus_arg += circle.painType.Temporal*0.01;
-                      animation.sinus_arg %= Math.PI;
-
-                      // Inner circle
-                      p5.noFill();
-                      p5.strokeWeight(2);
-                      radius = (circle.r*rx)*p5.sin(animation.sinus_arg);
-                      p5.stroke(50, 50, 50, 50);
-                      p5.circle(circle.x*rx, circle.y*ry, radius);
-                      p5.noStroke();
-
-                  }
-                  if (circle.painType.Sensory > 0){
+                    // Inner circle
+                    p5.noFill();
+                    p5.strokeWeight(2);
+                    radius = (circle.r*rx)*p5.sin(animation.sinus_arg);
+                    p5.stroke(50, 50, 50, 50);
+                    p5.circle(circle.x*rx, circle.y*ry, radius);
+                    p5.noStroke();
+                }
+                if (circle.painType.Sensory > 0){
                     // Outer circle
-                      p5.fill(0,0, 255*circle.painType.Sensory/3, 85);
-                      p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
+                    p5.fill(0,0, 255*circle.painType.Sensory/3, 85);
+                    p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
+                }
+                if (circle.painType.Fear > 0) {
+                    p5.stroke(0);
+                    p5.fill(0);
+                    p5.ellipse(circle.x*rx, circle.y*ry-0.15*circle.r*rx, circle.r*rx*(0.12), circle.r*rx*(0.5));
+                    p5.ellipse(circle.x*rx, circle.y*ry+0.3*circle.r*rx, circle.r*rx*(0.12), circle.r*rx*(0.12));
+                }
+                if (circle.painType.Punctate  > 0) {
+                    animation.sinus_arg += 1.3*(circle.painType.Punctate/100);
+                    animation.sinus_arg %= 2*Math.PI;
 
-                  }
+                    p5.push();
+                    p5.imageMode(p5.CENTER)
+                    p5.translate(circle.x*rx, circle.y*ry+0.8*ry);
+                    p5.rotate(-animation.sinus_arg);
+                    p5.image(spiralImg, 0, 0, circle.r*rx*0.95, circle.r*rx*0.95);
+                    p5.pop();
+                }
+                if (circle.painType.Constrictive > 0) {
+                    p5.noFill();
+                    p5.stroke(20);
+                    animation.sinus_arg += 0.02;
+                    animation.sinus_arg %= Math.PI;
+
+                    let w = 0.55*circle.r*rx+0.45*circle.r*rx*p5.sin(animation.sinus_arg);
+                    p5.ellipse(circle.x*rx, circle.y*ry, w, circle.r*rx);
+                } else {
+                    p5.noFill();
+                    p5.stroke(20);
+                    p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
+                }
                   p5.circle(circle.x*rx, circle.y*ry, circle.r*rx)
             }
     

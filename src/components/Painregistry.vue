@@ -63,7 +63,9 @@ export default {
                 r:0,
                 facing:'front',
                 depth:0,
-                painstrength:0,
+                strengthnow:0,
+                strengthworst:0,
+                strenghtleast:0,
                 painType:{
                     Temporal:0,
                     Spatial:0,
