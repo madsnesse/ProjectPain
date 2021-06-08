@@ -57,7 +57,7 @@
                 squared
                 size="md"
                 v-b-toggle.decrease
-                variant='secondary'
+                variant='outline-secondary'
                 @click="toggleAccord(1)"
                 id="topOfDec"
                 class="d-flex justify-content-center text-left"

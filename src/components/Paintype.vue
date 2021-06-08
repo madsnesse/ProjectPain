@@ -18,7 +18,7 @@
             <Slider 
             :hidden="currentActive == -1" 
             :values="getLabels()"
-            :labels="[getLabels()[0],getLabels()[getLabels().length-1]]"
+            :labels="[painSeverity[0], painSeverity[1]]"
             :minimum="1"
             :maximum="getLabels().length"
             :default="0"
@@ -41,6 +41,7 @@ export default {
             btns: [false, false, false, false, false, false, false, false, false, false],
             btnNames:2, 
             btnVal: "",
+            painSeverity: ["Less", "More"],
             currentActive:-1,
             paintypes: [
                 {index:0, name:'Temporal',enabled:false, value:0, labels: ["Flickering", "Quivering", "Pulsing", "Throbbing", "Beating", "Pounding"]},
