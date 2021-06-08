@@ -63,3 +63,6 @@ The resources we have used, if not stated otherwise, is the documentation for th
 * https://pouchdb.com/guides/setup-pouchdb.html
 * https://docs.couchdb.org/en/stable/
 * https://p5js.org/
+
+## Credits
+Images we have used in our project were created by Laura Garrison and used with permission
