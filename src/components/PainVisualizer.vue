@@ -1,18 +1,19 @@
 <template>
     <div id="parent">
         <div id="canvas"></div>
-
+        
+        <b-button variant="outline-secondary" squared v-b-tooltip.hover :title="bodyFlipped?'Flip the body to face the back':'Flip the body to face the front'" @click="bodyFlipped = !bodyFlipped">Flip</b-button>
         <!-- RADIUS -->
         <div>
-            <label for="radiusSlider">Radius: {{ radius }}</label>
             <b-form-input id="radiusSlider" v-model="radius" type="range" min="1" max="30"></b-form-input>
-
+            
+            <label for="radiusSlider">Radius of circle: {{ radius }}</label>
         </div>
 
         <!-- POP LAST PAIN CIRCLE -->
         <b-row>
             <b-col><b-button variant="outline-secondary" class="w-100" to="/home">Back</b-button></b-col>
-            <b-col><b-button variant="secondary" id="finishPlacingCircle" class="w-100">Next</b-button></b-col>
+            <b-col><b-button variant="secondary" id="finishPlacingCircle" class="w-100" v-b-tooltip.hover title="Finish placing the circle and move on to the next page">Next</b-button></b-col>
         </b-row>
         
     </div>
@@ -31,6 +32,7 @@ export default {
     },
     data() {
         return {
+            bodyFlipped: false,
             radius: 15,
             animationValues: []
         }
@@ -44,7 +46,7 @@ export default {
         this.numberOfButtons +=1
       },
       newCircle: function(x,y,r){
-        this.$emit('newCircle',{x:x,y:y,r:r});
+        this.$emit('newCircle',{x:x,y:y,r:r,facing:this.bodyFlipped?'back':'front'});
       },
       pushCircle: function(circle){
           this.newCircle(circle.x,circle.y,circle.r)
@@ -73,7 +75,7 @@ export default {
             const aspectCanvas = 5/7;
 
             // Resources
-            var figureImg;    // reference to body image
+            var figureImg, figureImgBack;    // reference to body image
             var spiralImg;
 
             // p5 canvas 
@@ -103,7 +105,10 @@ export default {
             //////////////////////////////////////////////////
             p5.preload = function() {
                 let bodyImgRef = require("@/assets/woman-large-front.png");  // thanks to https://stackoverflow.com/a/65872755
+                let bodyImgRefBack = require("@/assets/woman-large-back.png");  // thanks to https://stackoverflow.com/a/65872755
                 figureImg = p5.loadImage(bodyImgRef);
+                figureImgBack = p5.loadImage(bodyImgRefBack);
+
 
                 let spiralImgRef = require("@/assets/spiral.png");
                 spiralImg = p5.loadImage(spiralImgRef);
@@ -147,7 +152,7 @@ export default {
                 let widthImageDraw = h*aspectImage;
                 let heightImageDraw = h;
                 let x = (w - widthImageDraw) / 2;
-                p5.image(figureImg, x, 0, widthImageDraw, heightImageDraw);
+                p5.image(vm.bodyFlipped?figureImgBack:figureImg, x, 0, widthImageDraw, heightImageDraw);
 
                 // draw each saved circle
                 for (let i = 0; i < vm.entries; i++){
@@ -177,6 +182,7 @@ export default {
 
             /* Updates values before rendering every frame. */
             function updateValues() {
+
                 // Updated scaling variables
                 let canvas_rect = canvas.elt.getBoundingClientRect();
                 w = canvas_rect.width, h = canvas_rect.height;
@@ -205,6 +211,7 @@ export default {
                     rx = w/100;
                     ry = h/100;
                 }
+                
             }
             function drawCurrentCircle(circle){
                 p5.noFill()
