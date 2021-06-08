@@ -59,6 +59,7 @@ export default {
                 x:0,
                 y:0,
                 r:0,
+                facing:'front',
                 depth:0,
                 painstrength:0,
                 painType:{
@@ -115,6 +116,7 @@ export default {
         save: function() {
                 this.forms._id = (new Date().getTime()).toString();
                 console.log("saving to json");
+                console.log(this.forms.values)
                 PoucheDB.saveToDB(JSON.stringify(this.forms));
         },
         updateDepth: function(event) {
@@ -129,6 +131,7 @@ export default {
             tempForm.x = event.x
             tempForm.y = event.y
             tempForm.r = event.r
+            tempForm.facing = event.facing
             this.$set(this.forms.values, this.currentEntry, tempForm)
             console.log(tempForm)
         }
