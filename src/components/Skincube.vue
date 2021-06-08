@@ -2,7 +2,7 @@
     <b-container id="parent">
             <b-row align-h="center"><h5 id="label"></h5></b-row>
             
-            <div id="skincanvas">
+            <div id="skincanvas" class="text-center">
 
             </div>
             
@@ -39,7 +39,8 @@ export default {
             }
             p5.setup = function() {
                 let canv = document.getElementById("skincanvas")
-                skinCanvas = p5.createCanvas(canv.offsetWidth, canv.offsetWidth / aspectSkincube)
+                let canWidth = canv.offsetWidth * 3/4
+                skinCanvas = p5.createCanvas(canWidth, canWidth / aspectSkincube)
                 skinCanvas.parent("skincanvas")
                
                 let canvas_rect = skinCanvas.elt.getBoundingClientRect();
@@ -48,8 +49,8 @@ export default {
                 aspHeight = h/1280
                 width = w
                 height = w/aspectSkincube
-                
-                p5.image(skincubeImg, 0,0, width, height)
+                console.log(canWidth/2 - width/2)
+                p5.image(skincubeImg, canWidth/2 - width/2,0, width, height)
                 
             }
             

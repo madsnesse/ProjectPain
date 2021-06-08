@@ -164,7 +164,6 @@ export default {
                 let y_ = current_circle.y;
                 if (0 <= x_ && x_ <= 100 && 0 <= y_ && y_ <= 100) {  // bounds check
                     // Push circle to array
-                    console.log(current_circle)
                     vm.pushCircle(current_circle)
                     vm.toggle();
                     current_circle = circleFactory("empty");    // reset
@@ -191,7 +190,7 @@ export default {
                 }
                 if (vm.currentEntry > -1){
                     // Update radius after check
-                    if (vm.radius < 0 || vm.radius > 100) {
+                    if (vm.radius < 1 || vm.radius > 30) {
                         console.error("Slider for radius should only have values between 0 to 100.");
                     } else {
                             current_circle.r = vm.radius;
@@ -225,7 +224,7 @@ export default {
                 if (circle.painType.Thermal > 0){
                     p5.fill(200, 0,0, 150*circle.painType.Thermal/5);
                     p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
-                    console.log(circle)
+                    
                 }
                 if (circle.painType.Temporal > 0){
                     animation.sinus_arg += circle.painType.Temporal*0.01;

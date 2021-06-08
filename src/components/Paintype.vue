@@ -7,7 +7,7 @@
                     :key="type.index"
                     size="sm"
                     class="w-100 my-1 buttons"
-                    variant="outline-secondary"
+                    :variant='type.enabled?"secondary":"outline-secondary"'
                     @click="toggleBtn(type.index)"
                 >
                     {{type.name}}
