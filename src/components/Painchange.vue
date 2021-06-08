@@ -3,19 +3,19 @@
         <b-row><b-container class="px-3 py-2 text-center registry-container">How would you describe the <i>cycle</i> of your pain?</b-container></b-row>
         <b-row >
             <b-col class="p-0" cols="4">
-                <b-button @click="toggleButton(0)" variant='outline-secondary' squared :class="btns[0]?'border-light':'border-bottom'">Continous</b-button>
+                <b-button @click="toggleButton(0)" variant='outline-secondary' squared >Continous</b-button>
             </b-col>
             <b-col class="p-0" cols="4">
-                <b-button @click="toggleButton(1)" variant='outline-secondary' squared :class="btns[1]?'border-light':'border-bottom'" > Rhythmic</b-button>
+                <b-button @click="toggleButton(1)" variant='outline-secondary' squared  > Rhythmic</b-button>
             </b-col>
             <b-col class="p-0" cols="4">
-                <b-button @click="toggleButton(2)" variant='outline-secondary' squared :class="btns[2]?'border-light':'border-bottom'">Brief</b-button>
+                <b-button @click="toggleButton(2)" variant='outline-secondary' squared >Brief</b-button>
             </b-col>
         </b-row>
     <b-row>
       <br>
     </b-row>
-        <b-row class="">
+        <b-row class="mb-4">
 
             <b-button
                 squared
@@ -61,7 +61,6 @@
                 @click="toggleAccord(1)"
                 id="topOfDec"
                 class="d-flex justify-content-center text-left"
-                :class="accordion[1]?'border-light':'border-bottom'"
                 >
                         <b-container class="w-100">Does the following <b>decrease</b> your pain?</b-container>
 
