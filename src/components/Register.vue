@@ -9,13 +9,13 @@
         </b-breadcrumb>
 
         <b-row align-h="center" class="my-5"><h1 id="welcome">Register!</h1></b-row>
-        <b-row align-h="center" class="my-5"><b-input placeholder="E-Mail" class="inputs" id= "email" v-model="email">e-mail</b-input></b-row>
-        <b-row align-h="center" class="my-5"><b-input placeholder="Password" type="password" class="inputs" id = "password" v-model="password"></b-input></b-row>
-        <b-row align-h="center" class="my-5"><b-input placeholder="Repeat Password" type="password" class="inputs" id ="reppass" v-model="reppass"></b-input></b-row>
+        <b-row align-h="center" class="my-5"><b-input placeholder="E-Mail" class="w-75" id= "email" v-model="email">e-mail</b-input></b-row>
+        <b-row align-h="center" class="my-5"><b-input placeholder="Password" type="password" class="w-75" id = "password" v-model="password"></b-input></b-row>
+        <b-row align-h="center" class="my-5"><b-input placeholder="Repeat Password" type="password" class="w-75" id ="reppass" v-model="reppass"></b-input></b-row>
         <b-row align-h="between">
-            <b-col class="text-center my-5"><b-button class="buttons" variant="outline-secondary" to="/welcome">Go Back</b-button>
+            <b-col class="text-center my-5"><b-button class="w-100" variant="outline-secondary" to="/welcome">Go Back</b-button>
             </b-col>
-            <b-col class="text-center my-5"><b-button class="buttons" variant="secondary" tag="b-button" @click="register()" to="/home">Register</b-button>
+            <b-col class="text-center my-5"><b-button class="w-100" variant="secondary" @click="register()" to="/home">Register</b-button>
             </b-col>
         </b-row>
 
@@ -54,8 +54,5 @@ export default {
     #welcome{
         font-size: 200%;
         text-align: center;
-    }
-    .inputs{
-        width: 50%;
     }
 </style>

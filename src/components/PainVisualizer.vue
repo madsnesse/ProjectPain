@@ -4,8 +4,7 @@
         
         <b-button variant="outline-secondary"
          squared 
-         v-b-tooltip.hover 
-         :title="bodyFlipped?'Flip the body to face the front':'Flip the body to face the back'" 
+         v-b-tooltip="bodyFlipped?'Flip the body to face the front':'Flip the body to face the back'" 
          @click="bodyFlipped = !bodyFlipped">
          Flip
         </b-button>
