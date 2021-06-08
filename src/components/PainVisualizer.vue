@@ -18,7 +18,8 @@
 
         <!-- POP LAST PAIN CIRCLE -->
         <b-row>
-            <b-col><b-button variant="outline-secondary" class="w-100" to="/home">Back</b-button></b-col>
+            <b-col><b-button variant="outline-secondary" class="w-100" to="/home" 
+         v-b-tooltip.hover title="Cancel pain registration">Back</b-button></b-col>
             <b-col><b-button variant="secondary" id="finishPlacingCircle" class="w-100" v-b-tooltip.hover title="Finish placing the circle and move on to the next page">Next</b-button></b-col>
         </b-row>
         
