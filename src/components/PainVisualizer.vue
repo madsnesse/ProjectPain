@@ -11,9 +11,9 @@
         </b-button>
         <!-- RADIUS -->
         <div>
-            <b-form-input id="radiusSlider" v-model="radius" type="range" min="1" max="30"></b-form-input>
+            <b-form-input id="radiusSlider" v-b-tooltip="'Radius: ' + this.radius" v-model="radius" type="range" min="1" max="30"></b-form-input>
             
-            <label for="radiusSlider">Radius of circle: {{ radius }}</label>
+            <!-- <label for="radiusSlider">Radius of circle: {{ radius }}</label> -->
         </div>
 
         <!-- POP LAST PAIN CIRCLE -->
@@ -349,6 +349,7 @@ export default {
 p, input, button {
     width: 100%;
 }
+b-form-input 
 p {
     margin-left: 45%;
     margin-right:auto;
