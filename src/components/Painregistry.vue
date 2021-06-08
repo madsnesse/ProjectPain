@@ -10,17 +10,26 @@
             </b-breadcrumb-item>
         </b-breadcrumb>
         
-        <b-row><b-container class="m-5"><h1 id="welcome">Pain Registry</h1></b-container></b-row>
+        <b-row><b-container class=""><h1 id="welcome">Pain Registry</h1></b-container></b-row>
+        <b-row><b-container class="mb-1"><h1 id="subtitle">{{this.subtitles[this.currentSubtitle]}}</h1></b-container></b-row>
 
-        <PainVisualizer v-on:newCircle="newCircle($event)" @tog="toggle" :hidden="visualizerVis" :values="forms.values" :currentEntry="currentEntry" :entries="forms.values.length" />
+        <PainVisualizer v-on:newCircle="newCircle($event)" @tog="toggle" v-if="!visualizerVis" :values="forms.values" :currentEntry="currentEntry" :entries="forms.values.length" />
         <Skincube v-if="!skincubeVis" @updateDepth="updateDepth($event)" />
-        <Form :hidden="formVis" :values="getCurrentForm()" :key="currentEntry" />
+        <Form v-if="!formVis" :values="getCurrentForm()" :key="currentEntry" />
 
-        <b-row align-h="between">
-<!--            <b-col class="text-center my-5"><b-button variant='secondary' class="w-100" to="/home">Home</b-button></b-col>-->
-            <b-col class="text-center my-5"><b-button variant='outline-secondary' @click="toggle" class="w-100" >Describe Pain</b-button></b-col>
-            <b-col class="text-center my-5"><b-button variant='secondary' @click="save" class="w-100" to="/home">Register Pain</b-button></b-col>
+        <b-row>
+            <b-col><b-button v-if="!skincubeVis" variant="outline-secondary" @click="toggle();toggle()">Back</b-button></b-col>
+            <b-col><b-button v-if="!skincubeVis" variant="secondary" @click="toggle()" 
+         v-b-tooltip.hover title="Continue registration">Next</b-button></b-col>
         </b-row>
+        <b-row>
+            <b-col><b-button v-if="!formVis" variant="secondary" @click="toggle()" class="mt-5" 
+         v-b-tooltip.hover title="See how your choices affected the animation">See Result</b-button></b-col>
+        </b-row>
+         <b-row align-h="between">
+            <b-col class="text-center my-5"><b-button v-if="currentEntry !=-1" variant='secondary' @click="save" class="w-100" to="/home" 
+         v-b-tooltip.hover title="Save the ongoing pain registry to the database" >Register Pain</b-button></b-col>
+        </b-row> 
     </b-container>
 </template>
     
@@ -39,6 +48,8 @@ export default {
     name: "Painregistry",
     data: function(){
         return {
+            subtitles: ["Select location of pain", "Choose depth of pain", ""],
+            currentSubtitle: 0,
             formVis: true,
             skincubeVis: true,
             visualizerVis: false,
@@ -50,20 +61,24 @@ export default {
                 x:0,
                 y:0,
                 r:0,
+                facing:'front',
                 depth:0,
-                painstrength:0,
+                strengthnow:0,
+                strengthworst:0,
+                strenghtleast:0,
                 painType:{
-                    temporal:0,
-                    spatial:0,
-                    thermal:0,
-                    brightness:0,
-                    dullness:0,
-                    Button6:0,
-                    Button7:0,
-                    Button8:0,
-                    Button9:0,
-                    Button10:0,
-
+                    Temporal:0,
+                    Spatial:0,
+                    Thermal:0,
+                    Brightness:0,
+                    Dullness:0,
+                    Sensory:0,
+                    Tension:0,
+                    Autonomic:0,
+                    Punishment:0,
+                    Fear:0,
+                    Constrictive_Pressure:0,
+                    Punctate_Pressure:0,
                 },
                 painChange:{
                     change:0,
@@ -84,15 +99,20 @@ export default {
             if (!this.visualizerVis){
                 this.visualizerVis = true
                 this.skincubeVis = false
+                this.currentSubtitle = 1;
             }
             else if (!this.skincubeVis){
                 this.formVis = false
                 this.skincubeVis = true
+                this.currentSubtitle = 2;
             }else{
                 this.visualizerVis = false
                 this.skincubeVis = true
                 this.formVis = true
+                this.currentSubtitle = 0;
             }
+            console.log(this.currentSubtitle)
+
         },  
         getCurrentForm: function(){
             return this.forms.values[this.currentEntry]
@@ -100,13 +120,11 @@ export default {
         save: function() {
                 this.forms._id = (new Date().getTime()).toString();
                 console.log("saving to json");
+                console.log(this.forms.values)
                 PoucheDB.saveToDB(JSON.stringify(this.forms));
-                //console.log("Data From  DB")
-                //PoucheDB.getAllDataFromDB();
-
         },
         updateDepth: function(event) {
-            //this.forms.values[this.currentEntry].depth = parseInt(event)
+            this.forms.values[this.currentEntry].depth = parseInt(event)
             console.log(event)
         },
         newCircle: function(event) {
@@ -117,19 +135,22 @@ export default {
             tempForm.x = event.x
             tempForm.y = event.y
             tempForm.r = event.r
+            tempForm.facing = event.facing
             this.$set(this.forms.values, this.currentEntry, tempForm)
             console.log(tempForm)
         }
 
     }
-
 }
-
 </script>
 
 <style scoped>
     #welcome{
         font-size: 150%;
+        text-align: center;
+    }
+    #subtitle{
+        font-size: 110%;
         text-align: center;
     }
 </style>

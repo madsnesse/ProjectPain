@@ -6,8 +6,8 @@
                     v-for="type in col"
                     :key="type.index"
                     size="sm"
-                    class="w-100 my-1 buttons"
-                    variant="outline-secondary"
+                    class="w-100 my-1"
+                    :variant='type.enabled?"secondary":"outline-secondary"'
                     @click="toggleBtn(type.index)"
                 >
                     {{type.name}}
@@ -17,11 +17,11 @@
         <b-row>
             <Slider 
             :hidden="currentActive == -1" 
-            :values="getLabels()"
-            :labels="[getLabels()[0],getLabels()[getLabels().length-1]]"
+            :labels="[painSeverity[0], painSeverity[1]]"
             :minimum="1"
             :maximum="getLabels().length"
             :default="0"
+            :value="currentActive==-1?0:paintypes[currentActive].value"
             @updateValue= "update(currentActive,$event)"
             />
         </b-row>
@@ -41,6 +41,7 @@ export default {
             btns: [false, false, false, false, false, false, false, false, false, false],
             btnNames:2, 
             btnVal: "",
+            painSeverity: ["Less", "More"],
             currentActive:-1,
             paintypes: [
                 {index:0, name:'Temporal',enabled:false, value:0, labels: ["Flickering", "Quivering", "Pulsing", "Throbbing", "Beating", "Pounding"]},
@@ -52,7 +53,9 @@ export default {
                 {index:6, name:'Tension',enabled:false, value:0, labels: ["Tiring", "Exhausting"]},
                 {index:7, name:'Autonomic',enabled:false, value:0, labels: ["Sickening", "Suffocating"]},
                 {index:8, name:'Punishment',enabled:false, value:0, labels: ["Punishing", "Gruelling", "Cruel", "Vicious", "Killing"]},
-                {index:9, name:'Fear',enabled:false, value:0, labels: ["Fearful", "Frightful", "Terrifying"]}
+                {index:9, name:'Fear',enabled:false, value:0, labels: ["Fearful", "Frightful", "Terrifying"]},
+                {index:10, name:'Constrictive',enabled:false, value:0, labels: ["Pinching", "Pressing", "Gnawing", "Cramping", "Crushing"]},
+                {index:11, name:'Punctate',enabled:false, value:0, labels: ["Pricking", "Boring", "Drilling", "Stabbing", "Lancinating"]},
             ],
             indxOld: -1,
             label:"",
@@ -60,17 +63,18 @@ export default {
             sliderMax: 5,
             sliderDef: 1,
             typeValues: {
-                temporal:0,
-                spatial:0,
-                thermal:0,
-                brightness:0,
-                dullness:0,
-                sensory:0,
-                Button7:0,
-                Button8:0,
-                Button9:0,
-                Button10:0,
-
+                Temporal:0,
+                Spatial:0,
+                Thermal:0,
+                Brightness:0,
+                Dullness:0,
+                Sensory:0,
+                Tension:0,
+                Autonomic:0,
+                Punishment:0,
+                Fear:0,
+                Constrictive:0,
+                Punctate:0,
             }
         };
     },
@@ -131,7 +135,4 @@ export default {
 </script>
 
 <style scoped>
-    .buttons{
-        min-width: 100px;
-    }
 </style>

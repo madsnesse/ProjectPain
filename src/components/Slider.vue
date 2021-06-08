@@ -6,17 +6,14 @@
 
                 <b-input-group>
                     <b-input-group-prepend id="pre">
-                        <b-button variant="secondary" disabled>{{labels[0]}}</b-button>
+                        <b-button variant="secondary" @click="current==minimum?current=current:current=current-1">{{labels[0]}}</b-button>
 
                     </b-input-group-prepend>
-                   <b-form-input type="range" :min = minimum :max = maximum class="slider" id="painstr" v-model="value"></b-form-input>
+                   <b-form-input type="range" :min = minimum :max = maximum class="slider" v-model="current"></b-form-input>
                     <b-input-group-append id="append">
-                        <b-button disabled variant="secondary">{{labels[1]}}</b-button>
+                        <b-button variant="secondary" @click="current ==maximum?current=current:current=current+1">{{labels[1]}}</b-button>
                     </b-input-group-append>
                 </b-input-group>
-            </b-row>
-            <b-row align-h="center">
-                {{ out }}
             </b-row>
         </b-col>
     </b-container>
@@ -25,29 +22,22 @@
 <script>
 export default {
     props: {
-        values: Array,
         minimum: Number,
         maximum: Number,
         labels: Array,
-        default: Number
+        default: Number,
+        value:Number
     },
-    data() {
-        return {
-            value: this.default,
-            pain: this.values,
-            out: ""
+    data(){
+        return{
+            current:this.value
         }
     },
-    watch: {
-        value: {
-            handler() {
-                this.out = this.pain[this.value - 1]
-                this.$emit('updateValue', this.value)
-            }
+
+    watch:{
+        current: function(i){
+            this.$emit('updateValue',i)
         }
-    },
-    mounted: function(){
-        this.out = this.pain[this.value - 1]
     }
 }
 </script>

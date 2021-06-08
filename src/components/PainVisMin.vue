@@ -1,27 +1,6 @@
 <template>
     <div id="parent">
         <div id="canvas"></div>
-        
-        <b-button variant="outline-secondary"
-         squared 
-         v-b-tooltip="bodyFlipped?'Flip the body to face the front':'Flip the body to face the back'" 
-         @click="bodyFlipped = !bodyFlipped">
-         Flip
-        </b-button>
-        <!-- RADIUS -->
-        <div>
-            <b-form-input id="radiusSlider" v-b-tooltip="'Radius: ' + this.radius" v-model="radius" type="range" min="1" max="30"></b-form-input>
-            
-            <!-- <label for="radiusSlider">Radius of circle: {{ radius }}</label> -->
-        </div>
-
-        <!-- POP LAST PAIN CIRCLE -->
-        <b-row>
-            <b-col><b-button variant="outline-secondary" class="w-100" to="/home" 
-         v-b-tooltip.hover title="Cancel pain registration">Back</b-button></b-col>
-            <b-col><b-button variant="secondary" id="finishPlacingCircle" class="w-100" v-b-tooltip.hover title="Finish placing the circle and move on to the next page">Next</b-button></b-col>
-        </b-row>
-        
     </div>
 </template>
 
@@ -30,32 +9,18 @@
 // for general setup of p5 + vue
 const p5_lib = require('p5');
 export default {
-    name: "PainVisualizer",
+    name: "PainVisMin",
     props:{
       values:Array,
-      entries: Number,
-      currentEntry:Number
+      entries: Number
     },
     data() {
         return {
-            bodyFlipped: false,
             radius: 15,
             animationValues: []
         }
     },
-    methods: {
-      toggle: function(){
-        this.$emit('tog')
-      },
-      updateNumber: function(){
-        this.numberOfButtons +=1
-      },
-      newCircle: function(x,y,r){
-        this.$emit('newCircle',{x:x,y:y,r:r,facing:this.bodyFlipped?'back':'front'});
-      },
-      pushCircle: function(circle){
-          this.newCircle(circle.x,circle.y,circle.r)
-      },
+    methods:{
       getCircleValues: function(i){
         return this.values[i];
       },
@@ -79,14 +44,11 @@ export default {
             const aspectImage = 1876/3646;
             const aspectCanvas = 5/7;
 
-            // Resources
-            var figureImg, figureImgBack;    // reference to body image
-            var spiralImg;
-
-            // p5 canvas 
+            // p5 background & misc.
+            var figureImg, spiralImg;    // reference to body image
+                              // TOOD: resize when loading new image
             var canvas;       // reference to the p5 canvas
-            
-            // circle
+
             var radius;  // reusable variable
             var current_circle = {
                 x:p5.mouseX,
@@ -94,7 +56,6 @@ export default {
                 r:vm.radius,
                 anchored: false
             };
-            
             // Size and positional variables
             let width_div;  // width of parent div
             let w, h;       // width and height of canvas DOM
@@ -103,25 +64,21 @@ export default {
 
             // UI
             var parent;
-            var finishPlacingCircleButton;
 
             ////////////////////////////////////////////////////
             //// p5-FUNCTIONS BELOW                        ////
             //////////////////////////////////////////////////
             p5.preload = function() {
                 let bodyImgRef = require("@/assets/woman-large-front.png");  // thanks to https://stackoverflow.com/a/65872755
-                let bodyImgRefBack = require("@/assets/woman-large-back.png");  // thanks to https://stackoverflow.com/a/65872755
                 figureImg = p5.loadImage(bodyImgRef);
-                figureImgBack = p5.loadImage(bodyImgRefBack);
-
-
+                
                 let spiralImgRef = require("@/assets/spiral.png");
                 spiralImg = p5.loadImage(spiralImgRef);
             }
 
             p5.setup = function() {
                 // resize img
-                figureImg.resize(600, 0);
+                figureImg.resize(400, 0);
 
                 // get width of parent div
                 parent = document.getElementById("parent");
@@ -138,10 +95,6 @@ export default {
                 rx = w/100;  // normalize to 0 to 100 scale
                 ry = h/100;  // normalize to 0 to 100  scale
 
-                // Get UI elements
-                finishPlacingCircleButton = document.getElementById("finishPlacingCircle");
-                finishPlacingCircleButton.onclick = function() {finishPlacingCircle();};
-
                 // p5-settings
                 p5.blendMode(p5.MULTIPLY);
                 p5.noStroke();
@@ -157,31 +110,11 @@ export default {
                 let widthImageDraw = h*aspectImage;
                 let heightImageDraw = h;
                 let x = (w - widthImageDraw) / 2;
-                p5.image(vm.bodyFlipped?figureImgBack:figureImg, x, 0, widthImageDraw, heightImageDraw);
+                p5.image(figureImg, x, 1*ry, widthImageDraw, heightImageDraw);
 
                 // draw each saved circle
                 for (let i = 0; i < vm.entries; i++){
                     drawCircle(i)
-                }
-
-                // draw overlaying circle if within bounds
-                if (0 <= current_circle.x && current_circle.x <= 100 && 0 <= current_circle.y && current_circle.y <= 100) {
-                    drawCurrentCircle(current_circle);
-                }
-            }
-
-            ////////////////////////////////////////////////////
-            //// CUSTOM FUNCTIONS (NON-p5) BELOW           ////
-            //////////////////////////////////////////////////
-            /* Saves the circle if within bounds */
-            function finishPlacingCircle() {
-                let x_ = current_circle.x;
-                let y_ = current_circle.y;
-                if (0 <= x_ && x_ <= 100 && 0 <= y_ && y_ <= 100) {  // bounds check
-                    // Push circle to array
-                    vm.pushCircle(current_circle)
-                    vm.toggle();
-                    current_circle = circleFactory("empty");    // reset
                 }
             }
 
@@ -197,45 +130,30 @@ export default {
                     console.log("[  P5  ] User exited -> destroying canvas.");
                     p5.remove();
                 }
-
                 // width of parent div
                 current_circle.r = vm.radius;
+
                 if (!current_circle.anchored) {
                         current_circle.x = 100*(p5.mouseX/w);
                         current_circle.y = 100*(p5.mouseY/h);
                 }
                 if (vm.currentEntry > -1){
                     // Update radius after check
-                    if (vm.radius < 1 || vm.radius > 30) {
+                    if (vm.radius < 0 || vm.radius > 100) {
                         console.error("Slider for radius should only have values between 0 to 100.");
                     } else {
-                        current_circle.r = vm.radius;
+                            current_circle.r = vm.radius;
                     }
 
                     // Update relative variables
                     rx = w/100;
                     ry = h/100;
                 }
-                
             }
-            function drawCurrentCircle(circle){
-                p5.noFill()
-                p5.strokeWeight(1);
-                p5.stroke(0, 0, 0, 100);
-                p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
-                p5.noStroke();
-            }
+            
             /* Renders a circle based on type of pain. */
             function drawCircle(i) {
                 let circle = vm.getCircleValues(i)
-                if (vm.animationValues.length != vm.entries){
-                    for (let i = 0; i < vm.entries; i++){
-                        vm.$set(vm.animationValues, i,{
-                            anchored: true,
-                            sinus_arg: 0
-                        })
-                    }
-                }
                 let animation = vm.getAnimationValue(i)
 
                 if (circle.painType.Thermal > 0){
@@ -290,44 +208,9 @@ export default {
                     p5.stroke(20);
                     p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
                 }
+                  p5.circle(circle.x*rx, circle.y*ry, circle.r*rx)
             }
-            /* Creates a new circle based on the type of pain */
-            function circleFactory() {
-                return {x:p5.mouseX, y:p5.mouseY, r:vm.radius, anchored:false};
-            }
-
-            ////////////////////////////////////////////////////
-            //// EVENTS BELOW                              ////
-            //////////////////////////////////////////////////
-            /* Update pos. of circle if within bounds */
-            p5.touchEnded = function() {
-                let tx = 100*(p5.mouseX / w);  // rel. mouse pos., 0 to 100
-                let ty = 100*(p5.mouseY / h);
-                if (0 <= tx && tx <= 100 && 0 <= ty && ty <= 100) {  // bounds check
-                    console.log("touch event @ ("+Math.round(p5.mouseX)+", "+Math.round(p5.mouseY)+")");
-
-                    // update pos.
-                    current_circle.x = tx;
-                    current_circle.y = ty;
-                    current_circle.anchored = true;
-                }
-            }
-
-            /* Update pos. of circle if within bounds */
-            p5.mouseReleased = function() {
-                // Save circle if within bounds
-                let mx = 100*(p5.mouseX / w);  // rel. mouse pos., 0 to 100
-                let my = 100*(p5.mouseY / h);
-                if (0 <= mx && mx <= 100 && 0 <= my && my <= 100) {  // bounds check
-                    console.log("mouse event @ ("+Math.round(p5.mouseX)+", "+Math.round(p5.mouseY)+")");
-
-                    current_circle.x = mx;
-                    current_circle.y = my;
-                    current_circle.anchored = true;
-
-                }
-            }
-
+    
             p5.windowResized = function() {
                 updateValues();
 
@@ -348,7 +231,6 @@ export default {
 p, input, button {
     width: 100%;
 }
-b-form-input 
 p {
     margin-left: 45%;
     margin-right:auto;

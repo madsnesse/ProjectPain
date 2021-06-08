@@ -1,5 +1,4 @@
 <template>
-    
     <b-container id="main">
         <b-row align-h="center" class="border-bottom">
                 <b-button squared v-b-toggle.paintype class="d-flex justify-content-center text-left" size="lg"  @click="toggleVisible(0)" variant='secondary'>
@@ -32,32 +31,35 @@
                 </b-button></b-row>
             <b-collapse id = "painstrength" accordion="accordion-group">
                 <b-row>Which word describes the pain right now?</b-row>
-                <Slider 
-                    :values = '["mild", "discomforting", "distressing", "horrible", "excruciating"]' 
+                <Slider  
                     :minimum="1" 
                     :maximum="5"
                     :default="0"
-                    v-on:updateValue= "update('painstrength',$event)"
+                    v-on:updateValue= "update('strengthnow',$event)"
                     :labels="['Weak','Strong']" 
                 />
+                <b-row v-if="strengthnow != 0">{{strengthlabels[strengthnow-1]}}</b-row>
                 <b-row>Which word describes the pain at its worst?</b-row>
                 <Slider 
-                    :values = '["mild", "discomforting", "distressing", "horrible", "excruciating"]' 
                     :minimum="1" 
                     :maximum="5"
                     :default="0"
-                    v-on:updateValue= "update('painstrength',$event)"
+                    v-on:updateValue= "update('strengthworst',$event)"
                     :labels="['Weak','Strong']" 
                 />
+                
+                <b-row v-if="strengthworst != 0">{{strengthlabels[strengthworst-1]}}</b-row>
                 <b-row>Which word describes the pain at its least?</b-row>
                 <Slider 
                     :values = '["mild", "discomforting", "distressing", "horrible", "excruciating"]' 
                     :minimum="1" 
                     :maximum="5"
                     :default="0"
-                    v-on:updateValue= "update('painstrength',$event)"
+                    v-on:updateValue= "update('strengthleast',$event)"
                     :labels="['Weak','Strong']" 
                 />
+                
+                <b-row v-if="strengthleast != 0">{{strengthlabels[strengthleast-1]}}</b-row>
             </b-collapse>
         </b-container>
 </template>
@@ -79,7 +81,10 @@ export default {
     },
     data: function(){
         return{
-
+            strengthlabels: ["mild", "discomforting", "distressing", "horrible", "excruciating"],
+            strengthnow:0,
+            strengthworst:0,
+            strengthleast:0,
             visible: [false, false, false]
         }
 
@@ -95,8 +100,17 @@ export default {
             if (valueToChange == "painType"){
                 this.values.painType = event
             }
-            else if(valueToChange == "painstrength"){
-                this.values.painstrength = event
+            else if(valueToChange == "strengthnow"){
+                this.values.strengthnow = parseInt(event)
+                this.strengthnow = parseInt(event)
+            }
+            else if(valueToChange == "strengthworst"){
+                this.values.strengthworst = parseInt(event)
+                this.strengthworst = parseInt(event)
+
+            }else if(valueToChange == "strengthleast"){
+                this.values.strengthleast = parseInt(event)
+                this.strengthleast = parseInt(event)
 
             }else if (valueToChange == "painChange"){
                 this.values.painChange = event

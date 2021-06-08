@@ -8,8 +8,8 @@
         </b-breadcrumb>
 
         <b-row align-h="center" class="my-5"><h1 id="welcome">Visual Pain Registry</h1></b-row>
-        <b-row align-h="center" class="my-5"><b-button class="buttons" variant="outline-secondary" to="/login">Log in</b-button></b-row>
-        <b-row align-h="center" class="my-5"><b-button class="buttons" variant="secondary" to ="/register">Register</b-button></b-row>
+        <b-row align-h="center" class="my-5"><b-button class="w-75" variant="outline-secondary" to="/login">Log in</b-button></b-row>
+        <b-row align-h="center" class="my-5"><b-button class="w-75" variant="secondary" to ="/register">Register</b-button></b-row>
 
     </b-container>
 
@@ -26,8 +26,5 @@ export default {
     #welcome{
         font-size: 200%;
         text-align: center;
-    }
-    .buttons{
-        width: 50%;
     }
 </style>

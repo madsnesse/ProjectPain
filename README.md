@@ -37,6 +37,11 @@ You can't change your avatar/password, or calibrate your base pain tolerance
 
 ## Installation / Run
 ### Project setup
+## About
+This project aims to simplify the process of registering pain.
+
+![Demo of the application´s visualization page](public/demo.mov)
+## Project setup
 ```
 npm install
 ```
