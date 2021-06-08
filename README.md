@@ -54,7 +54,7 @@ You can't change your avatar/password, or calibrate your base pain tolerance
 
 The dependencies is listed in package.json and can be installed by running npm install
 
-##Resources used
+## Resources used
 
 The resources we have used if not stated otherwise are the documentation for the dependencies used, mainly 
 * https://bootstrap-vue.org/
