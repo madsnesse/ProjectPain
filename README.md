@@ -50,7 +50,7 @@ Currently, you need to have CouchDB running on your machine to properly save to 
 Cookies aren't implemented, so refreshing the page logs you out.
 You can't change your avatar/password, or calibrate your base pain tolerance
 
-##Dependencies
+## Dependencies
 
 The dependencies is listed in package.json and can be installed by running npm install
 
