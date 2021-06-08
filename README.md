@@ -4,7 +4,7 @@
 This project aims to simplify the process of registering pain.
 
 <video width="320">
-    <source src="public/demo.mov"></source>
+    <source src="public/demo.mov" type="video/mov">
 </video>
 ## Project setup
 ```
