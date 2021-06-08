@@ -10,15 +10,9 @@ npm install
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
+## Further development
+App.vue is the main component, all other components are rendered within App.vue
+All the animations are mainly implemented in Painvisualizer.vue, more Paintypes can be added in Painregistry.vue and Paintype.vue
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
