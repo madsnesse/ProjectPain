@@ -1,9 +1,6 @@
 <template>
     <div id="parent">
         <div id="canvas"></div>
-
- 
-
     </div>
 </template>
 
@@ -16,9 +13,7 @@ export default {
     props:{
       values:Array,
       entries: Number
-    }
-    ,
-
+    },
     data() {
         return {
             radius: 15,
@@ -42,7 +37,6 @@ export default {
         }
     },
     mounted() {
-        
         let vm = this
         const pain_visualize = p5 => {
 
@@ -77,7 +71,6 @@ export default {
             p5.preload = function() {
                 let bodyImgRef = require("@/assets/woman-large-front.png");  // thanks to https://stackoverflow.com/a/65872755
                 figureImg = p5.loadImage(bodyImgRef);
-                
             }
 
             p5.setup = function() {
@@ -98,9 +91,6 @@ export default {
                 w = canvas_rect.width, h = canvas_rect.height;
                 rx = w/100;  // normalize to 0 to 100 scale
                 ry = h/100;  // normalize to 0 to 100  scale
-
-                // Get UI elements
-
 
                 // p5-settings
                 p5.blendMode(p5.MULTIPLY);
@@ -124,8 +114,6 @@ export default {
                     drawCircle(i)
                 }
             }
-
-            
 
             /* Updates values before rendering every frame. */
             function updateValues() {
