@@ -29,8 +29,7 @@ export default {
         }
     },
     methods: {
-        logIn: function (i) {
-            console.log(i);
+        logIn: function () {
             pouchDB.logIn(this.email,this.password);
             pouchDB.hasAccess(this.email);
         }

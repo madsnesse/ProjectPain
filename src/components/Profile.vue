@@ -12,17 +12,17 @@
 
     <b-row align-h="center" class="my-5"><h1 id="welcome">Profile!</h1></b-row>
     <b-row align-h="center" class="my-5"
-      > <b-button class="buttons" variant="outline-secondary" @click="historyVis = !historyVis">Pain History</b-button>
+      > <b-button class="w-75" variant="outline-secondary" @click="historyVis = !historyVis">Pain History</b-button>
 
     </b-row>
 
           <History  :hidden="historyVis" :valuesfromdb="valuesfromdb"/>
     <b-row align-h="center" class="my-5"
-      ><b-button class="buttons" variant="outline-secondary" to="/settings">Settings</b-button>
+      ><b-button class="w-75" variant="outline-secondary" to="/settings">Settings</b-button>
       </b-row>
 
     <b-row align-h="center" class="my-5"
-      ><b-button class="buttons" variant="secondary" to="/home">Return to Home</b-button>
+      ><b-button class="w-75" variant="secondary" to="/home">Return to Home</b-button>
       </b-row>
   </b-container>
 </template>
@@ -63,8 +63,5 @@ export default {
 #welcome {
   font-size: 200%;
   text-align: center;
-}
-.buttons {
-  width: 50%;
 }
 </style>
