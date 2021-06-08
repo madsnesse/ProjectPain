@@ -2,7 +2,13 @@
     <div id="parent">
         <div id="canvas"></div>
         
-        <b-button variant="outline-secondary" squared v-b-tooltip.hover :title="bodyFlipped?'Flip the body to face the back':'Flip the body to face the front'" @click="bodyFlipped = !bodyFlipped">Flip</b-button>
+        <b-button variant="outline-secondary"
+         squared 
+         v-b-tooltip.hover 
+         :title="bodyFlipped?'Flip the body to face the front':'Flip the body to face the back'" 
+         @click="bodyFlipped = !bodyFlipped">
+         Flip
+        </b-button>
         <!-- RADIUS -->
         <div>
             <b-form-input id="radiusSlider" v-model="radius" type="range" min="1" max="30"></b-form-input>
