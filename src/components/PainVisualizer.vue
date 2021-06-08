@@ -255,7 +255,15 @@ export default {
                     p5.ellipse(circle.x*rx, circle.y*ry+0.3*circle.r*rx, circle.r*rx*(0.12), circle.r*rx*(0.12));
                 }
                 if (circle.painType.Punctate  > 0) {
-                    p5.image(spiralImg, circle.x*rx-rx*7.3, circle.y*ry-ry*5, circle.r*rx*0.95, circle.r*rx*0.95);
+                    animation.sinus_arg += 0.01;
+                    animation.sinus_arg %= Math.PI;
+
+                    p5.push();
+                    p5.imageMode(p5.CENTER)
+                    p5.translate(circle.x*rx, circle.y*ry+0.2*rx);
+                    p5.rotate(-animation.sinus_arg);
+                    p5.image(spiralImg, 0, 0, circle.r*rx*0.95, circle.r*rx*0.95);
+                    p5.pop();
                 }
                 if (circle.painType.Constrictive > 0) {
                     p5.noFill();
