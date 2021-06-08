@@ -255,7 +255,7 @@ export default {
                     p5.ellipse(circle.x*rx, circle.y*ry+0.3*circle.r*rx, circle.r*rx*(0.12), circle.r*rx*(0.12));
                 }
                 if (circle.painType.Punctate  > 0) {
-                    animation.sinus_arg += 0.02;
+                    animation.sinus_arg += 1.3*(circle.painType.Punctate/100);
                     animation.sinus_arg %= 2*Math.PI;
 
                     p5.push();
