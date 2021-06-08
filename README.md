@@ -1,5 +1,9 @@
-# project_pain
+# Project Pain
 
+## About
+This project aims to simplify the process of registering pain.
+
+![Demo of the application´s visualization page](public/demo.mov)
 ## Project setup
 ```
 npm install
