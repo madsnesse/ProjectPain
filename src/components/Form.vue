@@ -1,5 +1,4 @@
 <template>
-    
     <b-container id="main">
         <b-row align-h="center" class="border-bottom">
                 <b-button squared v-b-toggle.paintype class="d-flex justify-content-center text-left" size="lg"  @click="toggleVisible(0)" variant='secondary'>

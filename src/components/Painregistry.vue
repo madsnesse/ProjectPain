@@ -116,9 +116,6 @@ export default {
                 this.forms._id = (new Date().getTime()).toString();
                 console.log("saving to json");
                 PoucheDB.saveToDB(JSON.stringify(this.forms));
-                //console.log("Data From  DB")
-                //PoucheDB.getAllDataFromDB();
-
         },
         updateDepth: function(event) {
             this.forms.values[this.currentEntry].depth = parseInt(event)
@@ -137,9 +134,7 @@ export default {
         }
 
     }
-
 }
-
 </script>
 
 <style scoped>

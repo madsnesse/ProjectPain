@@ -1,7 +1,5 @@
 <template>
     <b-container id="main">
-
-
         <h1 v-if="!valuesfromdb.length > 0">No entries in the database</h1>
         <h5 align="center" v-if="valuesfromdb.length > 0">Drag the slider to select which entry to see</h5>
         <b-row align-h="center" class="mt-2 mb-4">
@@ -9,7 +7,6 @@
         </b-row>
         <b-row v-if="currentEntry >-1">{{getLabel()}}</b-row>
         <PainVisMin v-if="currentEntry > -1" :values="currentEntryArray.values" :entries="currentEntryArray.values.length"/>
-
     </b-container>
 </template>
 

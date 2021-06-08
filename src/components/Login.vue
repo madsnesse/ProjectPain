@@ -18,7 +18,6 @@
     </b-container>
 </template>
 
-
 <script>
     import * as pouchDB from "../database.js"
 export default {

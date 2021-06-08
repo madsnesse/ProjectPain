@@ -27,7 +27,6 @@
                 class="d-flex justify-content-center align-items-right text-left"
                 :class="accordion[0]?'border-light':'border-bottom'">
 
-
                         <b-container class="w-100 text">Does the following <b>increase</b> your pain?</b-container>
 
                         <b-iconstack>
@@ -95,7 +94,6 @@
         </b-row>
   </b-container>
 </template>
-
 
 <script>
 export default {
@@ -169,9 +167,6 @@ export default {
             }
             this.$set(this.increaseOptions[select-1],'selected', !this.increaseOptions[select-1].selected)
             this.update()
-
-
-            //selecteded.$set(selecteded,select)
         },
         selectMultDec: function(select) {
 
@@ -184,8 +179,6 @@ export default {
             }
             this.$set(this.decreaseOptions[select-1],'selected', !this.decreaseOptions[select-1].selected)
             this.update()
-
-            //selecteded.$set(selecteded,select)
         },
         update: function(){
             var inc = new Array();

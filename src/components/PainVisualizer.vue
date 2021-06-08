@@ -273,9 +273,7 @@ export default {
             }
             /* Creates a new circle based on the type of pain */
             function circleFactory() {
-                let c = {x:p5.mouseX, y:p5.mouseY, r:vm.radius, anchored:false};
-
-                return c
+                return {x:p5.mouseX, y:p5.mouseY, r:vm.radius, anchored:false};
             }
             ////////////////////////////////////////////////////
             //// EVENTS BELOW                              ////
