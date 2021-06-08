@@ -1,14 +1,7 @@
-# project_pain
+# Project Pain
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## What is this
+This is a web tool used for visualising pain. It uses different graphics and animations to visualise what the user feels.
 
 ## Further development
 App.vue is the main component, all other components are rendered within App.vue
@@ -17,9 +10,6 @@ All database stuff is implemented in database.js and used in Profile.vue and Pai
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-
-## What is this
-This is a web tool used for visualising pain. It uses different graphics and animations to visualise what the user feels.
 
 ## How to use
 ### The startscreen
@@ -44,6 +34,18 @@ You get to review your pain before saving it to a database which is accessed in 
 Currently, you need to have CouchDB running on your machine to properly save to the database.
 Cookies aren't implemented, so refreshing the page logs you out.
 You can't change your avatar/password, or calibrate your base pain tolerance
+
+## Installation / Run
+### Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
 
 ## Dependencies
 
