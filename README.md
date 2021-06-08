@@ -13,6 +13,7 @@ npm run serve
 ## Further development
 App.vue is the main component, all other components are rendered within App.vue
 All the animations are mainly implemented in Painvisualizer.vue, more Paintypes can be added in Painregistry.vue and Paintype.vue
+All database stuff is implemented in database.js and used in Profile.vue and Painregistry.vue
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
