@@ -10,8 +10,8 @@
 
         <b-row align-h="center" class="my-5"><h1 id="welcome">Register!</h1></b-row>
         <b-row align-h="center" class="my-5"><b-input placeholder="E-Mail" class="inputs" id= "email" v-model="email">e-mail</b-input></b-row>
-        <b-row align-h="center" class="my-5"><b-input placeholder="Password" class="inputs" id = "password" v-model="password"></b-input></b-row>
-        <b-row align-h="center" class="my-5"><b-input placeholder="Repeat Password" class="inputs" id ="reppass" v-model="reppass"></b-input></b-row>
+        <b-row align-h="center" class="my-5"><b-input placeholder="Password" type="password" class="inputs" id = "password" v-model="password"></b-input></b-row>
+        <b-row align-h="center" class="my-5"><b-input placeholder="Repeat Password" type="password" class="inputs" id ="reppass" v-model="reppass"></b-input></b-row>
         <b-row align-h="between">
             <b-col class="text-center my-5"><b-button class="buttons" variant="outline-secondary" to="/welcome">Go Back</b-button>
             </b-col>
