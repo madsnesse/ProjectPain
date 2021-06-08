@@ -260,7 +260,7 @@ export default {
 
                     p5.push();
                     p5.imageMode(p5.CENTER)
-                    p5.translate(circle.x*rx, circle.y*ry+0.2*rx);
+                    p5.translate(circle.x*rx, circle.y*ry+0.8*ry);
                     p5.rotate(-animation.sinus_arg);
                     p5.image(spiralImg, 0, 0, circle.r*rx*0.95, circle.r*rx*0.95);
                     p5.pop();
