@@ -50,3 +50,16 @@ Currently, you need to have CouchDB running on your machine to properly save to 
 Cookies aren't implemented, so refreshing the page logs you out.
 You can't change your avatar/password, or calibrate your base pain tolerance
 
+##Dependencies
+
+The dependencies is listed in package.json and can be installed by running npm install
+
+##Resources used
+
+The resources we have used if not stated otherwise are the documentation for the dependencies used, mainly 
+* https://bootstrap-vue.org/
+* https://getbootstrap.com/docs/5.0/getting-started/introduction/
+* https://vuejs.org/v2/api/
+* https://pouchdb.com/guides/setup-pouchdb.html
+* https://docs.couchdb.org/en/stable/
+* https://p5js.org/
