@@ -28,19 +28,12 @@ When you click next you choose the depth of your pain by clicking on the corresp
 Afterwards you can choose how your pain feels, based on a multitude of pain types. You can also select what affects your pain, and how strong it is.
 You get to review your pain before saving it to a database which is accessed in the history tab.
 
-
 ## Doesn't work properly
-
 Currently, you need to have CouchDB running on your machine to properly save to the database.
 Cookies aren't implemented, so refreshing the page logs you out.
 You can't change your avatar/password, or calibrate your base pain tolerance
 
 ## Installation / Run
-### Project setup
-## About
-This project aims to simplify the process of registering pain.
-
-![Demo of the application´s visualization page](public/demo.mov)
 ## Project setup
 ```
 npm install
@@ -51,9 +44,7 @@ npm install
 npm run serve
 ```
 
-
 ## Dependencies
-
 The dependencies is listed in package.json and can be installed by running npm install
 
 ## Resources used
