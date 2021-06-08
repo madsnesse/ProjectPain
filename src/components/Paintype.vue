@@ -6,7 +6,7 @@
                     v-for="type in col"
                     :key="type.index"
                     size="sm"
-                    class="w-100 my-1 buttons"
+                    class="w-100 my-1"
                     :variant='type.enabled?"secondary":"outline-secondary"'
                     @click="toggleBtn(type.index)"
                 >
@@ -17,11 +17,11 @@
         <b-row>
             <Slider 
             :hidden="currentActive == -1" 
-            :values="getLabels()"
             :labels="[painSeverity[0], painSeverity[1]]"
             :minimum="1"
             :maximum="getLabels().length"
             :default="0"
+            :value="currentActive==-1?0:paintypes[currentActive].value"
             @updateValue= "update(currentActive,$event)"
             />
         </b-row>
@@ -135,7 +135,4 @@ export default {
 </script>
 
 <style scoped>
-    .buttons{
-        min-width: 100px;
-    }
 </style>
