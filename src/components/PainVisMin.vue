@@ -55,16 +55,6 @@ export default {
                               // TOOD: resize when loading new image
             var canvas;       // reference to the p5 canvas
 
-            /* Save each pain circle as an object.
-             * x          =  value from 0 to 100 (% of width)
-             * y          =  value from 0 to 100 (% of height)
-             * r          =  value from 0 to 100 (% of width)
-             * anchored   =  if true, the x/y values should not be updated on mouse pos.
-             * pain_types =  array of pain-type objects
-             *               (see 'circleFactory()' / 'addPainToCircle()' for more)
-            */
-            // var circles = [];
-
             var radius;  // reusable variable
             var current_circle = {
                 x:p5.mouseX,
@@ -133,9 +123,6 @@ export default {
                 for (let i = 0; i < vm.entries; i++){
                     drawCircle(i)
                 }
-
-                
-                
             }
 
             
@@ -143,7 +130,6 @@ export default {
             /* Updates values before rendering every frame. */
             function updateValues() {
                 // Updated scaling variables
-
                 let canvas_rect = canvas.elt.getBoundingClientRect();
                 w = canvas_rect.width, h = canvas_rect.height;
 
@@ -177,9 +163,7 @@ export default {
             /* Renders a circle based on type of pain. */
             function drawCircle(i) {
                 let circle = vm.getCircleValues(i)
-
                 let animation = vm.getAnimationValue(i)
-                
 
                   if (circle.painType.Thermal > 0){
                       p5.fill(200, 0,0, 150*circle.painType.Thermal/5);
@@ -204,16 +188,10 @@ export default {
                       p5.fill(0,0, 255*circle.painType.Sensory/3, 85);
                       p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
 
-
                   }
-                  //p5.fill(0,0,0,0);
                   p5.circle(circle.x*rx, circle.y*ry, circle.r*rx)
-                
             }
-            /* Creates a new circle based on the type of pain */
     
-            
-
             p5.windowResized = function() {
                 updateValues();
 

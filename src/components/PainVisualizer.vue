@@ -72,9 +72,11 @@ export default {
             const aspectImage = 1876/3646;
             const aspectCanvas = 5/7;
 
-            // p5 background & misc.
+            // Resources
             var figureImg;    // reference to body image
-                              // TOOD: resize when loading new image
+            var spiralImg;
+
+            // p5 canvas 
             var canvas;       // reference to the p5 canvas
             
             // circle
@@ -102,6 +104,9 @@ export default {
             p5.preload = function() {
                 let bodyImgRef = require("@/assets/woman-large-front.png");  // thanks to https://stackoverflow.com/a/65872755
                 figureImg = p5.loadImage(bodyImgRef);
+
+                let spiralImgRef = require("@/assets/spiral.png");
+                spiralImg = p5.loadImage(spiralImgRef);
             }
 
             p5.setup = function() {
@@ -249,9 +254,22 @@ export default {
                     p5.ellipse(circle.x*rx, circle.y*ry-0.15*circle.r*rx, circle.r*rx*(0.12), circle.r*rx*(0.5));
                     p5.ellipse(circle.x*rx, circle.y*ry+0.3*circle.r*rx, circle.r*rx*(0.12), circle.r*rx*(0.12));
                 }
-                p5.noFill();
-                p5.stroke(0);
-                p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
+                if (circle.painType.Punctate  > 0) {
+                    p5.image(spiralImg, circle.x*rx-rx*7.3, circle.y*ry-ry*5, circle.r*rx*0.95, circle.r*rx*0.95);
+                }
+                if (circle.painType.Constrictive > 0) {
+                    p5.noFill();
+                    p5.stroke(20);
+                    animation.sinus_arg += 0.02;
+                    animation.sinus_arg %= Math.PI;
+
+                    let w = 0.55*circle.r*rx+0.45*circle.r*rx*p5.sin(animation.sinus_arg);
+                    p5.ellipse(circle.x*rx, circle.y*ry, w, circle.r*rx);
+                } else {
+                    p5.noFill();
+                    p5.stroke(20);
+                    p5.circle(circle.x*rx, circle.y*ry, circle.r*rx);
+                }
             }
             /* Creates a new circle based on the type of pain */
             function circleFactory() {
