@@ -1,15 +1,12 @@
 <template>
     <b-container id="parent">
             <b-row align-h="center"><h5 id="label"></h5></b-row>
-            
-            <div id="skincanvas" class="text-center">
-
-            </div>
-            
+            <div id="skincanvas" class="text-center"></div>
     </b-container>
 </template>
 <script>
 const p5_lib = require('p5')
+
 export default {
     name:"Skincube",
     props: {
@@ -22,7 +19,6 @@ export default {
             
             var skincubeImg;
             var skinCanvas;
-            //var parent;
             var w,h
             let label = document.getElementById("label")
             let skinLayer = [[8,165,322,346],[322,346,638,165]]
@@ -115,7 +111,6 @@ export default {
                 let x_ = point[0],y_ = point[1]
                 
                 return Math.sqrt((y_-y)**2 + (x_-x)**2) <= r
-
             }
         }
         new p5_lib(skincuber)
