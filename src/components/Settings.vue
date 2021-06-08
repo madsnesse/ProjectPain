@@ -50,10 +50,12 @@
 
         <!-- Only visible on medium and up -->
         <b-row class="d-none d-md-flex">
-        <b-card class="mt-2 ml-5" cols="7">
-          <img :src="require(`@/assets/${pictures[currentPict]}`)" class="picture"/>
-        </b-card>
-        <b-col class="my-3 ml-5" cols="5">
+          <b-col class="my-3" cols="7"><b-card  >
+            <img :src="require(`@/assets/${pictures[currentPict]}`)" class="picture"/>
+          </b-card>
+          </b-col>
+          
+        <b-col class="my-3" cols="5">
           <b-button class="mt-1" @click="updatePict(0)" variant="secondary">Male L</b-button>
           <b-button class="mt-1" @click="updatePict(1)" variant="secondary">Male M</b-button>
           <b-button class="mt-1" @click="updatePict(2)" variant="secondary">Male S</b-button>
