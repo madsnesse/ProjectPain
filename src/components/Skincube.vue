@@ -88,6 +88,22 @@ export default {
                     vm.$emit('updateDepth', 7)
                 }
             }
+            p5.windowResized = function() { 
+                let canv = document.getElementById("skincanvas")
+                let canWidth = canv.offsetWidth * 3/4
+                let width_div = canv.offsetWidth;
+                let canvas_rect = skinCanvas.elt.getBoundingClientRect();
+                w = canvas_rect.width, h = canvas_rect.height;
+                aspWidth = w/643
+                aspHeight = h/1280
+                width = w
+                height = w/aspectSkincube
+                console.log(canWidth/2 - width/2)
+                p5.image(skincubeImg, canWidth/2 - width/2,0, width, height)
+                // Resize canvas and background_canvas
+                p5.resizeCanvas(canWidth, width_div/aspWidth);
+                console.log("Resized canvas to (" + width_div + ", " + width_div/aspWidth + ")");
+            }
 
             function checkifBelow(func, point) {
                 let f = func[0]
