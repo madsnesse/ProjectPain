@@ -56,7 +56,7 @@ The dependencies is listed in package.json and can be installed by running npm i
 
 ## Resources used
 
-The resources we have used if not stated otherwise are the documentation for the dependencies used, mainly 
+The resources we have used, if not stated otherwise, is the documentation for the dependencies used, mainly 
 * https://bootstrap-vue.org/
 * https://getbootstrap.com/docs/5.0/getting-started/introduction/
 * https://vuejs.org/v2/api/
